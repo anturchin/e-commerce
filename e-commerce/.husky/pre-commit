@@ -1,0 +1,2 @@
+cd e-commerce/
+npm run ci:format
