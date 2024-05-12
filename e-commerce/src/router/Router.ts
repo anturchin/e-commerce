@@ -16,7 +16,7 @@ export class Router implements IRouter {
         return this.routes.find((r) => r.path === path);
     }
 
-    public showNotFoundPage(): void {
+    public async showNotFoundPage(): Promise<void> {
         this.findRoute(RoutePath.NOT_FOUND)?.callback();
     }
 
@@ -25,7 +25,7 @@ export class Router implements IRouter {
         if (route) {
             await route.callback();
         } else {
-            this.showNotFoundPage();
+            await this.showNotFoundPage();
         }
     }
 }
