@@ -13,6 +13,5 @@ export class App {
         if (body) {
             body.append(...[header]);
         }
-        console.log('hello from e-commerce');
     }
 }

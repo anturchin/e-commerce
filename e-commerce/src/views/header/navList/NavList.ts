@@ -2,7 +2,7 @@ import { View } from '../../View';
 import { NavItem } from '../navItem/NavItem';
 import './NavList.scss';
 
-const str: string[] = ['About', 'Contacts', 'Product', 'Support'];
+const options: string[] = ['Home', 'Sign in', 'Sign up'];
 
 export class NavList extends View {
     private navItems: NavItem[] = [];
@@ -13,7 +13,7 @@ export class NavList extends View {
     }
 
     private setupNavList(): void {
-        str.forEach((item) => {
+        options.forEach((item) => {
             const navItem = new NavItem(item);
             this.navItems.push(navItem);
             this.viewHtmlElement.addInnerElement(navItem.getElement());
