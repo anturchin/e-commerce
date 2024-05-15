@@ -1,4 +1,4 @@
-import { Wrapper } from '../views/pages/Wrapper';
+import { PageController } from '../controllers/pageController/PageController';
 import { IRouter } from './Router.interface';
 import { Routes } from './routes/Routes';
 import { IRoute, RoutePath } from './types';
@@ -6,8 +6,11 @@ import { IRoute, RoutePath } from './types';
 export class Router implements IRouter {
     private routes: IRoute[] = [];
 
-    constructor(wrapper: Wrapper) {
-        this.addRoute(Routes.initialRoutes(this, wrapper));
+    constructor(pageController: PageController) {
+        this.addRoute(Routes.initialRoutes(this, pageController));
+        window.addEventListener('popstate', () => {
+            this.navigate(this.getUrl());
+        });
     }
 
     public getUrl(): RoutePath {

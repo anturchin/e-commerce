@@ -1,38 +1,33 @@
-import { Wrapper } from '../../views/pages/Wrapper';
+import { PageController } from '../../controllers/pageController/PageController';
+import { ControllerName } from '../../controllers/pageController/PageController.interface';
 import { Router } from '../Router';
 import { IRoute, RoutePath } from '../types';
 
 export class Routes {
-    public static initialRoutes(router: Router, wrapper: Wrapper): IRoute[] {
+    public static initialRoutes(router: Router, pageController: PageController): IRoute[] {
         const routes: IRoute[] = [
             {
                 path: RoutePath.LOGIN,
                 callback: async () => {
-                    const { Login } = await import('../../views/pages/login/Login');
-                    wrapper.updateContent(new Login());
+                    await pageController.updateContent(ControllerName.LOGIN);
                 },
             },
             {
                 path: RoutePath.REGISTRATION,
                 callback: async () => {
-                    const { Registration } = await import(
-                        '../../views/pages/registration/Registration'
-                    );
-                    wrapper.updateContent(new Registration());
+                    await pageController.updateContent(ControllerName.REGISTRATION);
                 },
             },
             {
                 path: RoutePath.MAIN,
                 callback: async () => {
-                    const { Main } = await import('../../views/pages/main/Main');
-                    wrapper.updateContent(new Main());
+                    await pageController.updateContent(ControllerName.MAIN);
                 },
             },
             {
                 path: RoutePath.NOT_FOUND,
                 callback: async () => {
-                    const { NotFount } = await import('../../views/pages/404/NotFount');
-                    wrapper.updateContent(new NotFount());
+                    await pageController.updateContent(ControllerName.NOT_FOUND);
                 },
             },
         ];
