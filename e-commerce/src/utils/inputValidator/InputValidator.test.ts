@@ -53,4 +53,120 @@ describe('InputValidator', () => {
             expect(InputValidator.isValidPassword('Password1')).toBe(false);
         });
     });
+
+    describe('isValidSurname', () => {
+        test('should return true for valid surname', () => {
+            expect(InputValidator.isValidSurname('Smith')).toBe(true);
+        });
+
+        test('should return true for valid multi-part surname', () => {
+            expect(InputValidator.isValidSurname('van der Waals')).toBe(true);
+        });
+
+        test('should return false for surname with numbers', () => {
+            expect(InputValidator.isValidSurname('Smith123')).toBe(false);
+        });
+
+        test('should return false for surname with special characters', () => {
+            expect(InputValidator.isValidSurname('Smith!')).toBe(false);
+        });
+
+        test('should return false for empty surname', () => {
+            expect(InputValidator.isValidSurname('')).toBe(false);
+        });
+    });
+
+    describe('isValidName', () => {
+        test('should return true for valid name', () => {
+            expect(InputValidator.isValidName('John')).toBe(true);
+        });
+
+        test('should return true for valid multi-part name', () => {
+            expect(InputValidator.isValidName('John Doe')).toBe(true);
+        });
+
+        test('should return false for name with numbers', () => {
+            expect(InputValidator.isValidName('John123')).toBe(false);
+        });
+
+        test('should return false for name with special characters', () => {
+            expect(InputValidator.isValidName('John!')).toBe(false);
+        });
+
+        test('should return false for empty name', () => {
+            expect(InputValidator.isValidName('')).toBe(false);
+        });
+    });
+
+    describe('isValidStreet', () => {
+        test('should return true for valid street', () => {
+            expect(InputValidator.isValidStreet('123 Main St')).toBe(true);
+        });
+
+        test('should return false for empty street', () => {
+            expect(InputValidator.isValidStreet('')).toBe(false);
+        });
+    });
+
+    describe('isValidCity', () => {
+        test('should return true for valid city', () => {
+            expect(InputValidator.isValidCity('New York')).toBe(true);
+        });
+
+        test('should return false for city with numbers', () => {
+            expect(InputValidator.isValidCity('New York123')).toBe(false);
+        });
+
+        test('should return false for city with special characters', () => {
+            expect(InputValidator.isValidCity('New York!')).toBe(false);
+        });
+
+        test('should return false for empty city', () => {
+            expect(InputValidator.isValidCity('')).toBe(false);
+        });
+    });
+
+    describe('isValidBirthdate', () => {
+        test('should return true for valid birthdate with age over 13', () => {
+            const thirteenYearsAgo = new Date();
+            thirteenYearsAgo.setFullYear(thirteenYearsAgo.getFullYear() - 14);
+            expect(
+                InputValidator.isValidBirthdate(thirteenYearsAgo.toISOString().split('T')[0])
+            ).toBe(true);
+        });
+
+        test('should return false for valid birthdate with age under 13', () => {
+            const twelveYearsAgo = new Date();
+            twelveYearsAgo.setFullYear(twelveYearsAgo.getFullYear() - 12);
+            expect(
+                InputValidator.isValidBirthdate(twelveYearsAgo.toISOString().split('T')[0])
+            ).toBe(false);
+        });
+
+        test('should return false for invalid birthdate format', () => {
+            expect(InputValidator.isValidBirthdate('invalid-date')).toBe(false);
+        });
+    });
+
+    describe('InputValidator', () => {
+        describe('isValidPostalCode', () => {
+            test('should return true for valid US postal code', () => {
+                expect(InputValidator.isValidPostalCode('United States', '12345')).toBe(true);
+                expect(InputValidator.isValidPostalCode('United States', '125')).toBe(false);
+                expect(InputValidator.isValidPostalCode('United States', '12345-6789')).toBe(true);
+                expect(InputValidator.isValidPostalCode('United States', '12345-679')).toBe(false);
+                expect(InputValidator.isValidPostalCode('United States', '')).toBe(false);
+            });
+
+            test('should return true for valid Russian postal code', () => {
+                expect(InputValidator.isValidPostalCode('Russia', '101000')).toBe(true);
+                expect(InputValidator.isValidPostalCode('Russia', '1010')).toBe(false);
+                expect(InputValidator.isValidPostalCode('Russia', '')).toBe(false);
+            });
+
+            test('should return false for invalid postal code', () => {
+                expect(InputValidator.isValidPostalCode('Invalid Country', '12345')).toBe(false);
+            });
+        });
+    });
 });
