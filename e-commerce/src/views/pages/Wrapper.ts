@@ -5,8 +5,8 @@ export class Wrapper extends View {
         super({ tag: 'main' });
     }
 
-    public updateContent(component: View): void {
+    public updateContent(component: HTMLElement): void {
         this.getElement().innerHTML = '';
-        this.getElement().append(component.getElement());
+        this.getElement().append(component);
     }
 }
