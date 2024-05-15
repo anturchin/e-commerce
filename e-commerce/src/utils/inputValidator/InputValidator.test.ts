@@ -152,14 +152,20 @@ describe('InputValidator', () => {
         describe('isValidPostalCode', () => {
             test('should return true for valid US postal code', () => {
                 expect(InputValidator.isValidPostalCode('United States', '12345')).toBe(true);
-                expect(InputValidator.isValidPostalCode('United States', '125')).toBe(false);
                 expect(InputValidator.isValidPostalCode('United States', '12345-6789')).toBe(true);
+            });
+
+            test('should return false for valid US postal code', () => {
+                expect(InputValidator.isValidPostalCode('United States', '125')).toBe(false);
                 expect(InputValidator.isValidPostalCode('United States', '12345-679')).toBe(false);
                 expect(InputValidator.isValidPostalCode('United States', '')).toBe(false);
             });
 
             test('should return true for valid Russian postal code', () => {
                 expect(InputValidator.isValidPostalCode('Russia', '101000')).toBe(true);
+            });
+
+            test('should return false for valid Russian postal code', () => {
                 expect(InputValidator.isValidPostalCode('Russia', '1010')).toBe(false);
                 expect(InputValidator.isValidPostalCode('Russia', '')).toBe(false);
             });
