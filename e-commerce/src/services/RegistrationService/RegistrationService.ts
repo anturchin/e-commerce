@@ -12,7 +12,7 @@ import { ICustomer, IRegistrationResponse } from './types';
 // }
 // all fields are necessary for registration in ct
 
-export default class RegistrationService {
+export class RegistrationService {
     private static readonly projectKey: string = 'fad-team';
 
     private static readonly API_URL: string = 'https://api.europe-west1.gcp.commercetools.com';

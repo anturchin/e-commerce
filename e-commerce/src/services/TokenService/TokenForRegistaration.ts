@@ -1,6 +1,6 @@
 import { ITokenResponce } from './types';
 
-export default class TokenForRegistration {
+export class TokenForRegistration {
     private static readonly clientID: string = 'GZh-zb2_-LVjIg7hwuK_hZMb';
 
     private static readonly clientSecret: string = '5nQ2RJtIs1z58PEfMGQIbUB3ROxQsCUL';
