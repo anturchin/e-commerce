@@ -4,15 +4,21 @@ import { SvgBag } from './imgBag/ImgBag';
 import './Header.scss';
 
 export class Header extends View {
+    private navList: NavList | null = null;
+
     constructor() {
         super({ tag: 'header', classNames: ['header'] });
         this.setupHeaderContent();
     }
 
+    public getNavList(): NavList | null {
+        return this.navList;
+    }
+
     private setupHeaderContent(): void {
-        const navContent = new NavList().getElement();
+        this.navList = new NavList();
         const img = new SvgBag().getElement();
-        this.viewHtmlElement.addInnerElement(navContent);
+        this.viewHtmlElement.addInnerElement(this.navList.getElement());
         this.viewHtmlElement.addInnerElement(img);
     }
 }

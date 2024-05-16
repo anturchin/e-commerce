@@ -1,3 +1,4 @@
+import { Router } from '../../router/Router';
 import { Wrapper } from '../../views/pages/Wrapper';
 import { ControllerName, IController } from './PageController.interface';
 import { LoginController } from './loginController/LoginController';
@@ -16,12 +17,35 @@ export class PageController {
 
     private notFoundController: NotFoundController;
 
+    private router: Router | null = null;
+
     constructor() {
         this.wrapper = new Wrapper();
         this.loginController = new LoginController();
         this.registrationController = new RegistrationController();
         this.mainController = new MainController();
         this.notFoundController = new NotFoundController();
+    }
+
+    public setRouter(router: Router): void {
+        this.router = router;
+    }
+
+    public async updateContent(controllerName: ControllerName): Promise<void> {
+        try {
+            const controllerInstance = await this.loadController(controllerName);
+            const content = await controllerInstance.getElement();
+            this.wrapper.updateContent(content);
+        } catch (error) {
+            console.error(error);
+            const content = document.createElement('div');
+            content.innerHTML = '<h1>Page Not Found</h1>';
+            this.wrapper.updateContent(content);
+        }
+    }
+
+    public render(): HTMLElement {
+        return this.wrapper.getElement();
     }
 
     private async loadController(controllerName: ControllerName): Promise<IController> {
@@ -47,22 +71,5 @@ export class PageController {
             default:
                 throw new Error(`Controller ${controllerName} not found`);
         }
-    }
-
-    public async updateContent(controllerName: ControllerName): Promise<void> {
-        try {
-            const controllerInstance = await this.loadController(controllerName);
-            const content = await controllerInstance.getElement();
-            this.wrapper.updateContent(content);
-        } catch (error) {
-            console.error(error);
-            const content = document.createElement('div');
-            content.innerHTML = '<h1>Page Not Found</h1>';
-            this.wrapper.updateContent(content);
-        }
-    }
-
-    public render(): HTMLElement {
-        return this.wrapper.getElement();
     }
 }
