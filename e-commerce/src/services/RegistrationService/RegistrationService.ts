@@ -1,6 +1,5 @@
 import { ICustomer } from './types/CustomerType';
-import { IToken_responce } from '../TokenService/types/TokenResponce';
-import { IRegistration_Response } from './types/RegistrationResponse';
+import { IRegistrationResponse } from './types/RegistrationResponse';
 
 // TODO: getToken() (from TokenForRegistration!!!) returns {} with TOKEN
 // in field .access_token, we need it in registration()
@@ -21,7 +20,7 @@ export default class RegistrationService {
     static async registration(
         BEARER_TOKEN: string,
         customer: ICustomer
-    ): Promise<IRegistration_Response> {
+    ): Promise<IRegistrationResponse> {
         const REG_URL = `${this.API_URL}/${this.projectKey}/customers`;
 
         try {

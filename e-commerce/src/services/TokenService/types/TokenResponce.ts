@@ -1,4 +1,4 @@
-export interface IToken_responce {
+export interface ITokenResponce {
     access_token: string;
     token_type: string;
     expires_in: number;

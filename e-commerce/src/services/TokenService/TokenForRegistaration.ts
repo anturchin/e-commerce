@@ -1,4 +1,4 @@
-import { IToken_responce } from './types/TokenResponce';
+import { ITokenResponce } from './types/TokenResponce';
 
 export default class TokenForRegistration {
     private static readonly clientID: string = 'GZh-zb2_-LVjIg7hwuK_hZMb';
@@ -6,7 +6,7 @@ export default class TokenForRegistration {
     private static readonly scope: string = 'manage_customers:fad-team';
     private static readonly AUTH_URL: string = 'https://auth.europe-west1.gcp.commercetools.com';
 
-    static async getToken(): Promise<IToken_responce> {
+    static async getToken(): Promise<ITokenResponce> {
         const URL_TOKEN = `${this.AUTH_URL}/oauth/token`;
 
         try {

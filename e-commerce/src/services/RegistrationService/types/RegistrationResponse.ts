@@ -1,4 +1,4 @@
-export interface IRegistration_Response {
+export interface IRegistrationResponse {
     customer: {
         addresses: [];
         email: string;
