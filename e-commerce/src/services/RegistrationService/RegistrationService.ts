@@ -15,6 +15,7 @@ import { IRegistrationResponse } from './types/RegistrationResponse';
 
 export default class RegistrationService {
     private static readonly projectKey: string = 'fad-team';
+
     private static readonly API_URL: string = 'https://api.europe-west1.gcp.commercetools.com';
 
     static async registration(
