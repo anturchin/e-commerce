@@ -16,8 +16,9 @@ export class App {
     constructor() {
         this.pageController = new PageController();
         this.router = new Router(this.pageController);
-        this.headerController = new HeaderController();
-        this.footerController = new FooterController();
+        this.pageController.setRouter(this.router);
+        this.headerController = new HeaderController(this.router);
+        this.footerController = new FooterController(this.router);
     }
 
     public render(): void {
