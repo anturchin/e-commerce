@@ -1,14 +1,9 @@
-import { TOKEN_RESPONCE } from './types/TokenResponce';
-import { CUSTOMER } from './types/CustomerType';
+import { ICustomer } from './types/CustomerType';
+import { IToken_responce } from '../TokenService/types/TokenResponce';
+import { IRegistration_Response } from './types/RegistrationResponse';
 
-const projectKey = 'fad-team';
-const clientID = 'GZh-zb2_-LVjIg7hwuK_hZMb';
-const clientSecret = '5nQ2RJtIs1z58PEfMGQIbUB3ROxQsCUL';
-const scope = 'manage_customers:fad-team';
-const API_URL = 'https://api.europe-west1.gcp.commercetools.com';
-const AUTH_URL = 'https://auth.europe-west1.gcp.commercetools.com';
-
-// TODO: getToken() returns {} with TOKEN in field .access_token, we need it in registration()
+// TODO: getToken() (from TokenForRegistration!!!) returns {} with TOKEN
+// in field .access_token, we need it in registration()
 // as BEARER_TOKEN
 // for registration we need BEARER_TOKEN (see above) and customer object like that
 // {
@@ -20,34 +15,14 @@ const AUTH_URL = 'https://auth.europe-west1.gcp.commercetools.com';
 // all fields are necessary for registration in ct
 
 export default class RegistrationService {
-    static async getToken(): Promise<TOKEN_RESPONCE> {
-        const URL_TOKEN = `${AUTH_URL}/oauth/token`;
+    private static readonly projectKey: string = 'fad-team';
+    private static readonly API_URL: string = 'https://api.europe-west1.gcp.commercetools.com';
 
-        try {
-            const resp = await fetch(URL_TOKEN, {
-                method: 'POST',
-                headers: {
-                    Authorization: `Basic ${btoa(`${clientID}:${clientSecret}`)}`,
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({
-                    grant_type: 'client_credentials',
-                    scope,
-                }),
-            });
-            if (!resp.ok) {
-                throw new Error(`${resp.status}`);
-            }
-
-            return await resp.json();
-        } catch (e) {
-            console.error(e);
-            throw e;
-        }
-    }
-
-    static async registration(BEARER_TOKEN: string, customer: CUSTOMER): Promise<JSON> {
-        const REG_URL = `${API_URL}/${projectKey}/customers`;
+    static async registration(
+        BEARER_TOKEN: string,
+        customer: ICustomer
+    ): Promise<IRegistration_Response> {
+        const REG_URL = `${this.API_URL}/${this.projectKey}/customers`;
 
         try {
             const resp = await fetch(REG_URL, {
