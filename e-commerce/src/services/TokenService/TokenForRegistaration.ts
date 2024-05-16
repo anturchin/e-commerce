@@ -2,8 +2,11 @@ import { ITokenResponce } from './types/TokenResponce';
 
 export default class TokenForRegistration {
     private static readonly clientID: string = 'GZh-zb2_-LVjIg7hwuK_hZMb';
+
     private static readonly clientSecret: string = '5nQ2RJtIs1z58PEfMGQIbUB3ROxQsCUL';
+
     private static readonly scope: string = 'manage_customers:fad-team';
+
     private static readonly AUTH_URL: string = 'https://auth.europe-west1.gcp.commercetools.com';
 
     static async getToken(): Promise<ITokenResponce> {
