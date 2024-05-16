@@ -106,3 +106,5 @@ dist
 # docker 
 docker-compose.yml
 Dockerfile
+
+.idea
