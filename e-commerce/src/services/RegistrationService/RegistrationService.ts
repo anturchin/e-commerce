@@ -73,8 +73,6 @@ export default class RegistrationService {
     }
 
     static showMsg(): void {
-        const body = document.body;
-
         const msgCon = document.createElement('section');
         msgCon.style.margin = '0 auto';
 
@@ -82,7 +80,7 @@ export default class RegistrationService {
         mes.innerHTML = 'Registration success!';
 
         msgCon.append(mes);
-        body.append(msgCon);
+        document.body.append(msgCon);
 
         setTimeout(() => {
             msgCon.remove();
