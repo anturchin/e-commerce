@@ -1,5 +1,5 @@
-import { ICustomer } from './types/CustomerType';
-import { IRegistrationResponse } from './types/RegistrationResponse';
+import { ICustomer } from './types';
+import { IRegistrationResponse } from './types';
 
 // TODO: getToken() (from TokenForRegistration!!!) returns {} with TOKEN
 // in field .access_token, we need it in registration()
@@ -38,27 +38,10 @@ export default class RegistrationService {
                 throw new Error(`${resp.status}`);
             }
 
-            this.showMsg();
-
             return await resp.json();
         } catch (e) {
             console.error(e);
             throw e;
         }
-    }
-
-    static showMsg(): void {
-        const msgCon = document.createElement('section');
-        msgCon.style.margin = '0 auto';
-
-        const mes = document.createElement('h2');
-        mes.innerHTML = 'Registration success!';
-
-        msgCon.append(mes);
-        document.body.append(msgCon);
-
-        setTimeout(() => {
-            msgCon.remove();
-        }, 10000);
     }
 }

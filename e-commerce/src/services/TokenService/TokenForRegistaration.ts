@@ -1,4 +1,4 @@
-import { ITokenResponce } from './types/TokenResponce';
+import { ITokenResponce } from './types';
 
 export default class TokenForRegistration {
     private static readonly clientID: string = 'GZh-zb2_-LVjIg7hwuK_hZMb';
