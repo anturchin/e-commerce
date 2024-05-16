@@ -1,5 +1,4 @@
-import { ICustomer } from './types';
-import { IRegistrationResponse } from './types';
+import { ICustomer, IRegistrationResponse } from './types';
 
 // TODO: getToken() (from TokenForRegistration!!!) returns {} with TOKEN
 // in field .access_token, we need it in registration()
