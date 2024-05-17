@@ -8,6 +8,12 @@ import './Form.scss';
 export class Form extends View {
     private inputName: Name | null = null;
 
+    private inputMail: Mail | null = null;
+
+    private inputSurname: Surname | null = null;
+
+    private inputPassword: Password | null = null;
+
     constructor() {
         super({ tag: 'form', classNames: ['form'] });
         this.setupForm();
