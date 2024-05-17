@@ -3,6 +3,19 @@ export interface ICustomerForLogin {
     password: string;
 }
 
-// export LoginResponse {
-//     addreses
-// }
+export interface ILoginResponse {
+    customer: {
+        addresses: [];
+        email: string;
+        firstName: string;
+        id: string;
+        isEmailVerified: boolean;
+        lastName: string;
+        password: string;
+        version: number;
+        createdAt: string;
+        lastModifiedAt: string;
+        authenticationMode: string;
+        stores: [];
+    };
+}

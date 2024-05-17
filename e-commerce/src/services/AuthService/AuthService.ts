@@ -1,11 +1,11 @@
-import { ICustomerForLogin } from './types';
+import { ICustomerForLogin, ILoginResponse } from './types';
 
 export class AuthService {
     private static readonly projectKey: string = 'fad-team';
 
     private static readonly API_URL: string = 'https://api.europe-west1.gcp.commercetools.com';
 
-    static async login(BEARER_TOKEN: string, customer: ICustomerForLogin): Promise<JSON> {
+    static async login(BEARER_TOKEN: string, customer: ICustomerForLogin): Promise<ILoginResponse> {
         const LOGIN_URL = `${this.API_URL}/${this.projectKey}/login`;
 
         try {
