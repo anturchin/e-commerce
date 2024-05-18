@@ -4,5 +4,5 @@ export interface IElementParams {
     tag: string;
     classNames?: string[];
     textContent?: string;
-    callback?: CallbackType;
+    callback?: CallbackType | null;
 }
