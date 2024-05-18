@@ -1,5 +1,6 @@
 import { View } from '../../View';
 import { Form } from './form/Form';
+import { ErrorAuth } from './errorAuth/ErrorAuth';
 
 export class Login extends View {
     constructor() {
@@ -12,6 +13,8 @@ export class Login extends View {
         h1.textContent = 'Login';
         this.viewHtmlElement.addInnerElement(h1);
 
+        const errorAuth = new ErrorAuth().getElement();
+        this.viewHtmlElement.addInnerElement(errorAuth);
         const loginForm = new Form().getElement();
         this.viewHtmlElement.addInnerElement(loginForm);
     }
