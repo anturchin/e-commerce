@@ -1,10 +1,14 @@
 import { View } from '../../View';
-import './Registration.scss';
 import { Form } from './form/Form';
 
+import './Registration.scss';
+
 export class Registration extends View {
+    private form: Form;
+
     constructor() {
         super({ tag: 'section', classNames: ['registration-page'] });
+        this.form = new Form();
         this.setupRegistration();
     }
 
@@ -13,7 +17,7 @@ export class Registration extends View {
         h1.textContent = 'Create your account';
         this.viewHtmlElement.addInnerElement(h1);
 
-        const formRegistration = new Form().getElement();
+        const formRegistration = this.form.getElement();
         this.viewHtmlElement.addInnerElement(formRegistration);
     }
 }
