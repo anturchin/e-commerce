@@ -1,5 +1,5 @@
 import { ICustomerForLogin } from './types';
-import { ICustomerResponse } from '../types';
+import { ICustomerResponse, ICustomerResponseFailed } from '../types';
 
 export class AuthService {
     private static readonly projectKey: string = 'fad-team';
@@ -9,7 +9,7 @@ export class AuthService {
     static async login(
         BEARER_TOKEN: string,
         customer: ICustomerForLogin
-    ): Promise<ICustomerResponse> {
+    ): Promise<ICustomerResponse | ICustomerResponseFailed> {
         const LOGIN_URL = `${this.API_URL}/${this.projectKey}/login`;
 
         try {
@@ -23,7 +23,11 @@ export class AuthService {
             });
 
             if (!response.ok) {
-                throw new Error(`${response.status}`);
+                const data = await response.json();
+                return {
+                    statusCode: data.statusCode,
+                    msg: data.message,
+                };
             }
 
             return (await response.json()) as ICustomerResponse;

@@ -21,10 +21,15 @@ export interface ICustomerResponse {
         isEmailVerified: boolean;
         lastName: string;
         password: string;
-        version: null;
+        version: number;
         createdAt: string;
         lastModifiedAt: string;
         authenticationMode: string;
         stores: IStore[];
     };
+}
+
+export interface ICustomerResponseFailed {
+    statusCode: number;
+    msg: string;
 }
