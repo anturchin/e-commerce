@@ -1,34 +1,22 @@
 import { Router } from '../../router/Router';
 import { Wrapper } from '../../views/pages/Wrapper';
 import { ControllerName, IController } from './PageController.interface';
-import { LoginController } from './loginController/LoginController';
-import { MainController } from './mainController/MainController';
-import { NotFoundController } from './notFoundController/NotFoundController';
-import { RegistrationController } from './registrationController/RegistrationController';
 
 export class PageController {
     private wrapper: Wrapper;
-
-    private loginController: LoginController;
-
-    private registrationController: RegistrationController;
-
-    private mainController: MainController;
-
-    private notFoundController: NotFoundController;
 
     private router: Router | null = null;
 
     constructor() {
         this.wrapper = new Wrapper();
-        this.loginController = new LoginController();
-        this.registrationController = new RegistrationController();
-        this.mainController = new MainController();
-        this.notFoundController = new NotFoundController();
     }
 
     public setRouter(router: Router): void {
         this.router = router;
+    }
+
+    public getRouter(): Router | null {
+        return this.router;
     }
 
     public async updateContent(controllerName: ControllerName): Promise<void> {
@@ -58,7 +46,7 @@ export class PageController {
                 const { RegistrationController } = await import(
                     './registrationController/RegistrationController'
                 );
-                return new RegistrationController();
+                return new RegistrationController(this.getRouter());
             }
             case ControllerName.MAIN: {
                 const { MainController } = await import('./mainController/MainController');

@@ -3,6 +3,9 @@ import { Mail } from './inputMail/InputMail';
 import { Name } from './inputName/InputName';
 import { Surname } from './inputSurname/InputSurname';
 import { Password } from './password/Password';
+import { Button } from '../../../button/Button';
+import { FormElementsType } from './types';
+
 import './Form.scss';
 
 export class Form extends View {
@@ -14,38 +17,64 @@ export class Form extends View {
 
     private inputPassword: Password | null = null;
 
+    private buttonSubmit: Button | null = null;
+
     constructor() {
         super({ tag: 'form', classNames: ['form'] });
         this.setupForm();
     }
 
-    private setupForm(): void {
-        const inputMail = new Mail({
-            type: 'email',
-            label: 'fad@gmail.com',
-            required: true,
-        }).getElement();
-        this.viewHtmlElement.addInnerElement(inputMail);
+    public getFormElements(): FormElementsType | null {
+        if (
+            this.inputName &&
+            this.inputMail &&
+            this.inputSurname &&
+            this.inputPassword &&
+            this.buttonSubmit
+        ) {
+            return {
+                inputName: this.inputName,
+                inputMail: this.inputMail,
+                inputSurname: this.inputSurname,
+                inputPassword: this.inputPassword,
+                buttonSubmit: this.buttonSubmit,
+            };
+        }
+        return null;
+    }
 
-        const inputName = new Name({
+    private setupForm(): void {
+        this.inputMail = new Mail({
+            type: 'text',
+            label: 'fad@gmail.com',
+            required: false,
+        });
+        this.viewHtmlElement.addInnerElement(this.inputMail.getElement());
+
+        this.inputName = new Name({
             type: 'text',
             label: 'Your Name',
-            required: true,
-        }).getElement();
-        this.viewHtmlElement.addInnerElement(inputName);
+            required: false,
+        });
+        this.viewHtmlElement.addInnerElement(this.inputName.getElement());
 
-        const inputSurname = new Surname({
+        this.inputSurname = new Surname({
             type: 'text',
             label: 'Your Surname',
-            required: true,
-        }).getElement();
-        this.viewHtmlElement.addInnerElement(inputSurname);
+            required: false,
+        });
+        this.viewHtmlElement.addInnerElement(this.inputSurname.getElement());
 
-        const inputPassword = new Password({
+        this.inputPassword = new Password({
             type: 'text',
             label: 'Password',
-            required: true,
-        }).getElement();
-        this.viewHtmlElement.addInnerElement(inputPassword);
+            required: false,
+        });
+        this.viewHtmlElement.addInnerElement(this.inputPassword.getElement());
+
+        this.buttonSubmit = new Button({
+            label: 'Submit',
+        });
+        this.viewHtmlElement.addInnerElement(this.buttonSubmit.getElement());
     }
 }
