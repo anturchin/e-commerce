@@ -1,5 +1,5 @@
 import { View } from '../../../../View';
-import './inputName.scss';
+import './InputName.scss';
 
 export class Name extends View {
     constructor(options: { type: string; label: string; required: boolean }) {

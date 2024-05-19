@@ -1,4 +1,4 @@
-import { ITokenResponce } from './types';
+import { ITokenResponse } from './types';
 
 export class TokenForRegistration {
     private static readonly clientID: string = 'GZh-zb2_-LVjIg7hwuK_hZMb';
@@ -9,7 +9,7 @@ export class TokenForRegistration {
 
     private static readonly AUTH_URL: string = 'https://auth.europe-west1.gcp.commercetools.com';
 
-    static async getToken(): Promise<ITokenResponce> {
+    static async getToken(): Promise<ITokenResponse> {
         const URL_TOKEN = `${this.AUTH_URL}/oauth/token`;
 
         try {
@@ -28,7 +28,7 @@ export class TokenForRegistration {
                 throw new Error(`${resp.status}`);
             }
 
-            return await resp.json();
+            return (await resp.json()) as ITokenResponse;
         } catch (e) {
             console.error(e);
             throw e;

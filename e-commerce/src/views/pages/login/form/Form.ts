@@ -1,6 +1,6 @@
 import { View } from '../../../View';
-import { InputLogin } from './inputLogin/inputLogin';
-import { Password } from './inputPassword/inputPassword';
+import { InputLogin } from './inputLogin/InputLogin';
+import { Password } from './inputPassword/InputPassword';
 import { Box } from './inputbox/Inputbox';
 import './Form.scss';
 

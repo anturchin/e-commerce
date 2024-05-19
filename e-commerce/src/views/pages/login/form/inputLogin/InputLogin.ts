@@ -1,7 +1,7 @@
 import { View } from '../../../../View';
-import './inputMail.scss';
+import './InputLogin.scss';
 
-export class Mail extends View {
+export class InputLogin extends View {
     constructor(options: { type: string; label: string; required: boolean }) {
         super({ tag: 'input', classNames: ['input'] });
         this.setupInput(options);
