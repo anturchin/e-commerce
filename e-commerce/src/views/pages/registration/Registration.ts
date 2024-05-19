@@ -19,11 +19,11 @@ export class Registration extends View {
         this.setupRegistration();
     }
 
-    public getFormReg(): Form {
+    public getForm(): Form {
         return this.form;
     }
 
-    public getForm(): FormAddress {
+    public getFormReg(): FormAddress {
         return this.addressForm;
     }
 
