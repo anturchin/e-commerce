@@ -1,18 +1,6 @@
 import { ICustomer } from './types';
 import { ICustomerResponse, ICustomerResponseFailed } from '../types';
 
-// TODO: getToken() (from TokenForRegistration!!!) returns {} with TOKEN
-// in field .access_token, we need it in registration()
-// as BEARER_TOKEN
-// for registration we need BEARER_TOKEN (see above) and customer object like that
-// {
-//     email: string;
-//     firstName: string;
-//     lastName: string;
-//     password: string;
-// }
-// all fields are necessary for registration in ct
-
 export class RegistrationService {
     private static readonly projectKey: string = 'fad-team';
 

@@ -42,12 +42,12 @@ export class InputValidator {
 
     public static isValidSurname(surname: string): boolean {
         const regex = /^[a-zA-Z\s]+$/;
-        return regex.test(surname);
+        return regex.test(surname) && /[a-zA-Z]/.test(surname);
     }
 
     public static isValidName(name: string): boolean {
         const regex = /^[a-zA-Z\s]+$/;
-        return regex.test(name);
+        return regex.test(name) && /[a-zA-Z]/.test(name);
     }
 
     public static isValidEmail(email: string): boolean {
