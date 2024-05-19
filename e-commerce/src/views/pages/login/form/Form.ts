@@ -5,6 +5,7 @@ import { Box } from './inputbox/Inputbox';
 import { Button } from '../../../button/Button';
 
 import './Form.scss';
+import { FormLoginElementsType } from './types';
 
 export class Form extends View {
     private inputLogin: InputLogin | null = null;
@@ -20,18 +21,30 @@ export class Form extends View {
         this.setupForm();
     }
 
+    public getFormElements(): FormLoginElementsType | null {
+        if (this.inputLogin && this.inputPassword && this.inputBox && this.buttonSubmit) {
+            return {
+                inputLogin: this.inputLogin,
+                inputPassword: this.inputPassword,
+                inputBox: this.inputBox,
+                buttonSubmit: this.buttonSubmit,
+            };
+        }
+        return null;
+    }
+
     private setupForm(): void {
         this.inputLogin = new InputLogin({
             type: 'text',
             label: 'Login',
-            required: true,
+            required: false,
         });
         this.viewHtmlElement.addInnerElement(this.inputLogin.getElement());
 
         this.inputPassword = new Password({
             type: 'password',
             label: 'Password',
-            required: true,
+            required: false,
         });
         this.viewHtmlElement.addInnerElement(this.inputPassword.getElement());
 
@@ -39,7 +52,7 @@ export class Form extends View {
             {
                 type: 'checkbox',
                 label: '',
-                required: true,
+                required: false,
             },
             this.inputPassword
         );

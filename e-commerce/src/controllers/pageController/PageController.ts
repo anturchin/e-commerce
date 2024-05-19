@@ -40,7 +40,7 @@ export class PageController {
         switch (controllerName) {
             case ControllerName.LOGIN: {
                 const { LoginController } = await import('./loginController/LoginController');
-                return new LoginController();
+                return new LoginController(this.getRouter());
             }
             case ControllerName.REGISTRATION: {
                 const { RegistrationController } = await import(
