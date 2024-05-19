@@ -1,5 +1,5 @@
 import { View } from '../../../View';
-import { Mail } from './inputMail/inputMail';
+import { Mail } from './inputMail/InputMail';
 import { Name } from './inputName/InputName';
 import { Surname } from './inputSurname/InputSurname';
 import { Password } from './password/Password';
