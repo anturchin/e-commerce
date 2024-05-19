@@ -10,7 +10,7 @@ export class SetAddressService {
 
     private static readonly API_URL: string = 'https://api.europe-west1.gcp.commercetools.com';
 
-    static async addAddress(TOKEN: string, id: string, version: null, address: IAddress) {
+    static async addAddress(TOKEN: string, id: string, version: number, address: IAddress) {
         try {
             const addAddress = {
                 version,

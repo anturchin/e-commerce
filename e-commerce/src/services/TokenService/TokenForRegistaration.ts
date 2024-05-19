@@ -1,11 +1,12 @@
 import { ITokenResponce } from './types';
 
 export class TokenForRegistration {
-    private static readonly clientID: string = 'GZh-zb2_-LVjIg7hwuK_hZMb';
+    private static readonly clientID: string = 'hRGagGlXqckAWUF1-I1Hkzrk';
 
-    private static readonly clientSecret: string = '5nQ2RJtIs1z58PEfMGQIbUB3ROxQsCUL';
+    private static readonly clientSecret: string = 'qCgigNxcu7qi7RyfaEX6YWF8EIIpksCT';
 
-    private static readonly scope: string = 'manage_customers:fad-team';
+    private static readonly scope: string =
+        'manage_project:fad-team manage_api_clients:fad-team view_api_clients:fad-team';
 
     private static readonly AUTH_URL: string = 'https://auth.europe-west1.gcp.commercetools.com';
 
