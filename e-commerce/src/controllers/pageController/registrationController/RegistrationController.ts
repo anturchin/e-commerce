@@ -1,5 +1,10 @@
+import { Router } from '../../../router/Router';
+import { RoutePath } from '../../../router/types';
+import { RegistrationService } from '../../../services/RegistrationService/RegistrationService';
+import { ICustomer } from '../../../services/RegistrationService/types';
 import { ErrorManager } from '../../../utils/errorManager/ErrorManager';
 import { InputValidator } from '../../../utils/inputValidator/InputValidator';
+import { LocalStorageManager } from '../../../utils/localStorageManager/LocalStorageManager';
 import { Registration } from '../../../views/pages/registration/Registration';
 import { IController } from '../PageController.interface';
 
@@ -8,21 +13,35 @@ export class RegistrationController implements IController {
 
     private page: Registration;
 
-    constructor() {
+    private router: Router | null;
+
+    constructor(router: Router | null) {
+        this.router = router;
         this.page = new Registration();
         this.setupFormHandler();
+        this.redirectToLogin = this.redirectToLogin.bind(this);
+        this.onClickToLogin();
     }
 
     public getElement(): HTMLElement {
         return this.page.getElement();
     }
 
+    private async redirectToLogin(): Promise<void> {
+        await this.router?.navigate(RoutePath.LOGIN);
+    }
+
+    private onClickToLogin(): void {
+        const btnLogin = this.page.getButtonLogin();
+        if (btnLogin) btnLogin.getElement().addEventListener('click', this.redirectToLogin);
+    }
+
     private setupFormHandler(): void {
         const form = this.page.getForm();
         if (form) {
-            form.getElement().addEventListener('submit', (event) => {
+            form.getElement().addEventListener('submit', async (event) => {
                 event.preventDefault();
-                this.validateForm();
+                await this.validateForm();
             });
         }
     }
@@ -64,8 +83,14 @@ export class RegistrationController implements IController {
         }
     }
 
-    private submitForm(): void {
-        console.log('Form submitted successfully');
+    private async submitForm(customer: ICustomer): Promise<void> {
+        const token = LocalStorageManager.getToken();
+        if (token) {
+            const customerResponse = await RegistrationService.registration(token, customer);
+            const { firstName } = customerResponse.customer;
+            const { id } = customerResponse.customer;
+            LocalStorageManager.saveUserData({ firstName, id });
+        }
     }
 
     private enableBtn(switchOn: boolean): void {
@@ -77,7 +102,7 @@ export class RegistrationController implements IController {
         btn.disabled = switchOn;
     }
 
-    private validateForm(): void {
+    private async validateForm(): Promise<void> {
         const formElements = this.page.getForm().getFormElements();
         if (!formElements) {
             return;
@@ -85,31 +110,43 @@ export class RegistrationController implements IController {
 
         const errors: Record<string, string> = {};
 
-        const nameValue = formElements.inputName.getValue();
-        const surnameValue = formElements.inputSurname.getValue();
-        const mailValue = formElements.inputMail.getValue();
-        const passwordValue = formElements.inputPassword.getValue();
+        const firstName = formElements.inputName.getValue();
+        const lastName = formElements.inputSurname.getValue();
+        const email = formElements.inputMail.getValue();
+        const password = formElements.inputPassword.getValue();
 
-        if (!InputValidator.isValidName(nameValue)) {
+        if (!InputValidator.isValidName(firstName)) {
             errors.name = 'Invalid name, example: "John" or "John Doe"';
         }
 
-        if (!InputValidator.isValidSurname(surnameValue)) {
+        if (!InputValidator.isValidSurname(lastName)) {
             errors.surname = 'Invalid surname, example: "Smith" or "van der Waals"';
         }
 
-        if (!InputValidator.isValidEmail(mailValue)) {
+        if (!InputValidator.isValidEmail(email)) {
             errors.email = 'Invalid email, example: "user@example.com"';
         }
 
-        if (!InputValidator.isValidPassword(passwordValue)) {
+        if (!InputValidator.isValidPassword(password)) {
             errors.password = 'Invalid password, example: "Password1!"';
         }
 
         if (Object.keys(errors).length > 0) {
             this.showErrors(errors);
         } else {
-            this.submitForm();
+            try {
+                await this.submitForm({
+                    email,
+                    firstName,
+                    lastName,
+                    password,
+                });
+                if (this.router) await this.router.navigate(RoutePath.MAIN);
+            } catch (error) {
+                if (error instanceof Error) {
+                    console.error(error.message);
+                }
+            }
         }
     }
 }

@@ -3,6 +3,8 @@ import { RoutePath } from '../router/types';
 import { FooterController } from '../controllers/footerController/FooterController';
 import { HeaderController } from '../controllers/headerController/HeaderController';
 import { PageController } from '../controllers/pageController/PageController';
+import { TokenForRegistration } from '../services/TokenService/TokenForRegistaration';
+import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
 
 export class App {
     private pageController: PageController;
@@ -19,6 +21,8 @@ export class App {
         this.pageController.setRouter(this.router);
         this.headerController = new HeaderController(this.router);
         this.footerController = new FooterController(this.router);
+
+        this.initializeApp();
     }
 
     public render(): void {
@@ -33,6 +37,15 @@ export class App {
         const body: HTMLElement | null = document.querySelector('body');
         if (body) {
             body.append(...[header, wrapper, footer]);
+        }
+    }
+
+    private async initializeApp(): Promise<void> {
+        try {
+            const tokenResponse = await TokenForRegistration.getToken();
+            LocalStorageManager.saveToken(tokenResponse.access_token);
+        } catch (error) {
+            console.error('Failed to fetch token:', error);
         }
     }
 }
