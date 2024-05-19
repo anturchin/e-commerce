@@ -87,9 +87,17 @@ export class RegistrationController implements IController {
         const token = LocalStorageManager.getToken();
         if (token) {
             const customerResponse = await RegistrationService.registration(token, customer);
-            const { firstName } = customerResponse.customer;
-            const { id } = customerResponse.customer;
-            LocalStorageManager.saveUserData({ firstName, id });
+            if ('customer' in customerResponse) {
+                const { firstName } = customerResponse.customer;
+                const { id } = customerResponse.customer;
+                LocalStorageManager.saveUserData({ firstName, id });
+                if (this.router) await this.router.navigate(RoutePath.MAIN);
+                return;
+            }
+            if ('msg' in customerResponse) {
+                const errorAuth = this.page.getErrorAuth();
+                errorAuth.showMessage(customerResponse.msg, customerResponse.statusCode);
+            }
         }
     }
 
@@ -141,7 +149,6 @@ export class RegistrationController implements IController {
                     lastName,
                     password,
                 });
-                if (this.router) await this.router.navigate(RoutePath.MAIN);
             } catch (error) {
                 if (error instanceof Error) {
                     console.error(error.message);

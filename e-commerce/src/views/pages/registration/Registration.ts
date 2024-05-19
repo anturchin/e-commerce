@@ -1,4 +1,5 @@
 import { Button } from '../../button/Button';
+import { ErrorAuth } from '../../errorAuth/ErrorAuth';
 import { View } from '../../View';
 import { Form } from './form/Form';
 
@@ -9,10 +10,16 @@ export class Registration extends View {
 
     private buttonLogin: Button | null = null;
 
+    private errorAuth: ErrorAuth = new ErrorAuth();
+
     constructor() {
         super({ tag: 'section', classNames: ['registration-page'] });
         this.form = new Form();
         this.setupRegistration();
+    }
+
+    public getErrorAuth(): ErrorAuth {
+        return this.errorAuth;
     }
 
     public getForm(): Form {
@@ -35,5 +42,6 @@ export class Registration extends View {
             label: 'Sign in',
         });
         this.viewHtmlElement.addInnerElement(this.buttonLogin.getElement());
+        this.viewHtmlElement.addInnerElement(this.errorAuth.getElement());
     }
 }

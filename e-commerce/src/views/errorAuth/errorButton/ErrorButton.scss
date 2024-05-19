@@ -1,0 +1,26 @@
+.error__close {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    color: #d3d7cf;
+    font-size: 1.6rem;
+    font-weight: 600;
+    background-color: #4e9a06;
+    transition: all 250ms;
+    outline: none;
+    cursor: pointer;
+
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+        background-color: #4e9a06;
+    }
+
+    &:hover:not(:disabled) {
+        transform: translateY(-1px);
+    }
+
+    &:disabled {
+        opacity: 0.3;
+        cursor: auto;
+    }
+}

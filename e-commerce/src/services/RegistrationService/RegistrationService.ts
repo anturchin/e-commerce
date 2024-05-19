@@ -27,7 +27,7 @@ export class RegistrationService {
                 return {
                     statusCode: data.statusCode,
                     msg: data.message,
-                };
+                } as ICustomerResponseFailed;
             }
 
             return (await resp.json()) as ICustomerResponse;
