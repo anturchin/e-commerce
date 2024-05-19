@@ -90,11 +90,6 @@ export class RegistrationController implements IController {
         const mailValue = formElements.inputMail.getValue();
         const passwordValue = formElements.inputPassword.getValue();
 
-        console.log(nameValue);
-        console.log(surnameValue);
-        console.log(mailValue);
-        console.log(passwordValue);
-
         if (!InputValidator.isValidName(nameValue)) {
             errors.name = 'Invalid name, example: "John" or "John Doe"';
         }
@@ -104,7 +99,7 @@ export class RegistrationController implements IController {
         }
 
         if (!InputValidator.isValidEmail(mailValue)) {
-            errors.email = 'Invalid email, example: "user@example"';
+            errors.email = 'Invalid email, example: "user@example.com"';
         }
 
         if (!InputValidator.isValidPassword(passwordValue)) {
@@ -113,7 +108,6 @@ export class RegistrationController implements IController {
 
         if (Object.keys(errors).length > 0) {
             this.showErrors(errors);
-            console.log(errors);
         } else {
             this.submitForm();
         }
