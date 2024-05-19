@@ -1,5 +1,5 @@
 import { ICustomer } from './types';
-import { ICustomerResponse } from '../types';
+import { ICustomerResponse, ICustomerResponseFailed } from '../types';
 
 // TODO: getToken() (from TokenForRegistration!!!) returns {} with TOKEN
 // in field .access_token, we need it in registration()
@@ -21,7 +21,7 @@ export class RegistrationService {
     static async registration(
         BEARER_TOKEN: string,
         customer: ICustomer
-    ): Promise<ICustomerResponse> {
+    ): Promise<ICustomerResponse | ICustomerResponseFailed> {
         const REG_URL = `${this.API_URL}/${this.projectKey}/customers`;
 
         try {
@@ -35,7 +35,11 @@ export class RegistrationService {
             });
 
             if (!resp.ok) {
-                throw new Error(`${resp.status}`);
+                const data = await resp.json();
+                return {
+                    statusCode: data.statusCode,
+                    msg: data.message,
+                };
             }
 
             return (await resp.json()) as ICustomerResponse;

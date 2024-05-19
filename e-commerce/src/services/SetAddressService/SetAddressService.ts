@@ -1,4 +1,4 @@
-import { IAddress } from '../types';
+import { IAddress, ICustomerResponse, ICustomerResponseFailed } from '../types';
 
 // TODO: TOKEN - bearer token from TokerForRegistration
 // TODO: id - customer id from customer auth or registration (obj.customer.id)
@@ -10,7 +10,12 @@ export class SetAddressService {
 
     private static readonly API_URL: string = 'https://api.europe-west1.gcp.commercetools.com';
 
-    static async addAddress(TOKEN: string, id: string, version: number, address: IAddress) {
+    static async addAddress(
+        TOKEN: string,
+        id: string,
+        version: number,
+        address: IAddress
+    ): Promise<ICustomerResponseFailed | ICustomerResponse> {
         try {
             const addAddress = {
                 version,
@@ -36,10 +41,14 @@ export class SetAddressService {
                 body: JSON.stringify(addAddress),
             });
             if (!res.ok) {
-                throw new Error(`${res.status}`);
+                const data = await res.json();
+                return {
+                    statusCode: data.statusCode,
+                    msg: data.message,
+                };
             }
 
-            return res.json();
+            return (await res.json()) as ICustomerResponse;
         } catch (error) {
             console.error(error);
             throw error;

@@ -1,4 +1,4 @@
-import { IAddress } from '../types';
+import { IAddress, ICustomerResponse, ICustomerResponseFailed } from '../types';
 
 // TODO: address - response obj from addAddress().addresses[index of address]
 // TODO: id - customer id
@@ -15,11 +15,11 @@ export class SetDefaultAddressService {
         id: string,
         version: number,
         address: IAddress
-    ) {
+    ): Promise<ICustomerResponse | ICustomerResponseFailed> {
         const action = `setDefault${addressType}Address`;
 
         const req = {
-            version: version + 1,
+            version,
             actions: [
                 {
                     action,
@@ -39,10 +39,14 @@ export class SetDefaultAddressService {
             });
 
             if (!res.ok) {
-                throw new Error(`${res.status}`);
+                const data = await res.json();
+                return {
+                    statusCode: data.statusCode,
+                    msg: data.message,
+                };
             }
 
-            return res.json();
+            return (await res.json()) as ICustomerResponse;
         } catch (e) {
             console.error(e);
             throw e;

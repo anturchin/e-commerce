@@ -28,3 +28,8 @@ export interface ICustomerResponse {
         stores: IStore[];
     };
 }
+
+export interface ICustomerResponseFailed {
+    statusCode: number;
+    msg: string;
+}
