@@ -12,6 +12,10 @@ export class Registration extends View {
         this.setupRegistration();
     }
 
+    public getForm(): Form {
+        return this.form;
+    }
+
     private setupRegistration(): void {
         const h1 = document.createElement('h1');
         h1.textContent = 'Create your account';

@@ -47,7 +47,6 @@ export class Form extends View {
 
         this.buttonSubmit = new Button({
             label: 'Submit',
-            disabled: true,
         });
         this.viewHtmlElement.addInnerElement(this.buttonSubmit.getElement());
     }

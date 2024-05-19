@@ -4,6 +4,7 @@ import { Name } from './inputName/InputName';
 import { Surname } from './inputSurname/InputSurname';
 import { Password } from './password/Password';
 import { Button } from '../../../button/Button';
+import { FormElementsType } from './types';
 
 import './Form.scss';
 
@@ -23,38 +24,56 @@ export class Form extends View {
         this.setupForm();
     }
 
+    public getFormElements(): FormElementsType | null {
+        if (
+            this.inputName &&
+            this.inputMail &&
+            this.inputSurname &&
+            this.inputPassword &&
+            this.buttonSubmit
+        ) {
+            return {
+                inputName: this.inputName,
+                inputMail: this.inputMail,
+                inputSurname: this.inputSurname,
+                inputPassword: this.inputPassword,
+                buttonSubmit: this.buttonSubmit,
+            };
+        }
+        return null;
+    }
+
     private setupForm(): void {
         this.inputMail = new Mail({
-            type: 'email',
+            type: 'text',
             label: 'fad@gmail.com',
-            required: true,
+            required: false,
         });
         this.viewHtmlElement.addInnerElement(this.inputMail.getElement());
 
         this.inputName = new Name({
             type: 'text',
             label: 'Your Name',
-            required: true,
+            required: false,
         });
         this.viewHtmlElement.addInnerElement(this.inputName.getElement());
 
         this.inputSurname = new Surname({
             type: 'text',
             label: 'Your Surname',
-            required: true,
+            required: false,
         });
         this.viewHtmlElement.addInnerElement(this.inputSurname.getElement());
 
         this.inputPassword = new Password({
             type: 'text',
             label: 'Password',
-            required: true,
+            required: false,
         });
         this.viewHtmlElement.addInnerElement(this.inputPassword.getElement());
 
         this.buttonSubmit = new Button({
             label: 'Submit',
-            disabled: true,
         });
         this.viewHtmlElement.addInnerElement(this.buttonSubmit.getElement());
     }
