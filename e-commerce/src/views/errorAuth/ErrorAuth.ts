@@ -1,4 +1,4 @@
-import { View } from '../../../View';
+import { View } from '../View';
 import { ErrorButton } from './errorButton/ErrorButton';
 import { ErrorMessage } from './errorMessage/ErrorMessage';
 import { ErrorWrapper } from './errorWrapper/ErrorWrapper';
@@ -23,8 +23,8 @@ export class ErrorAuth extends View {
         this.setupEvent();
     }
 
-    public showMessage(message: string): void {
-        this.errorMessage.getElement().textContent = message;
+    public showMessage(message: string, status: number): void {
+        this.errorMessage.getElement().textContent = ` [ ${status} ]: ${message}`;
         this.getElement().classList.remove('hidden');
     }
 

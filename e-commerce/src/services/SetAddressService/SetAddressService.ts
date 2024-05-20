@@ -45,7 +45,7 @@ export class SetAddressService {
                 return {
                     statusCode: data.statusCode,
                     msg: data.message,
-                };
+                } as ICustomerResponseFailed;
             }
 
             return (await res.json()) as ICustomerResponse;

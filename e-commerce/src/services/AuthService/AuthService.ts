@@ -27,7 +27,7 @@ export class AuthService {
                 return {
                     statusCode: data.statusCode,
                     msg: data.message,
-                };
+                } as ICustomerResponseFailed;
             }
 
             return (await response.json()) as ICustomerResponse;

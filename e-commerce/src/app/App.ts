@@ -3,7 +3,7 @@ import { RoutePath } from '../router/types';
 import { FooterController } from '../controllers/footerController/FooterController';
 import { HeaderController } from '../controllers/headerController/HeaderController';
 import { PageController } from '../controllers/pageController/PageController';
-import { TokenForRegistration } from '../services/TokenService/TokenForRegistaration';
+import { TokenForRegistration } from '../services/TokenService/TokenForRegistration';
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
 
 export class App {
@@ -43,7 +43,9 @@ export class App {
     private async initializeApp(): Promise<void> {
         try {
             const tokenResponse = await TokenForRegistration.getToken();
-            LocalStorageManager.saveToken(tokenResponse.access_token);
+            if ('access_token' in tokenResponse) {
+                LocalStorageManager.saveToken(tokenResponse.access_token);
+            }
         } catch (error) {
             console.error('Failed to fetch token:', error);
         }

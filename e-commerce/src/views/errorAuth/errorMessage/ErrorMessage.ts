@@ -1,4 +1,4 @@
-import { View } from '../../../../View';
+import { View } from '../../View';
 import './ErrorMessage.scss';
 
 export class ErrorMessage extends View {
