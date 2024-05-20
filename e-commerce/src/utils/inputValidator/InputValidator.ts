@@ -1,11 +1,11 @@
 export class InputValidator {
     public static isValidPostalCode(country: string, postalCode: string): boolean {
         switch (country) {
-            case 'United States': {
+            case 'US': {
                 const regexUS = /^\d{5}(?:[-\s]\d{4})?$/;
                 return regexUS.test(postalCode);
             }
-            case 'Russia': {
+            case 'RU': {
                 const regexRU = /^\d{6}$/;
                 return regexRU.test(postalCode);
             }
@@ -15,7 +15,11 @@ export class InputValidator {
     }
 
     public static isValidCountry(country: string): boolean {
-        return country === 'United States' || country === 'Russia';
+        return country === 'US' || country === 'RU';
+    }
+
+    public static isValidAddressType(addressType: string): boolean {
+        return addressType === 'Shipping' || addressType === 'Billing';
     }
 
     public static isValidBirthdate(birthdate: string, minAge: number = 13): boolean {
@@ -74,5 +78,10 @@ export class InputValidator {
             hasNoSpaces &&
             hasSpecialChar
         );
+    }
+
+    public static isValidHouse(house: string): boolean {
+        const regex = /^\d+[a-zA-Z]*\/?\d*[a-zA-Z]*$/;
+        return regex.test(house);
     }
 }

@@ -5,7 +5,7 @@ import { Street } from './inputNameStr/InputNameStr';
 import { House } from './inputNumberStr/InputNumberStr';
 import { Postal } from './inputPostal/InputPostal';
 import { AddressType } from './inputAddressType/InputAddressType';
-import { FormElementsAddresType } from '../form/types';
+import { FormElementsAddressType } from './types';
 
 import './FormAddress.scss';
 
@@ -27,7 +27,7 @@ export class FormAddress extends View {
         this.setupForm();
     }
 
-    public getFormElements(): FormElementsAddresType | null {
+    public getFormElements(): FormElementsAddressType | null {
         if (
             this.inputCountry &&
             this.inputCity &&
@@ -52,7 +52,7 @@ export class FormAddress extends View {
         this.inputCountry = new Country({
             label: 'Choose country',
             required: false,
-            options: ['Russia', 'USA'],
+            options: ['RU', 'US'],
         });
         this.viewHtmlElement.addInnerElement(this.inputCountry.getElement());
 

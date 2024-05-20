@@ -10,7 +10,7 @@ export class SetDefaultAddressService {
     private static readonly API_URL: string = 'https://api.europe-west1.gcp.commercetools.com';
 
     static async setDefaultAddress(
-        addressType: 'Shipping' | 'Billing',
+        addressType: string,
         TOKEN: string,
         id: string,
         version: number,
