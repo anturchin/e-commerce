@@ -8,6 +8,7 @@ import { City } from '../../formAddress/inputCity/InputCity';
 import { Street } from '../../formAddress/inputNameStr/InputNameStr';
 import { House } from '../../formAddress/inputNumberStr/InputNumberStr';
 import { Postal } from '../../formAddress/inputPostal/InputPostal';
+import { AddressType } from '../../formAddress/inputAddressType/InputAddressType';
 
 export type FormElementsType = {
     inputName: Name;
@@ -23,4 +24,5 @@ export type FormElementsAddresType = {
     inputStreet: Street;
     inputHouse: House;
     inputPostal: Postal;
+    inputAddressType: AddressType;
 };

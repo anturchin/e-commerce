@@ -4,6 +4,7 @@ import { City } from './inputCity/InputCity';
 import { Street } from './inputNameStr/InputNameStr';
 import { House } from './inputNumberStr/InputNumberStr';
 import { Postal } from './inputPostal/InputPostal';
+import { AddressType } from './inputAddressType/InputAddressType';
 import { FormElementsAddresType } from '../form/types';
 
 import './FormAddress.scss';
@@ -12,6 +13,8 @@ export class FormAddress extends View {
     private inputCountry: Country | null = null;
 
     private inputCity: City | null = null;
+
+    private inputAddressType: AddressType | null = null;
 
     private inputStreet: Street | null = null;
 
@@ -28,6 +31,7 @@ export class FormAddress extends View {
         if (
             this.inputCountry &&
             this.inputCity &&
+            this.inputAddressType &&
             this.inputStreet &&
             this.inputHouse &&
             this.inputPostal
@@ -35,6 +39,7 @@ export class FormAddress extends View {
             return {
                 inputCountry: this.inputCountry,
                 inputCity: this.inputCity,
+                inputAddressType: this.inputAddressType,
                 inputStreet: this.inputStreet,
                 inputHouse: this.inputHouse,
                 inputPostal: this.inputPostal,
@@ -45,10 +50,9 @@ export class FormAddress extends View {
 
     private setupForm(): void {
         this.inputCountry = new Country({
-            type: 'select',
             label: 'Choose country',
             required: false,
-            option: ['Russia', 'USA'],
+            options: ['Russia', 'USA'],
         });
         this.viewHtmlElement.addInnerElement(this.inputCountry.getElement());
 
@@ -58,6 +62,13 @@ export class FormAddress extends View {
             required: false,
         });
         this.viewHtmlElement.addInnerElement(this.inputCity.getElement());
+
+        this.inputAddressType = new AddressType({
+            label: 'Address type',
+            required: false,
+            options: ['Billing', 'Shipping'],
+        });
+        this.viewHtmlElement.addInnerElement(this.inputAddressType.getElement());
 
         this.inputStreet = new Street({
             type: 'text',

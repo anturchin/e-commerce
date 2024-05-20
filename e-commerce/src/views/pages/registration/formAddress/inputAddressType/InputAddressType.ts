@@ -1,8 +1,8 @@
 import { View } from '../../../../View';
-import { Option } from './option/Option';
-import './InputCountry.scss';
+import { Option } from '../inputCountry/option/Option';
+import './InputAddressType.scss';
 
-export class Country extends View {
+export class AddressType extends View {
     private value: string = '';
 
     constructor(options: { label: string; required: boolean; options: string[] }) {
@@ -26,7 +26,7 @@ export class Country extends View {
 
     private setupInput(options: { label: string; required: boolean; options: string[] }): void {
         const select = this.getElement() as HTMLSelectElement;
-        select.name = 'Country';
+        select.name = 'Address type';
         if (options.required) {
             select.setAttribute('required', 'true');
         }
@@ -34,7 +34,7 @@ export class Country extends View {
         const placeholderOption = new Option();
         placeholderOption.getElement().setAttribute('disabled', 'true');
         placeholderOption.getElement().setAttribute('selected', 'true');
-        placeholderOption.getElement().textContent = 'Select a country';
+        placeholderOption.getElement().textContent = 'Address type';
         select.appendChild(placeholderOption.getElement());
 
         options.options.forEach((optionValue) => {
