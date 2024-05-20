@@ -8,13 +8,18 @@ export class Router implements IRouter {
 
     constructor(pageController: PageController) {
         this.addRoute(Routes.initialRoutes(this, pageController));
+
         window.addEventListener('popstate', () => {
+            this.navigate(this.getUrl());
+        });
+
+        window.addEventListener('hashchange', () => {
             this.navigate(this.getUrl());
         });
     }
 
     public getUrl(): RoutePath {
-        return window.location.pathname.slice(1) as RoutePath;
+        return (window.location.hash.slice(1) as RoutePath) || RoutePath.MAIN;
     }
 
     public addRoute(routes: IRoute[]): void {
@@ -26,7 +31,7 @@ export class Router implements IRouter {
     }
 
     public updateUrl(path: RoutePath): void {
-        window.history.pushState({}, '', `/${path}`);
+        window.location.hash = `#${path}`;
     }
 
     public async showNotFoundPage(): Promise<void> {

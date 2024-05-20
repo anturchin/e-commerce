@@ -2,9 +2,11 @@ import { View } from '../../View';
 import { ErrorMessage } from './errorMessage/ErrorMessage';
 import { ErrorWrapper } from './errorWrapper/ErrorWrapper';
 
+import './NotFound.scss';
+
 export class NotFound extends View {
     constructor() {
-        super({ tag: 'section' });
+        super({ tag: 'section', classNames: ['not-found'] });
         this.setupNotFound();
     }
 
