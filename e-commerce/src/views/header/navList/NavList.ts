@@ -1,15 +1,20 @@
 import { View } from '../../View';
 import { NavItem } from '../navItem/NavItem';
+
 import './NavList.scss';
 
-const options: string[] = ['Home', 'Sign in', 'Sign up'];
+const options: string[] = ['Home', 'Sign in', 'Sign up', 'Logout'];
 
 export class NavList extends View {
     private navItems: NavItem[] = [];
 
     constructor() {
-        super({ tag: 'ul', classNames: ['nav-list'] });
+        super({ tag: 'ul', classNames: ['nav-list', 'hidden'] });
         this.setupNavList();
+    }
+
+    public getNavItems(): NavItem[] {
+        return this.navItems;
     }
 
     private setupNavList(): void {

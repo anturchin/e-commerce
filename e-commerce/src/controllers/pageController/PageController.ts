@@ -53,8 +53,10 @@ export class PageController {
                 return new MainController();
             }
             case ControllerName.NOT_FOUND: {
-                const { MainController } = await import('./mainController/MainController');
-                return new MainController();
+                const { NotFoundController } = await import(
+                    './notFoundController/NotFoundController'
+                );
+                return new NotFoundController();
             }
             default:
                 throw new Error(`Controller ${controllerName} not found`);

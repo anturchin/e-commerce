@@ -1,6 +1,7 @@
 import { View } from '../View';
 import { NavList } from './navList/NavList';
 import { SvgBag } from './imgBag/ImgBag';
+
 import './Header.scss';
 
 export class Header extends View {
