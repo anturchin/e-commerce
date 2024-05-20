@@ -12,8 +12,8 @@ export class Box extends View {
     ) {
         super({ tag: 'input', classNames: ['checkbox-input'] });
         this.inputPassword = inputPassword;
-        this.onClick = this.onClick.bind(this);
         this.setupInput(options);
+        this.onClick = this.onClick.bind(this);
         this.setEventListener();
     }
 
@@ -27,13 +27,11 @@ export class Box extends View {
     }
 
     private onClick(): void {
-        this.getElement().addEventListener('click', () => {
-            if ((this.getElement() as HTMLInputElement).checked) {
-                (this.inputPassword?.getElement() as HTMLInputElement).type = 'text';
-            } else {
-                (this.inputPassword?.getElement() as HTMLInputElement).type = 'password';
-            }
-        });
+        if ((this.getElement() as HTMLInputElement).checked) {
+            (this.inputPassword?.getElement() as HTMLInputElement).type = 'text';
+        } else {
+            (this.inputPassword?.getElement() as HTMLInputElement).type = 'password';
+        }
     }
 
     private setEventListener(): void {

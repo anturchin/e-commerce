@@ -31,10 +31,6 @@ export class Login extends View {
     }
 
     private setupLogin(): void {
-        // const h1 = document.createElement('h1');
-        // h1.textContent = 'Login';
-        // this.viewHtmlElement.addInnerElement(h1);
-
         this.viewHtmlElement.addInnerElement(this.loginForm.getElement());
 
         this.buttonRegistration = new Button({

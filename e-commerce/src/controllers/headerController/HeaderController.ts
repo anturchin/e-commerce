@@ -1,5 +1,6 @@
 import { Router } from '../../router/Router';
 import { RoutePath } from '../../router/types';
+import { LocalStorageManager } from '../../utils/localStorageManager/LocalStorageManager';
 import { Header } from '../../views/header/Header';
 import { OptionsName } from './types';
 
@@ -30,6 +31,13 @@ export class HeaderController {
         }
         if (dataAttribute && dataAttribute === OptionsName.SIGN_UP) {
             this.router.navigate(RoutePath.REGISTRATION);
+        }
+        if (dataAttribute && dataAttribute === OptionsName.LOGOUT) {
+            const userData = LocalStorageManager.getUserData();
+            if (userData) {
+                LocalStorageManager.removeUserData();
+                this.router.navigate(RoutePath.LOGIN);
+            }
         }
     }
 
