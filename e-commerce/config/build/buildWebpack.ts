@@ -14,7 +14,6 @@ export const buildWebpack = (options: IBuildOptions): webpack.Configuration => {
         output: {
             path: paths.output,
             filename: '[name].[contenthash].js',
-            publicPath: '/',
             clean: true,
         },
         plugins: buildPlugins(options),
