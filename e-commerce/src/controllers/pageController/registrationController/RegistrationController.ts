@@ -2,6 +2,9 @@ import { Router } from '../../../router/Router';
 import { RoutePath } from '../../../router/types';
 import { RegistrationService } from '../../../services/RegistrationService/RegistrationService';
 import { ICustomer } from '../../../services/RegistrationService/types';
+import { SetAddressService } from '../../../services/SetAddressService/SetAddressService';
+import { SetDefaultAddressService } from '../../../services/SetDefaultAddressService/SetDefaultAddressService';
+import { IAddress, ICustomerResponse } from '../../../services/types';
 import { ErrorManager } from '../../../utils/errorManager/ErrorManager';
 import { InputValidator } from '../../../utils/inputValidator/InputValidator';
 import { LocalStorageManager } from '../../../utils/localStorageManager/LocalStorageManager';
@@ -62,7 +65,8 @@ export class RegistrationController implements IController {
 
     private showErrors(errors: Record<string, string>): void {
         const formElements = this.page.getForm().getFormElements();
-        if (!formElements) {
+        const formElementsAddress = this.page.getFormAddress().getFormElements();
+        if (!formElements || !formElementsAddress) {
             return;
         }
         if ('email' in errors) {
@@ -81,6 +85,73 @@ export class RegistrationController implements IController {
             const passwordError = new ErrorManager(errors.password);
             this.showError(passwordError, formElements.inputPassword.getElement());
         }
+        if ('country' in errors) {
+            const passwordError = new ErrorManager(errors.country);
+            this.showError(passwordError, formElementsAddress.inputCountry.getElement());
+        }
+        if ('city' in errors) {
+            const passwordError = new ErrorManager(errors.city);
+            this.showError(passwordError, formElementsAddress.inputCity.getElement());
+        }
+        if ('addressType' in errors) {
+            const passwordError = new ErrorManager(errors.addressType);
+            this.showError(passwordError, formElementsAddress.inputAddressType.getElement());
+        }
+        if ('street' in errors) {
+            const passwordError = new ErrorManager(errors.street);
+            this.showError(passwordError, formElementsAddress.inputStreet.getElement());
+        }
+        if ('house' in errors) {
+            const passwordError = new ErrorManager(errors.house);
+            this.showError(passwordError, formElementsAddress.inputHouse.getElement());
+        }
+        if ('postalCode' in errors) {
+            const passwordError = new ErrorManager(errors.postalCode);
+            this.showError(passwordError, formElementsAddress.inputPostal.getElement());
+        }
+    }
+
+    private async updateCustomerById(
+        inputCountry: string,
+        inputCity: string,
+        inputAddressType: string,
+        inputStreet: string,
+        inputHouse: string,
+        inputPostal: string,
+        customerResponse: ICustomerResponse,
+        token: string
+    ): Promise<void> {
+        const address: IAddress = {
+            streetName: inputStreet,
+            streetNumber: inputHouse,
+            postalCode: inputPostal,
+            city: inputCity,
+            country: inputCountry,
+        };
+
+        const { id } = customerResponse.customer;
+        const { version } = customerResponse.customer;
+
+        const addressResponse = await SetAddressService.addAddress(token, id, version, address);
+
+        if ('addresses' in addressResponse) {
+            const setDefaultAddress = await SetDefaultAddressService.setDefaultAddress(
+                inputAddressType,
+                token,
+                id,
+                addressResponse.version,
+                addressResponse.addresses[0]
+            );
+            if ('msg' in setDefaultAddress) {
+                const errorAuth = this.page.getErrorAuth();
+                errorAuth.showMessage(setDefaultAddress.msg, setDefaultAddress.statusCode);
+            }
+        }
+
+        if ('msg' in addressResponse) {
+            const errorAuth = this.page.getErrorAuth();
+            errorAuth.showMessage(addressResponse.msg, addressResponse.statusCode);
+        }
     }
 
     private async submitForm(customer: ICustomer): Promise<void> {
@@ -91,6 +162,37 @@ export class RegistrationController implements IController {
                 const { firstName } = customerResponse.customer;
                 const { id } = customerResponse.customer;
                 LocalStorageManager.saveUserData({ firstName, id });
+
+                const formElementsAddress = this.page.getFormAddress().getFormElements();
+                if (formElementsAddress) {
+                    const inputCountry = formElementsAddress.inputCountry.getValue();
+                    const inputCity = formElementsAddress.inputCity.getValue();
+                    const inputAddressType = formElementsAddress.inputAddressType.getValue();
+                    const inputStreet = formElementsAddress.inputStreet.getValue();
+                    const inputHouse = formElementsAddress.inputHouse.getValue();
+                    const inputPostal = formElementsAddress.inputPostal.getValue();
+
+                    if (
+                        inputCountry &&
+                        inputCity &&
+                        inputAddressType &&
+                        inputStreet &&
+                        inputHouse &&
+                        inputPostal
+                    ) {
+                        await this.updateCustomerById(
+                            inputCountry,
+                            inputCity,
+                            inputAddressType,
+                            inputStreet,
+                            inputHouse,
+                            inputPostal,
+                            customerResponse,
+                            token
+                        );
+                    }
+                }
+
                 if (this.router) await this.router.navigate(RoutePath.MAIN);
                 return;
             }
@@ -139,8 +241,13 @@ export class RegistrationController implements IController {
             errors.password = 'Invalid password, example: "Password1!"';
         }
 
-        if (Object.keys(errors).length > 0) {
-            this.showErrors(errors);
+        const errorsFormAndAddress = {
+            ...errors,
+            ...this.validateFormAddress(),
+        };
+
+        if (Object.keys(errorsFormAndAddress).length > 0) {
+            this.showErrors(errorsFormAndAddress);
         } else {
             try {
                 await this.submitForm({
@@ -155,5 +262,50 @@ export class RegistrationController implements IController {
                 }
             }
         }
+    }
+
+    private validateFormAddress(): Record<string, string> {
+        const errors: Record<string, string> = {};
+
+        const formElements = this.page.getFormAddress().getFormElements();
+        if (!formElements) {
+            return errors;
+        }
+
+        const inputCountry = formElements.inputCountry.getValue();
+        const inputCity = formElements.inputCity.getValue();
+        const inputAddressType = formElements.inputAddressType.getValue();
+        const inputStreet = formElements.inputStreet.getValue();
+        const inputHouse = formElements.inputHouse.getValue();
+        const inputPostal = formElements.inputPostal.getValue();
+
+        if (
+            inputCountry ||
+            inputCity ||
+            inputAddressType ||
+            inputStreet ||
+            inputHouse ||
+            inputPostal
+        ) {
+            if (!InputValidator.isValidCountry(inputCountry)) {
+                errors.country = 'Invalid country, example: "USA" or "Russia"';
+            }
+            if (!InputValidator.isValidCity(inputCity)) {
+                errors.city = 'Invalid city, example: "USA" or "Russia"';
+            }
+            if (!InputValidator.isValidAddressType(inputAddressType)) {
+                errors.addressType = 'Invalid address type, example: "Shipping" or "Billing"';
+            }
+            if (!InputValidator.isValidStreet(inputStreet)) {
+                errors.street = 'Invalid street, example: "123 Main St"';
+            }
+            if (!InputValidator.isValidHouse(inputHouse)) {
+                errors.house = 'Invalid house, example: "123, 123A, 123/4, 123A/4B"';
+            }
+            if (!InputValidator.isValidPostalCode(inputCountry, inputPostal)) {
+                errors.postalCode = 'Invalid postal code, example: "12345, 12345-6789, 101000"';
+            }
+        }
+        return errors;
     }
 }

@@ -52,7 +52,7 @@ export class FormAddress extends View {
         this.inputCountry = new Country({
             label: 'Choose country',
             required: false,
-            options: ['Russia', 'USA'],
+            options: ['RU', 'US'],
         });
         this.viewHtmlElement.addInnerElement(this.inputCountry.getElement());
 

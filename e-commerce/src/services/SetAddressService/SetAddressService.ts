@@ -1,6 +1,7 @@
-import { IAddress, ICustomerResponse, ICustomerResponseFailed } from '../types';
+import { IAddress, ICustomerResponseFailed } from '../types';
+import { ICustomerUpdateAddress } from './types';
 
-// TODO: TOKEN - bearer token from TokerForRegistration
+// TODO: TOKEN - bearer token from TokenForRegistration
 // TODO: id - customer id from customer auth or registration (obj.customer.id)
 // TODO: version - customer from customer auth or registration (obj.customer.version)
 // TODO: address - address to add
@@ -15,7 +16,7 @@ export class SetAddressService {
         id: string,
         version: number,
         address: IAddress
-    ): Promise<ICustomerResponseFailed | ICustomerResponse> {
+    ): Promise<ICustomerResponseFailed | ICustomerUpdateAddress> {
         try {
             const addAddress = {
                 version,
@@ -32,6 +33,7 @@ export class SetAddressService {
                     },
                 ],
             };
+
             const res = await fetch(`${this.API_URL}/${this.projectKey}/customers/${id}`, {
                 method: 'POST',
                 headers: {
@@ -48,7 +50,7 @@ export class SetAddressService {
                 } as ICustomerResponseFailed;
             }
 
-            return (await res.json()) as ICustomerResponse;
+            return (await res.json()) as ICustomerUpdateAddress;
         } catch (error) {
             console.error(error);
             throw error;
