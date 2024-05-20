@@ -33,7 +33,7 @@ export class Registration extends View {
         return this.form;
     }
 
-    public getFormReg(): FormAddress {
+    public getFormAddress(): FormAddress {
         return this.addressForm;
     }
 

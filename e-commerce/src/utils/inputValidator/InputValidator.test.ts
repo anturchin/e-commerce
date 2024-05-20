@@ -148,31 +148,61 @@ describe('InputValidator', () => {
         });
     });
 
-    describe('InputValidator', () => {
-        describe('isValidPostalCode', () => {
-            test('should return true for valid US postal code', () => {
-                expect(InputValidator.isValidPostalCode('United States', '12345')).toBe(true);
-                expect(InputValidator.isValidPostalCode('United States', '12345-6789')).toBe(true);
-            });
+    describe('isValidPostalCode', () => {
+        test('should return true for valid US postal code', () => {
+            expect(InputValidator.isValidPostalCode('US', '12345')).toBe(true);
+            expect(InputValidator.isValidPostalCode('US', '12345-6789')).toBe(true);
+        });
 
-            test('should return false for valid US postal code', () => {
-                expect(InputValidator.isValidPostalCode('United States', '125')).toBe(false);
-                expect(InputValidator.isValidPostalCode('United States', '12345-679')).toBe(false);
-                expect(InputValidator.isValidPostalCode('United States', '')).toBe(false);
-            });
+        test('should return false for valid US postal code', () => {
+            expect(InputValidator.isValidPostalCode('US', '125')).toBe(false);
+            expect(InputValidator.isValidPostalCode('US', '12345-679')).toBe(false);
+            expect(InputValidator.isValidPostalCode('US', '')).toBe(false);
+        });
 
-            test('should return true for valid Russian postal code', () => {
-                expect(InputValidator.isValidPostalCode('Russia', '101000')).toBe(true);
-            });
+        test('should return true for valid Russian postal code', () => {
+            expect(InputValidator.isValidPostalCode('RU', '101000')).toBe(true);
+        });
 
-            test('should return false for valid Russian postal code', () => {
-                expect(InputValidator.isValidPostalCode('Russia', '1010')).toBe(false);
-                expect(InputValidator.isValidPostalCode('Russia', '')).toBe(false);
-            });
+        test('should return false for valid Russian postal code', () => {
+            expect(InputValidator.isValidPostalCode('RU', '1010')).toBe(false);
+            expect(InputValidator.isValidPostalCode('RU', '')).toBe(false);
+        });
 
-            test('should return false for invalid postal code', () => {
-                expect(InputValidator.isValidPostalCode('Invalid Country', '12345')).toBe(false);
-            });
+        test('should return false for invalid postal code', () => {
+            expect(InputValidator.isValidPostalCode('Invalid Country', '12345')).toBe(false);
+        });
+    });
+
+    describe('isValidHouse', () => {
+        test('should return true for valid house number with only digits', () => {
+            expect(InputValidator.isValidHouse('123')).toBe(true);
+        });
+
+        test('should return true for valid house number with digits and letters', () => {
+            expect(InputValidator.isValidHouse('123A')).toBe(true);
+        });
+
+        test('should return true for valid house number with digits, letters, and slash', () => {
+            expect(InputValidator.isValidHouse('123/4')).toBe(true);
+            expect(InputValidator.isValidHouse('123A/4B')).toBe(true);
+        });
+
+        test('should return false for invalid house number with special characters', () => {
+            expect(InputValidator.isValidHouse('123@')).toBe(false);
+            expect(InputValidator.isValidHouse('123A#')).toBe(false);
+        });
+
+        test('should return false for invalid house number starting with letters', () => {
+            expect(InputValidator.isValidHouse('A123')).toBe(false);
+        });
+
+        test('should return false for empty string', () => {
+            expect(InputValidator.isValidHouse('')).toBe(false);
+        });
+
+        test('should return false for house number with spaces', () => {
+            expect(InputValidator.isValidHouse('123 A')).toBe(false);
         });
     });
 });
