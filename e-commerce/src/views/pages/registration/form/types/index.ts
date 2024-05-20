@@ -9,8 +9,10 @@ import { Street } from '../../formAddress/inputNameStr/InputNameStr';
 import { House } from '../../formAddress/inputNumberStr/InputNumberStr';
 import { Postal } from '../../formAddress/inputPostal/InputPostal';
 import { AddressType } from '../../formAddress/inputAddressType/InputAddressType';
+import { TitleForm } from '../titleForm/TitleForm';
 
 export type FormElementsType = {
+    titleForm: TitleForm;
     inputName: Name;
     inputMail: Mail;
     inputSurname: Surname;

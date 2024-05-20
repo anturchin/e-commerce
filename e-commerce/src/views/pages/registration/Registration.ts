@@ -3,6 +3,7 @@ import { ErrorAuth } from '../../errorAuth/ErrorAuth';
 import { View } from '../../View';
 import { Form } from './form/Form';
 import { FormAddress } from './formAddress/FormAddress';
+import { Container } from '../../div/Container';
 
 import './Registration.scss';
 
@@ -14,6 +15,8 @@ export class Registration extends View {
     private buttonLogin: Button | null = null;
 
     private errorAuth: ErrorAuth = new ErrorAuth();
+
+    private container: Container | null = null;
 
     constructor() {
         super({ tag: 'section', classNames: ['registration-page'] });
@@ -38,21 +41,29 @@ export class Registration extends View {
         return this.buttonLogin;
     }
 
-    private setupRegistration(): void {
-        const h1 = document.createElement('h1');
-        h1.textContent = 'Create your account';
-        this.viewHtmlElement.addInnerElement(h1);
+    public getContainer(): Container | null {
+        return this.container;
+    }
 
+    private setupRegistration(): void {
         const formRegistration = this.form.getElement();
         this.viewHtmlElement.addInnerElement(formRegistration);
 
-        const formAddressReg = this.addressForm.getElement();
-        this.viewHtmlElement.addInnerElement(formAddressReg);
+        this.buttonLogin = new Button({
+            label: 'Add address',
+            onClick: () => {
+                this.addressForm.toggleVisibility();
+                this.viewHtmlElement.addInnerElement(this.addressForm.getElement());
+            },
+        });
 
+        this.container = new Container();
+        this.container.addInnerElement(this.buttonLogin.getElement());
         this.buttonLogin = new Button({
             label: 'Sign in',
         });
-        this.viewHtmlElement.addInnerElement(this.buttonLogin.getElement());
+        this.container.addInnerElement(this.buttonLogin.getElement());
+        this.viewHtmlElement.addInnerElement(this.container.getElement());
         this.viewHtmlElement.addInnerElement(this.errorAuth.getElement());
     }
 }

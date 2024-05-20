@@ -23,7 +23,7 @@ export class FormAddress extends View {
     private inputPostal: Postal | null = null;
 
     constructor() {
-        super({ tag: 'form', classNames: ['form'] });
+        super({ tag: 'form', classNames: ['form-address'] });
         this.setupForm();
     }
 
@@ -46,6 +46,11 @@ export class FormAddress extends View {
             };
         }
         return null;
+    }
+
+    public toggleVisibility(): void {
+        const formElement = this.getElement();
+        formElement.classList.toggle('visible');
     }
 
     private setupForm(): void {

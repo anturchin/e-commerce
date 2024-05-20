@@ -10,7 +10,7 @@ export class Box extends View {
         options: { type: string; label: string; required: boolean },
         inputPassword: Password
     ) {
-        super({ tag: 'input', classNames: ['input'] });
+        super({ tag: 'input', classNames: ['checkbox-input'] });
         this.inputPassword = inputPassword;
         this.onClick = this.onClick.bind(this);
         this.setupInput(options);

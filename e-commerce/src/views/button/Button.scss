@@ -3,19 +3,20 @@
     padding: 10px 25px;
     border: none;
     border-radius: 5px;
-    color: #d3d7cf;
+    color: #ffffff;
     font-size: 1.6rem;
     font-weight: 600;
-    background-color: #4e9a06;
+    background-color: #0f0;
     transition: all 250ms;
     outline: none;
     cursor: pointer;
     &:hover:not(:disabled),
     &:focus:not(:disabled) {
-        background-color: #4e9a06;
+        background-color: #0f0;
     }
     &:hover:not(:disabled) {
         transform: translateY(-1px);
+        background-color: rgb(4, 164, 4);
     }
     &:disabled {
         opacity: 0.3;

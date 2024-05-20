@@ -1,5 +1,11 @@
 @import './assets/styles/base/normalize';
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html {
     font-size: 10px;
 }
@@ -13,4 +19,10 @@ html {
         Helvetica,
         Arial,
         sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    background: #181818;
 }

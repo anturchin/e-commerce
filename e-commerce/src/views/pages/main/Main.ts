@@ -2,13 +2,9 @@ import { View } from '../../View';
 
 export class Main extends View {
     constructor() {
-        super({ tag: 'section' });
+        super({ tag: 'section', classNames: ['content'] });
         this.setupMain();
     }
 
-    private setupMain(): void {
-        const h1 = document.createElement('h1');
-        h1.textContent = 'Home';
-        this.viewHtmlElement.addInnerElement(h1);
-    }
+    private setupMain(): void {}
 }
