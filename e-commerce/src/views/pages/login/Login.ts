@@ -3,6 +3,8 @@ import { Form } from './form/Form';
 import { ErrorAuth } from '../../errorAuth/ErrorAuth';
 import { Button } from '../../button/Button';
 
+import './Login.scss';
+
 export class Login extends View {
     private errorAuth: ErrorAuth = new ErrorAuth();
 
@@ -11,7 +13,7 @@ export class Login extends View {
     private loginForm: Form;
 
     constructor() {
-        super({ tag: 'section' });
+        super({ tag: 'section', classNames: ['content'] });
         this.loginForm = new Form();
         this.setupLogin();
     }
@@ -29,9 +31,10 @@ export class Login extends View {
     }
 
     private setupLogin(): void {
-        const h1 = document.createElement('h1');
-        h1.textContent = 'Login';
-        this.viewHtmlElement.addInnerElement(h1);
+        // const h1 = document.createElement('h1');
+        // h1.textContent = 'Login';
+        // this.viewHtmlElement.addInnerElement(h1);
+
         this.viewHtmlElement.addInnerElement(this.loginForm.getElement());
 
         this.buttonRegistration = new Button({

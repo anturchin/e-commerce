@@ -5,6 +5,7 @@ import { Surname } from './inputSurname/InputSurname';
 import { Password } from './password/Password';
 import { Button } from '../../../button/Button';
 import { FormElementsType } from './types';
+import { TitleForm } from './titleForm/TitleForm';
 
 import './Form.scss';
 
@@ -19,13 +20,16 @@ export class Form extends View {
 
     private buttonSubmit: Button | null = null;
 
+    private titleForm: TitleForm | null = null;
+
     constructor() {
-        super({ tag: 'form', classNames: ['form'] });
+        super({ tag: 'form', classNames: ['form-registration'] });
         this.setupForm();
     }
 
     public getFormElements(): FormElementsType | null {
         if (
+            this.titleForm &&
             this.inputName &&
             this.inputMail &&
             this.inputSurname &&
@@ -33,6 +37,7 @@ export class Form extends View {
             this.buttonSubmit
         ) {
             return {
+                titleForm: this.titleForm,
                 inputName: this.inputName,
                 inputMail: this.inputMail,
                 inputSurname: this.inputSurname,
@@ -44,6 +49,8 @@ export class Form extends View {
     }
 
     private setupForm(): void {
+        this.titleForm = new TitleForm();
+        this.viewHtmlElement.addInnerElement(this.titleForm.getElement());
         this.inputMail = new Mail({
             type: 'text',
             label: 'fad@gmail.com',

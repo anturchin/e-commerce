@@ -2,6 +2,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 15px 0 15px 0;
-    box-shadow: (rgba(17, 12, 46, 0.15) 0px -11px 100px 0px);
+    padding: 1.5rem 0 1.5rem 0;
+    box-shadow: 0 15px 35px rgb(0, 0, 0);
+    background: #222;
+    color: #0f0;
+
+    position: relative;
+    height: 7%;
 }
