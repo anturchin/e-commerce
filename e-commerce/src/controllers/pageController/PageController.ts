@@ -1,3 +1,4 @@
+import { Publisher } from '../../observers/Publisher';
 import { Router } from '../../router/Router';
 import { Wrapper } from '../../views/pages/Wrapper';
 import { ControllerName, IController } from './PageController.interface';
@@ -7,8 +8,11 @@ export class PageController {
 
     private router: Router | null = null;
 
-    constructor() {
+    private authPublisher: Publisher<boolean>;
+
+    constructor(authPublisher: Publisher<boolean>) {
         this.wrapper = new Wrapper();
+        this.authPublisher = authPublisher;
     }
 
     public setRouter(router: Router): void {
@@ -40,13 +44,13 @@ export class PageController {
         switch (controllerName) {
             case ControllerName.LOGIN: {
                 const { LoginController } = await import('./loginController/LoginController');
-                return new LoginController(this.getRouter());
+                return new LoginController(this.getRouter(), this.authPublisher);
             }
             case ControllerName.REGISTRATION: {
                 const { RegistrationController } = await import(
                     './registrationController/RegistrationController'
                 );
-                return new RegistrationController(this.getRouter());
+                return new RegistrationController(this.getRouter(), this.authPublisher);
             }
             case ControllerName.MAIN: {
                 const { MainController } = await import('./mainController/MainController');

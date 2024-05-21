@@ -1,3 +1,4 @@
+import { Publisher } from '../../../observers/Publisher';
 import { Router } from '../../../router/Router';
 import { RoutePath } from '../../../router/types';
 import { AuthService } from '../../../services/AuthService/AuthService';
@@ -15,8 +16,11 @@ export class LoginController implements IController {
 
     private router: Router | null;
 
-    constructor(router: Router | null) {
+    private authPublisher: Publisher<boolean>;
+
+    constructor(router: Router | null, authPublisher: Publisher<boolean>) {
         this.router = router;
+        this.authPublisher = authPublisher;
         this.page = new Login();
         this.setupFormHandler();
         this.redirectToLogin = this.redirectToLogin.bind(this);
@@ -94,6 +98,7 @@ export class LoginController implements IController {
                 const { firstName } = customerResponse.customer;
                 const { id } = customerResponse.customer;
                 LocalStorageManager.saveUserData({ firstName, id });
+                this.authPublisher.notifyObservers(true);
                 if (this.router) await this.router.navigate(RoutePath.MAIN);
                 return;
             }

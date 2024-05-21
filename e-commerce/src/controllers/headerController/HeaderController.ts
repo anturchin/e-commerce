@@ -1,23 +1,58 @@
+import { IObserver } from '../../observers/Observer.interface';
+import { Publisher } from '../../observers/Publisher';
 import { Router } from '../../router/Router';
 import { RoutePath } from '../../router/types';
 import { LocalStorageManager } from '../../utils/localStorageManager/LocalStorageManager';
 import { Header } from '../../views/header/Header';
 import { OptionsName } from './types';
 
-export class HeaderController {
+export class HeaderController implements IObserver<boolean> {
     private header: Header;
 
     private router: Router;
 
-    constructor(router: Router) {
+    private authPublisher: Publisher<boolean>;
+
+    constructor(router: Router, authPublisher: Publisher<boolean>) {
         this.header = new Header();
         this.router = router;
+        this.authPublisher = authPublisher;
+        this.authPublisher.registerObserver(this.constructor.name, this);
         this.onClick = this.onClick.bind(this);
         this.setEventListener();
     }
 
+    public updateData(isLoggedIn: boolean): void {
+        this.updateHeaderOptions(isLoggedIn);
+    }
+
     public render(): HTMLElement {
         return this.header.getElement();
+    }
+
+    private updateHeaderOptions(
+        isLoggedIn: boolean = LocalStorageManager.getUserData() !== null
+    ): void {
+        const items = this.header.getNavList()?.getNavItems();
+        items?.forEach((item) => {
+            const option = item.getElement();
+            const dataAttribute = option.getAttribute('data-nav-item');
+            if (isLoggedIn) {
+                if (dataAttribute === OptionsName.LOGOUT || dataAttribute === OptionsName.HOME) {
+                    option.classList.remove('hidden');
+                } else {
+                    option.classList.add('hidden');
+                }
+            } else if (
+                dataAttribute === OptionsName.SIGN_IN ||
+                dataAttribute === OptionsName.SIGN_UP ||
+                dataAttribute === OptionsName.HOME
+            ) {
+                option.classList.remove('hidden');
+            } else {
+                option.classList.add('hidden');
+            }
+        });
     }
 
     private onClick(event: Event): void {
@@ -37,6 +72,7 @@ export class HeaderController {
             if (userData) {
                 LocalStorageManager.removeUserData();
                 this.router.navigate(RoutePath.LOGIN);
+                this.updateHeaderOptions(false);
             }
         }
     }

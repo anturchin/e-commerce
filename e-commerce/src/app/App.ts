@@ -5,6 +5,7 @@ import { HeaderController } from '../controllers/headerController/HeaderControll
 import { PageController } from '../controllers/pageController/PageController';
 import { TokenForRegistration } from '../services/TokenService/TokenForRegistration';
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
+import { Publisher } from '../observers/Publisher';
 
 export class App {
     private pageController: PageController;
@@ -15,11 +16,14 @@ export class App {
 
     private footerController: FooterController;
 
+    private authPublisher: Publisher<boolean>;
+
     constructor() {
-        this.pageController = new PageController();
+        this.authPublisher = new Publisher<boolean>();
+        this.pageController = new PageController(this.authPublisher);
         this.router = new Router(this.pageController);
         this.pageController.setRouter(this.router);
-        this.headerController = new HeaderController(this.router);
+        this.headerController = new HeaderController(this.router, this.authPublisher);
         this.footerController = new FooterController(this.router);
 
         this.initializeApp();
@@ -36,6 +40,7 @@ export class App {
         const footer = this.footerController.render();
         const body: HTMLElement | null = document.querySelector('body');
         if (body) {
+            this.authPublisher.notifyObservers(!!LocalStorageManager.getUserData());
             body.append(...[header, wrapper, footer]);
         }
     }
