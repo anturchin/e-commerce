@@ -1,4 +1,5 @@
 import { PageController } from '../controllers/pageController/PageController';
+import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
 import { IRouter } from './Router.interface';
 import { Routes } from './routes/Routes';
 import { IRoute, RoutePath } from './types';
@@ -41,11 +42,20 @@ export class Router implements IRouter {
     public async navigate(path: RoutePath): Promise<void> {
         const route = this.findRoute(path);
         if (route) {
+            const isLoggedIn = !!LocalStorageManager.getUserData();
+            if (
+                isLoggedIn &&
+                (route.path === RoutePath.LOGIN || route.path === RoutePath.REGISTRATION)
+            ) {
+                this.updateUrl(RoutePath.MAIN);
+                return;
+            }
+
             await route.callback();
             this.updateUrl(path);
         } else {
             await this.showNotFoundPage();
-            this.updateUrl(RoutePath.NOT_FOUND);
+            // this.updateUrl(RoutePath.NOT_FOUND);
         }
     }
 }
