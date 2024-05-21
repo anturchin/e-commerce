@@ -3,3 +3,15 @@
     color: #0f0;
     text-transform: uppercase;
 }
+
+@media (max-width: 485px) {
+    .title-form {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 390px) {
+    .title-form {
+        font-size: 1.5rem;
+    }
+}

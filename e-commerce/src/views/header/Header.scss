@@ -1,5 +1,6 @@
 .header {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     padding: 1.5rem 0 1.5rem 0;
@@ -8,5 +9,13 @@
     color: #0f0;
 
     position: relative;
-    height: 7%;
+    min-height: 7%;
+}
+
+@media (max-width: 485px) {
+    .header {
+        flex-direction: column;
+        padding: 1rem 4rem;
+        align-items: flex-end;
+    }
 }

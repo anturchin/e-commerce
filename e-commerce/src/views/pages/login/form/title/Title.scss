@@ -3,3 +3,9 @@
     color: #0f0;
     text-transform: uppercase;
 }
+
+@media (max-width: 485px) {
+    .title {
+        font-size: 1.8rem;
+    }
+}

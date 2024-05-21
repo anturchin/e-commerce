@@ -23,3 +23,15 @@
         cursor: auto;
     }
 }
+
+@media (max-width: 485px) {
+    .button {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .button {
+        font-size: 1.2rem;
+    }
+}

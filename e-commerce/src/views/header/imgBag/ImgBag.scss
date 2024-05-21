@@ -3,3 +3,10 @@
     width: 14px;
     margin: -2px 0 0 35px;
 }
+
+@media (max-width: 485px) {
+    .nav-list__item-bag {
+        margin: -2px 0 0 -25px;
+        display: none;
+    }
+}

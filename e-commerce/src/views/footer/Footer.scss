@@ -1,6 +1,6 @@
 .footer {
     position: relative;
-    height: 12%;
+    min-height: 12%;
     margin-top: 1rem;
     box-shadow: 0 15px 35px rgb(0, 0, 0);
     background: #222;
@@ -8,4 +8,10 @@
 
     display: flex;
     justify-content: space-evenly;
+}
+
+@media (max-width: 400px) {
+    .footer {
+        flex-direction: column;
+    }
 }

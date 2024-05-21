@@ -9,3 +9,27 @@
     flex-direction: column;
     gap: 20px;
 }
+
+@media (max-width: 485px) {
+    .modal-error {
+        width: 400px;
+    }
+}
+
+@media (max-width: 440px) {
+    .modal-error {
+        width: 370px;
+    }
+}
+
+@media (max-width: 400px) {
+    .modal-error {
+        width: 330px;
+    }
+}
+
+@media (max-width: 360px) {
+    .modal-error {
+        width: 300px;
+    }
+}
