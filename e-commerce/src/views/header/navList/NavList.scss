@@ -1,0 +1,15 @@
+.nav-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+    padding-left: 0;
+    gap: 35px;
+}
+
+@media (max-width: 485px) {
+    .nav-list {
+        flex-direction: column;
+        padding: 1rem 0;
+    }
+}

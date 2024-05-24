@@ -1,0 +1,15 @@
+.nav-list_item {
+    margin-right: 20px;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+}
+
+.nav-list_item:hover {
+    color: rgb(4, 164, 4);
+}
+
+.nav-list_item.hidden {
+    display: none;
+}

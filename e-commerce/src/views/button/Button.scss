@@ -1,0 +1,37 @@
+.button {
+    margin-top: 5px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: 600;
+    background-color: #0f0;
+    transition: all 250ms;
+    outline: none;
+    cursor: pointer;
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+        background-color: #0f0;
+    }
+    &:hover:not(:disabled) {
+        transform: translateY(-1px);
+        background-color: rgb(4, 164, 4);
+    }
+    &:disabled {
+        opacity: 0.3;
+        cursor: auto;
+    }
+}
+
+@media (max-width: 485px) {
+    .button {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .button {
+        font-size: 1.2rem;
+    }
+}
