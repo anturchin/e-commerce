@@ -1,0 +1,15 @@
+.product__card {
+    width: 25rem;
+    height: 35rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    background: #222;
+    border-radius: 11px;
+    box-shadow: 0 15px 35px rgb(0, 0, 0);
+    margin: 3rem 3rem;
+    background-color: #eae9e9;
+}
