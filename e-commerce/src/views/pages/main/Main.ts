@@ -1,4 +1,5 @@
 import { View } from '../../View';
+import { Card } from '../../card/Card';
 
 export class Main extends View {
     constructor() {
@@ -6,5 +7,8 @@ export class Main extends View {
         this.setupMain();
     }
 
-    private setupMain(): void {}
+    private setupMain(): void {
+        const cardProduct = new Card().getElement();
+        this.viewHtmlElement.addInnerElement(cardProduct);
+    }
 }
