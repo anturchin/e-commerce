@@ -1,3 +1,5 @@
+// TODO: check array types
+
 interface Price {
     value: {
         type: string;
