@@ -1,4 +1,4 @@
-import { ICustomerResponseFailed } from '../types';
+import { IResponseFailed } from '../types';
 import { IDiscountResponse } from './types';
 
 export class DiscountService {
@@ -6,9 +6,7 @@ export class DiscountService {
 
     private static readonly API_URL: string = 'https://api.europe-west1.gcp.commercetools.com';
 
-    static async getDiscounts(
-        BEARER_TOKEN: string
-    ): Promise<IDiscountResponse | ICustomerResponseFailed> {
+    static async getDiscounts(BEARER_TOKEN: string): Promise<IDiscountResponse | IResponseFailed> {
         const URL = `${this.API_URL}/${this.projectKey}/product-discounts`;
 
         try {
@@ -25,7 +23,7 @@ export class DiscountService {
                 return {
                     statusCode: data.statusCode,
                     msg: data.message,
-                } as ICustomerResponseFailed;
+                } as IResponseFailed;
             }
 
             return (await resp.json()) as IDiscountResponse;
