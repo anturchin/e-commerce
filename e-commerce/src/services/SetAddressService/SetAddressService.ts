@@ -1,4 +1,4 @@
-import { IAddress, ICustomerResponseFailed } from '../types';
+import { IAddress, IResponseFailed } from '../types';
 import { ICustomerUpdateAddress } from './types';
 
 // TODO: TOKEN - bearer token from TokenForRegistration
@@ -16,7 +16,7 @@ export class SetAddressService {
         id: string,
         version: number,
         address: IAddress
-    ): Promise<ICustomerResponseFailed | ICustomerUpdateAddress> {
+    ): Promise<IResponseFailed | ICustomerUpdateAddress> {
         try {
             const addAddress = {
                 version,
@@ -47,7 +47,7 @@ export class SetAddressService {
                 return {
                     statusCode: data.statusCode,
                     msg: data.message,
-                } as ICustomerResponseFailed;
+                } as IResponseFailed;
             }
 
             return (await res.json()) as ICustomerUpdateAddress;

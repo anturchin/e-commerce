@@ -29,7 +29,7 @@ export interface ICustomerResponse {
     };
 }
 
-export interface ICustomerResponseFailed {
+export interface IResponseFailed {
     statusCode: number;
     msg: string;
 }
