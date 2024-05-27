@@ -1,16 +1,14 @@
 import { View } from '../../View';
 import './ImgCard.scss';
 
-import img from '../../../assets/image/phone.png';
-
 export class ImgCard extends View {
-    constructor() {
+    constructor(cardImg: string) {
         super({ tag: 'img', classNames: ['card__img'] });
-        this.setImgPath();
+        this.setImgPath(cardImg);
     }
 
-    private setImgPath(): void {
+    private setImgPath(cardImg: string): void {
         const CardImg = this.viewHtmlElement.getElement();
-        CardImg.setAttribute('src', img);
+        CardImg.setAttribute('src', cardImg);
     }
 }
