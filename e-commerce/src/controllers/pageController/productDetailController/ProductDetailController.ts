@@ -1,5 +1,5 @@
 import { ProductType } from '../../../router/types';
-import { ProductDetail } from '../../../views/pages/products/ProductDetail';
+import { ProductDetail } from '../../../views/pages/productDetail/ProductDetail';
 import { IController } from '../PageController.interface';
 
 export class ProductDetailController implements IController {
