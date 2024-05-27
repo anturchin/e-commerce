@@ -3,6 +3,9 @@ export const enum ControllerName {
     REGISTRATION = 'registration',
     MAIN = 'main',
     NOT_FOUND = 'notFound',
+    CATEGORY = 'category',
+    PRODUCT = 'product',
+    PRODUCT_DETAIL = 'product-detail',
 }
 
 export interface IController {
