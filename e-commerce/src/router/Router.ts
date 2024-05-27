@@ -20,7 +20,6 @@ export class Router implements IRouter {
     }
 
     public getUrl(): RoutePath {
-        console.log(window.location);
         return (window.location.hash.slice(1) as RoutePath) || RoutePath.MAIN;
     }
 
