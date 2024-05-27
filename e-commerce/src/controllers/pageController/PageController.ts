@@ -1,5 +1,6 @@
 import { Publisher } from '../../observers/Publisher';
 import { Router } from '../../router/Router';
+import { ProductType } from '../../router/types';
 import { Wrapper } from '../../views/pages/Wrapper';
 import { ControllerName, IController } from './PageController.interface';
 
@@ -23,9 +24,21 @@ export class PageController {
         return this.router;
     }
 
-    public async updateContent(controllerName: ControllerName): Promise<void> {
+    public async updateContent(
+        controllerName: ControllerName,
+        productType?: ProductType,
+        productId?: string
+    ): Promise<void> {
         try {
-            const controllerInstance = await this.loadController(controllerName);
+            let controllerInstance: IController;
+
+            if (controllerName === ControllerName.PRODUCT_DETAIL && productType && productId) {
+                controllerInstance = await this.loadProductDetailController(productType, productId);
+            } else if (controllerName === ControllerName.PRODUCT && productType) {
+                controllerInstance = await this.loadProductController(productType);
+            } else {
+                controllerInstance = await this.loadController(controllerName);
+            }
             const content = await controllerInstance.getElement();
             this.wrapper.updateContent(content);
         } catch (error) {
@@ -38,6 +51,21 @@ export class PageController {
 
     public render(): HTMLElement {
         return this.wrapper.getElement();
+    }
+
+    private async loadProductController(productType: ProductType): Promise<IController> {
+        const { ProductController } = await import('./productController/ProductController');
+        return new ProductController(productType);
+    }
+
+    private async loadProductDetailController(
+        productType: ProductType,
+        productId: string
+    ): Promise<IController> {
+        const { ProductDetailController } = await import(
+            './productDetailController/ProductDetailController'
+        );
+        return new ProductDetailController(productType, productId);
     }
 
     private async loadController(controllerName: ControllerName): Promise<IController> {
@@ -55,6 +83,12 @@ export class PageController {
             case ControllerName.MAIN: {
                 const { MainController } = await import('./mainController/MainController');
                 return new MainController();
+            }
+            case ControllerName.CATEGORY: {
+                const { CategoryController } = await import(
+                    './categoryController/CategoryController'
+                );
+                return new CategoryController();
             }
             case ControllerName.NOT_FOUND: {
                 const { NotFoundController } = await import(

@@ -2,7 +2,7 @@ import { PageController } from '../controllers/pageController/PageController';
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
 import { IRouter } from './Router.interface';
 import { Routes } from './routes/Routes';
-import { IRoute, RoutePath } from './types';
+import { IRoute, IRouteWithParams, RoutePath } from './types';
 
 export class Router implements IRouter {
     private routes: IRoute[] = [];
@@ -20,6 +20,7 @@ export class Router implements IRouter {
     }
 
     public getUrl(): RoutePath {
+        console.log(window.location);
         return (window.location.hash.slice(1) as RoutePath) || RoutePath.MAIN;
     }
 
@@ -27,8 +28,34 @@ export class Router implements IRouter {
         routes.forEach((route) => this.routes.push(route));
     }
 
-    public findRoute(path: RoutePath): IRoute | undefined {
-        return this.routes.find((r) => r.path === path);
+    public findRoute(path: RoutePath): IRouteWithParams | undefined {
+        const segments = path.split('/');
+        return this.routes.reduce<IRouteWithParams | undefined>((foundRoute, route) => {
+            if (foundRoute) {
+                return foundRoute;
+            }
+
+            const routeSegments = route.path.split('/');
+            if (routeSegments.length === segments.length) {
+                const params: string[] = [];
+                const match = routeSegments.every((segment, i) => {
+                    if (segment.startsWith(':')) {
+                        params.push(segments[i]);
+                        return true;
+                    }
+                    return segment === segments[i];
+                });
+
+                if (match) {
+                    return {
+                        ...route,
+                        params,
+                    };
+                }
+            }
+
+            return undefined;
+        }, undefined);
     }
 
     public updateUrl(path: RoutePath): void {
@@ -51,11 +78,14 @@ export class Router implements IRouter {
                 return;
             }
 
-            await route.callback();
+            if (route.params && route.params.length) {
+                await route.callback(...route.params);
+            } else {
+                await route.callback();
+            }
             this.updateUrl(path);
         } else {
             await this.showNotFoundPage();
-            // this.updateUrl(RoutePath.NOT_FOUND);
         }
     }
 }

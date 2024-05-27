@@ -38,7 +38,11 @@ export class HeaderController implements IObserver<boolean> {
             const option = item.getElement();
             const dataAttribute = option.getAttribute('data-nav-item');
             if (isLoggedIn) {
-                if (dataAttribute === OptionsName.LOGOUT || dataAttribute === OptionsName.HOME) {
+                if (
+                    dataAttribute === OptionsName.LOGOUT ||
+                    dataAttribute === OptionsName.HOME ||
+                    dataAttribute === OptionsName.CATEGORY
+                ) {
                     option.classList.remove('hidden');
                 } else {
                     option.classList.add('hidden');
@@ -46,7 +50,8 @@ export class HeaderController implements IObserver<boolean> {
             } else if (
                 dataAttribute === OptionsName.SIGN_IN ||
                 dataAttribute === OptionsName.SIGN_UP ||
-                dataAttribute === OptionsName.HOME
+                dataAttribute === OptionsName.HOME ||
+                dataAttribute === OptionsName.CATEGORY
             ) {
                 option.classList.remove('hidden');
             } else {
@@ -66,6 +71,9 @@ export class HeaderController implements IObserver<boolean> {
         }
         if (dataAttribute && dataAttribute === OptionsName.SIGN_UP) {
             this.router.navigate(RoutePath.REGISTRATION);
+        }
+        if (dataAttribute && dataAttribute === OptionsName.CATEGORY) {
+            this.router.navigate(RoutePath.CATEGORY);
         }
         if (dataAttribute && dataAttribute === OptionsName.LOGOUT) {
             const userData = LocalStorageManager.getUserData();
