@@ -1,25 +1,23 @@
-import { ICustomer } from './types';
-import { ICustomerResponse, IResponseFailed } from '../types';
+import { IProductResponse } from './types';
+import { ICustomerResponseFailed } from '../types';
 
-export class RegistrationService {
+export class ProductListService {
     private static readonly projectKey: string = 'fad-team';
 
     private static readonly API_URL: string = 'https://api.europe-west1.gcp.commercetools.com';
 
-    static async registration(
-        BEARER_TOKEN: string,
-        customer: ICustomer
-    ): Promise<ICustomerResponse | IResponseFailed> {
-        const REG_URL = `${this.API_URL}/${this.projectKey}/customers`;
+    static async getProductList(
+        BEARER_TOKEN: string
+    ): Promise<IProductResponse | ICustomerResponseFailed> {
+        const URL = `${this.API_URL}/${this.projectKey}/products`;
 
         try {
-            const resp = await fetch(REG_URL, {
-                method: 'POST',
+            const resp = await fetch(URL, {
+                method: 'GET',
                 headers: {
                     Authorization: `Bearer ${BEARER_TOKEN}`,
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify(customer),
             });
 
             if (!resp.ok) {
@@ -27,10 +25,10 @@ export class RegistrationService {
                 return {
                     statusCode: data.statusCode,
                     msg: data.message,
-                } as IResponseFailed;
+                } as ICustomerResponseFailed;
             }
 
-            return (await resp.json()) as ICustomerResponse;
+            return (await resp.json()) as IProductResponse;
         } catch (e) {
             console.error(e);
             throw e;
