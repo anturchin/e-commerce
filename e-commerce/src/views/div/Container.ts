@@ -3,6 +3,6 @@ import './Container.scss';
 
 export class Container extends View {
     constructor() {
-        super({ tag: 'div', classNames: ['container'] });
+        super({ tag: 'div', classNames: ['container', 'conteinerInfo'] });
     }
 }
