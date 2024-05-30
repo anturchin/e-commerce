@@ -1,0 +1,16 @@
+.product__price {
+    position: relative;
+    display: inline-block;
+    color: aliceblue;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 16%;
+        height: 2px;
+        background: rgb(104, 238, 95);
+        transform-origin: left center;
+    }
+}

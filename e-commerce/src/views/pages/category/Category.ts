@@ -23,12 +23,12 @@ const categories: ICategoryProps[] = [
     {
         url: 'https://www.macworld.com/wp-content/uploads/2024/05/2024-ipad-family-5.jpg?quality=50&strip=all&w=1024',
         title: 'iPad',
-        categoryName: 'watch',
+        categoryName: 'tablet',
     },
     {
         url: 'https://www.apple.com/newsroom/images/2023/09/apple-introduces-the-advanced-new-apple-watch-series-9/article/Apple-Watch-S9-hero-230912_Full-Bleed-Image.jpg.large.jpg',
         title: 'Watch',
-        categoryName: 'phone',
+        categoryName: 'watch',
     },
 ];
 
