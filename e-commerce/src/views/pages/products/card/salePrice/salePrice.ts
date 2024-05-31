@@ -1,4 +1,4 @@
-import { View } from '../../View';
+import { View } from '../../../../View';
 import './salePrice.scss';
 
 export class SalePrice extends View {
