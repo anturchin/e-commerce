@@ -10,7 +10,7 @@
         "format": "prettier --write .",
         "ci:format": "prettier --check .",
         "prepare": "cd ../ && husky e-commerce/.husky",
-        "test": "jest"
+        "test": "jest --coverage"
     },
     "author": "FAD_team",
     "license": "MIT",
@@ -20,6 +20,7 @@
         "@babel/preset-typescript": "^7.24.1",
         "@jest/globals": "^29.7.0",
         "@types/dotenv-webpack": "^7.0.7",
+        "@types/jest": "^29.5.12",
         "@types/node": "^20.11.19",
         "@types/webpack": "^5.28.5",
         "@types/webpack-dev-server": "^4.7.2",

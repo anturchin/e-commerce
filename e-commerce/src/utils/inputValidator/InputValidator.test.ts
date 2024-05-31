@@ -146,6 +146,41 @@ describe('InputValidator', () => {
         test('should return false for invalid birthdate format', () => {
             expect(InputValidator.isValidBirthdate('invalid-date')).toBe(false);
         });
+
+        const today = new Date();
+
+        test('should return false for birthdate 13 years ago but birthday has not occurred yet this year (month difference < 0)', () => {
+            const thirteenYearsAgoNotYet = new Date(
+                today.getFullYear() - 13,
+                today.getMonth() + 1,
+                today.getDate()
+            );
+            expect(
+                InputValidator.isValidBirthdate(thirteenYearsAgoNotYet.toISOString().split('T')[0])
+            ).toBe(false);
+        });
+
+        test('should return true for birthdate 13 years ago and birthday has already occurred this year', () => {
+            const thirteenYearsAgoAlready = new Date(
+                today.getFullYear() - 13,
+                today.getMonth() - 1,
+                today.getDate()
+            );
+            expect(
+                InputValidator.isValidBirthdate(thirteenYearsAgoAlready.toISOString().split('T')[0])
+            ).toBe(true);
+        });
+
+        test('should return true for birthdate 13 years ago and birthday is today', () => {
+            const thirteenYearsAgoToday = new Date(
+                today.getFullYear() - 13,
+                today.getMonth(),
+                today.getDate()
+            );
+            expect(
+                InputValidator.isValidBirthdate(thirteenYearsAgoToday.toISOString().split('T')[0])
+            ).toBe(true);
+        });
     });
 
     describe('isValidPostalCode', () => {
@@ -203,6 +238,42 @@ describe('InputValidator', () => {
 
         test('should return false for house number with spaces', () => {
             expect(InputValidator.isValidHouse('123 A')).toBe(false);
+        });
+    });
+
+    describe('isValidCountry', () => {
+        test('should return true for valid country code US', () => {
+            expect(InputValidator.isValidCountry('US')).toBe(true);
+        });
+
+        test('should return true for valid country code RU', () => {
+            expect(InputValidator.isValidCountry('RU')).toBe(true);
+        });
+
+        test('should return false for invalid country code', () => {
+            expect(InputValidator.isValidCountry('FR')).toBe(false);
+        });
+
+        test('should return false for empty country code', () => {
+            expect(InputValidator.isValidCountry('')).toBe(false);
+        });
+    });
+
+    describe('isValidAddressType', () => {
+        test('should return true for valid address type Shipping', () => {
+            expect(InputValidator.isValidAddressType('Shipping')).toBe(true);
+        });
+
+        test('should return true for valid address type Billing', () => {
+            expect(InputValidator.isValidAddressType('Billing')).toBe(true);
+        });
+
+        test('should return false for invalid address type', () => {
+            expect(InputValidator.isValidAddressType('Residential')).toBe(false);
+        });
+
+        test('should return false for empty address type', () => {
+            expect(InputValidator.isValidAddressType('')).toBe(false);
         });
     });
 });

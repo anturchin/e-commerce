@@ -19,6 +19,7 @@
     },
     "rules": {
         "no-debugger": "off",
+        "object-curly-newline": "off",
         "no-console": 0,
         "no-shadow": "off",
         "class-methods-use-this": "off",
@@ -31,7 +32,17 @@
         "indent": "off",
         "comma-dangle": "off",
         "no-unused-vars": 0,
-        "prettier/prettier": ["error", { "endOfLine": "auto" }],
+        "prettier/prettier": [
+            "error",
+            {
+                "trailingComma": "es5",
+                "tabWidth": 4,
+                "semi": true,
+                "singleQuote": true,
+                "printWidth": 100,
+                "endOfLine": "lf"
+            }
+        ],
         "operator-linebreak": [
             "error",
             "after",
