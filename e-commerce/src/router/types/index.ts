@@ -7,6 +7,7 @@ export const enum RoutePath {
     NOT_FOUND = 'not-found',
     CATEGORY = 'category',
     PRODUCT = 'product',
+    PROFILE = 'profile',
 }
 
 export interface IRoute {
