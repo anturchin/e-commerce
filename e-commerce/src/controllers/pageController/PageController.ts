@@ -90,6 +90,10 @@ export class PageController {
                 );
                 return new CategoryController();
             }
+            case ControllerName.PROFILE: {
+                const { ProfileController } = await import('./profileController/ProfileController');
+                return new ProfileController();
+            }
             case ControllerName.NOT_FOUND: {
                 const { NotFoundController } = await import(
                     './notFoundController/NotFoundController'
