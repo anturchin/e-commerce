@@ -6,12 +6,7 @@ import { LocalStorageManager } from '../../../utils/localStorageManager/LocalSto
 import { Router } from '../../../router/Router';
 import { Publisher } from '../../../observers/Publisher';
 import { RoutePath } from '../../../router/types';
-
-interface ICategoryProps {
-    url: string;
-    title: string;
-    categoryName: string;
-}
+import { ICategoryProps } from './types/CategoryTypes';
 
 const urls: { name: string; url: string }[] = [
     {
@@ -96,22 +91,18 @@ export class CategoryController implements IController {
                 if (child) {
                     console.log(this.categories[index].id);
                     if (index === 0) {
-                        // path to phone
                         const productType = 'phone';
                         this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${productType}`);
                     }
                     if (index === 1) {
-                        // path to laptops
                         const productType = 'laptop';
                         this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${productType}`);
                     }
                     if (index === 2) {
-                        // path to watch
                         const productType = 'watch';
                         this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${productType}`);
                     }
                     if (index === 3) {
-                        // path to tablet
                         const productType = 'tablet';
                         this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${productType}`);
                     }
