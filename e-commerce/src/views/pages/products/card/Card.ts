@@ -1,8 +1,8 @@
-import { View } from '../View';
+import { View } from '../../../View';
 import { ImgCard } from './imgCard/ImgCard';
 import { TitleCard } from './titleCard/TitleCard';
 import { DescriptCard } from './descriptCard/DescriptCard';
-import { Container } from '../div/Container';
+import { Container } from '../../../div/Container';
 import { Price } from './priceCard/PriceCard';
 import { SalePrice } from './salePrice/salePrice';
 

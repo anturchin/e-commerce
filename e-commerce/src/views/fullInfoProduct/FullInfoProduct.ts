@@ -6,10 +6,14 @@ import { ContainerImg } from './containerForImg/ContainerForImg';
 import { ContainerColumn } from './container/Container';
 import { PriceProduct } from './priceProduct/PriceProduct';
 import { SaleProduct } from './saleProduct/SaleProduct';
+// import { ModalWin } from './modalWin/ModalWin';
 
 import './FullInfoProduct.scss';
+import { ModalWin } from './modalWin/ModalWin';
 
 export class FullInfoProduct extends View {
+    private modal: ModalWin;
+
     constructor(
         productTitle: string,
         productImg: string,
@@ -18,6 +22,8 @@ export class FullInfoProduct extends View {
         productSale: string
     ) {
         super({ tag: 'div', classNames: ['product__info'] });
+        this.modal = new ModalWin(productImg);
+        this.viewHtmlElement.addInnerElement(this.modal.getElement());
         this.setupProductInfo(
             productTitle,
             productImg,
@@ -47,6 +53,8 @@ export class FullInfoProduct extends View {
         const containerImg = new ContainerImg().getElement();
 
         const imgProduct = new ImgProduct(productImg).getElement();
+
+        imgProduct.addEventListener('click', () => this.modal.showModal());
         containerImg.append(imgProduct);
         this.viewHtmlElement.addInnerElement(containerImg);
     }

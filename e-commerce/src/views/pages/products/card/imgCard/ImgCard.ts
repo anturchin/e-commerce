@@ -1,4 +1,4 @@
-import { View } from '../../View';
+import { View } from '../../../../View';
 import './ImgCard.scss';
 
 export class ImgCard extends View {
