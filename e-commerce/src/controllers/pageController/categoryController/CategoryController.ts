@@ -4,9 +4,8 @@ import { CategoryService } from '../../../services/CategoryService/CategoryServi
 import { IResult } from '../../../services/CategoryService/types';
 import { LocalStorageManager } from '../../../utils/localStorageManager/LocalStorageManager';
 import { Router } from '../../../router/Router';
-import { Publisher } from '../../../observers/Publisher';
 import { RoutePath } from '../../../router/types';
-import { ICategoryProps } from './types/CategoryTypes';
+import { ICategoryProps, ProductType } from './types/CategoryTypes';
 
 const urls: { name: string; url: string }[] = [
     {
@@ -34,11 +33,8 @@ export class CategoryController implements IController {
 
     private router: Router | null = null;
 
-    private authPublisher: Publisher<boolean>;
-
-    constructor(router: Router | null, authPublisher: Publisher<boolean>) {
+    constructor(router: Router | null) {
         this.router = router;
-        this.authPublisher = authPublisher;
         this.loadDAta();
     }
 
@@ -46,20 +42,20 @@ export class CategoryController implements IController {
         return this.page.getElement();
     }
 
-    async loadDAta() {
+    private async loadDAta(): Promise<void> {
         const token = LocalStorageManager.getToken();
         if (token) {
             const response = await CategoryService.getCategoryList(token);
             if ('results' in response) {
                 this.categories = response.results;
-                const props: ICategoryProps[] = this.setupProps();
+                const props: ICategoryProps[] = this.getProps();
                 this.page.renderCategoryList(props);
                 this.eventHandler();
             }
         }
     }
 
-    setupProps(): ICategoryProps[] {
+    private getProps(): ICategoryProps[] {
         return this.categories.map((cat) => {
             const url = urls.find((i) => i.name === cat.name.ru);
             if (url) {
@@ -77,7 +73,7 @@ export class CategoryController implements IController {
         });
     }
 
-    eventHandler() {
+    private eventHandler(): void {
         const categoryListElement = this.page.getCategoryList()?.getElement();
 
         if (!categoryListElement) {
@@ -85,29 +81,24 @@ export class CategoryController implements IController {
             return;
         }
 
-        Array.prototype.forEach.call(categoryListElement.children, (child, index) => {
-            child.addEventListener('click', () => {
-                const child = categoryListElement.children[index];
-                if (child) {
-                    console.log(this.categories[index].id);
-                    if (index === 0) {
-                        const productType = 'phone';
-                        this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${productType}`);
-                    }
-                    if (index === 1) {
-                        const productType = 'laptop';
-                        this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${productType}`);
-                    }
-                    if (index === 2) {
-                        const productType = 'watch';
-                        this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${productType}`);
-                    }
-                    if (index === 3) {
-                        const productType = 'tablet';
-                        this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${productType}`);
-                    }
-                }
-            });
-        });
+        categoryListElement.addEventListener('click', this.onClickHandler.bind(this));
+    }
+
+    private onClickHandler(event: Event) {
+        const item = (event.target as HTMLElement).closest('li') as HTMLElement;
+        if (!item) return;
+        const dataAttribute = item.getAttribute('data-category-item');
+        if (dataAttribute && dataAttribute === ProductType.PHONE) {
+            this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${ProductType.PHONE}`);
+        }
+        if (dataAttribute && dataAttribute === ProductType.LAPTOP) {
+            this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${ProductType.LAPTOP}`);
+        }
+        if (dataAttribute && dataAttribute === ProductType.TABLET) {
+            this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${ProductType.TABLET}`);
+        }
+        if (dataAttribute && dataAttribute === ProductType.WATCH) {
+            this.router?.navigate(<RoutePath>`${RoutePath.PRODUCT}/${ProductType.WATCH}`);
+        }
     }
 }
