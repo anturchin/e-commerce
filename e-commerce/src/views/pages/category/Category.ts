@@ -9,35 +9,19 @@ export interface ICategoryProps {
     categoryName: string;
 }
 
-const categories: ICategoryProps[] = [
-    {
-        url: 'https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-14-pro-max-colors.png',
-        title: 'Iphone',
-        categoryName: 'phone',
-    },
-    {
-        url: 'https://www.mechta.kz/storage/description_images/1687344318_1.jpg',
-        title: 'MacBook',
-        categoryName: 'laptop',
-    },
-    {
-        url: 'https://www.macworld.com/wp-content/uploads/2024/05/2024-ipad-family-5.jpg?quality=50&strip=all&w=1024',
-        title: 'iPad',
-        categoryName: 'tablet',
-    },
-    {
-        url: 'https://www.apple.com/newsroom/images/2023/09/apple-introduces-the-advanced-new-apple-watch-series-9/article/Apple-Watch-S9-hero-230912_Full-Bleed-Image.jpg.large.jpg',
-        title: 'Watch',
-        categoryName: 'watch',
-    },
-];
-
 export class Category extends View {
-    private categoryList: CategoryList;
+    private categoryList: CategoryList | null = null;
 
-    constructor(props: ICategoryProps[] = categories) {
+    constructor() {
         super({ tag: 'section', classNames: ['category'] });
+    }
+
+    renderCategoryList(props: ICategoryProps[]) {
         this.categoryList = new CategoryList(props);
         this.viewHtmlElement.addInnerElement(this.categoryList.getElement());
+    }
+
+    getCategoryList() {
+        return this.categoryList;
     }
 }
