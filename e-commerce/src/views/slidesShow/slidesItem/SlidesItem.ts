@@ -1,4 +1,5 @@
 import { View } from '../../View';
+import './SlidesItem.scss';
 
 export class SliesItem extends View {
     constructor(url: string) {
@@ -8,6 +9,7 @@ export class SliesItem extends View {
 
     setupSlidesItem(url: string) {
         const img = document.createElement('img');
+        img.classList.add('img-slide', 'modal-slide');
         img.setAttribute('src', url);
         this.viewHtmlElement.addInnerElement(img);
     }

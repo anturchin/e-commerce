@@ -1,7 +1,6 @@
 import { View } from '../View';
 import { DescriptionProduct } from './descriptionProduct/DescriptionProduct';
 import { NameProduct } from './nameProduct/NameProduct';
-// import { ImgProduct } from './imgProduct/ImgProduct';
 import { ContainerImg } from './containerForImg/ContainerForImg';
 import { ContainerColumn } from './container/Container';
 import { PriceProduct } from './priceProduct/PriceProduct';
@@ -22,7 +21,7 @@ export class FullInfoProduct extends View {
         productSale: string
     ) {
         super({ tag: 'div', classNames: ['product__info'] });
-        this.modal = new ModalWin(productImg, 0);
+        this.modal = new ModalWin(productImg);
         this.viewHtmlElement.addInnerElement(this.modal.getElement());
         this.setupProductInfo(
             productTitle,
@@ -52,13 +51,12 @@ export class FullInfoProduct extends View {
 
         const containerImg = new ContainerImg().getElement();
         const slidesShow = new SlidesShow(productImg).getElement();
-        // slidesShow.classList.add('my-slides');
         containerImg.append(slidesShow);
         this.viewHtmlElement.addInnerElement(containerImg);
 
-        slidesShow.querySelectorAll('img').forEach((img, index) => {
+        slidesShow.querySelectorAll('img').forEach((img) => {
             img.addEventListener('click', () => {
-                this.modal.setModalWin(productImg, index);
+                this.modal.setModalWin();
                 this.modal.showModal();
             });
         });
