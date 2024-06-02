@@ -5,14 +5,15 @@ import { ImgModal } from './imgModal/ImgModal';
 import { Button } from '../../button/Button';
 
 export class ModalWin extends View {
-    constructor(modalImg: string) {
+    constructor(modalImg: string[], activeIndex: number) {
         super({ tag: 'div', classNames: ['modal-win'] });
-        this.setModalWin(modalImg);
+        this.setModalWin(modalImg, activeIndex);
         this.getElement().style.display = 'none';
     }
 
-    private setModalWin(modalImg: string): void {
-        const img = new ImgModal(modalImg).getElement();
+    setModalWin(modalImg: string[], activeIndex: number): void {
+        this.viewHtmlElement.setInnerHtml('');
+        const img = new ImgModal(modalImg, activeIndex).getElement();
         const btnClose = new Button({
             label: 'Close',
             onClick: () => this.closeModal(),

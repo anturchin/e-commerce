@@ -38,6 +38,10 @@ export class HTMLElementCreator {
         this.element.textContent = textContent;
     }
 
+    public setInnerHtml(htmlContent: string): void {
+        this.element.innerHTML = htmlContent;
+    }
+
     public setCallback(callback: CallbackType): void {
         this.element.addEventListener('click', callback);
     }
