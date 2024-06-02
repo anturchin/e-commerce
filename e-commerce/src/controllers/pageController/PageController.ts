@@ -88,7 +88,7 @@ export class PageController {
                 const { CategoryController } = await import(
                     './categoryController/CategoryController'
                 );
-                return new CategoryController(this.getRouter(), this.authPublisher);
+                return new CategoryController(this.getRouter());
             }
             case ControllerName.PROFILE: {
                 const { ProfileController } = await import('./profileController/ProfileController');
