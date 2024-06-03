@@ -1,0 +1,38 @@
+.next {
+    margin-top: 5px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    color: #38b627;
+    font-size: 1.6rem;
+    margin: 1rem 6rem;
+    font-weight: 600;
+    background-color: rgb(204, 216, 204);
+    transition: all 250ms;
+    outline: none;
+    cursor: pointer;
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+        background-color: rgb(94, 100, 94);
+    }
+    &:hover:not(:disabled) {
+        transform: translateY(-1px);
+        background-color: rgb(60, 60, 60);
+    }
+    &:disabled {
+        opacity: 0.3;
+        cursor: auto;
+    }
+}
+
+@media (max-width: 485px) {
+    .next {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .next {
+        font-size: 1.2rem;
+    }
+}

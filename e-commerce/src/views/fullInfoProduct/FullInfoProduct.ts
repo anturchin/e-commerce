@@ -1,12 +1,11 @@
 import { View } from '../View';
 import { DescriptionProduct } from './descriptionProduct/DescriptionProduct';
 import { NameProduct } from './nameProduct/NameProduct';
-import { ImgProduct } from './imgProduct/ImgProduct';
 import { ContainerImg } from './containerForImg/ContainerForImg';
 import { ContainerColumn } from './container/Container';
 import { PriceProduct } from './priceProduct/PriceProduct';
 import { SaleProduct } from './saleProduct/SaleProduct';
-// import { ModalWin } from './modalWin/ModalWin';
+import { SlidesShow } from '../slidesShow/SlidesShow';
 
 import './FullInfoProduct.scss';
 import { ModalWin } from './modalWin/ModalWin';
@@ -16,7 +15,7 @@ export class FullInfoProduct extends View {
 
     constructor(
         productTitle: string,
-        productImg: string,
+        productImg: string[],
         productDescription: string,
         productPrice: string,
         productSale: string
@@ -35,7 +34,7 @@ export class FullInfoProduct extends View {
 
     private setupProductInfo(
         productTitle: string,
-        productImg: string,
+        productImg: string[],
         productDescription: string,
         productPrice: string,
         productSale: string
@@ -51,11 +50,15 @@ export class FullInfoProduct extends View {
         this.viewHtmlElement.addInnerElement(containerInfo);
 
         const containerImg = new ContainerImg().getElement();
-
-        const imgProduct = new ImgProduct(productImg).getElement();
-
-        imgProduct.addEventListener('click', () => this.modal.showModal());
-        containerImg.append(imgProduct);
+        const slidesShow = new SlidesShow(productImg).getElement();
+        containerImg.append(slidesShow);
         this.viewHtmlElement.addInnerElement(containerImg);
+
+        slidesShow.querySelectorAll('img').forEach((img) => {
+            img.addEventListener('click', () => {
+                this.modal.setModalWin();
+                this.modal.showModal();
+            });
+        });
     }
 }
