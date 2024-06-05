@@ -8,6 +8,7 @@ export const enum ControllerName {
     PRODUCT_DETAIL = 'product-detail',
     PROFILE = 'profile',
     ABOUT = 'about',
+    BAG = 'bag',
 }
 
 export interface IController {

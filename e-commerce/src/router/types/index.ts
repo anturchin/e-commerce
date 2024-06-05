@@ -9,6 +9,7 @@ export const enum RoutePath {
     PRODUCT = 'product',
     PROFILE = 'profile',
     ABOUT = 'about',
+    BAG = 'bag',
 }
 
 export interface IRoute {
