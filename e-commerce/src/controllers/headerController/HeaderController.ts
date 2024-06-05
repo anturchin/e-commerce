@@ -42,6 +42,7 @@ export class HeaderController implements IObserver<boolean> {
                     dataAttribute === OptionsName.LOGOUT ||
                     dataAttribute === OptionsName.HOME ||
                     dataAttribute === OptionsName.CATEGORY ||
+                    dataAttribute === OptionsName.ABOUT ||
                     dataAttribute === OptionsName.PROFILE
                 ) {
                     option.classList.remove('hidden');
@@ -52,6 +53,7 @@ export class HeaderController implements IObserver<boolean> {
                 dataAttribute === OptionsName.SIGN_IN ||
                 dataAttribute === OptionsName.SIGN_UP ||
                 dataAttribute === OptionsName.HOME ||
+                dataAttribute === OptionsName.ABOUT ||
                 dataAttribute === OptionsName.CATEGORY
             ) {
                 option.classList.remove('hidden');
@@ -75,6 +77,9 @@ export class HeaderController implements IObserver<boolean> {
         }
         if (dataAttribute && dataAttribute === OptionsName.CATEGORY) {
             this.router.navigate(RoutePath.CATEGORY);
+        }
+        if (dataAttribute && dataAttribute === OptionsName.ABOUT) {
+            this.router.navigate(RoutePath.ABOUT);
         }
         if (dataAttribute && dataAttribute === OptionsName.LOGOUT) {
             const userData = LocalStorageManager.getUserData();

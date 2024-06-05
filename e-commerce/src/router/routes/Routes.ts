@@ -43,6 +43,12 @@ export class Routes {
                     await pageController.updateContent(ControllerName.PROFILE);
                 },
             },
+            {
+                path: RoutePath.ABOUT,
+                callback: async () => {
+                    await pageController.updateContent(ControllerName.ABOUT);
+                },
+            },
             ...productTypes.map((productType) => ({
                 path: `${RoutePath.PRODUCT}/${productType}`,
                 callback: async () => {
