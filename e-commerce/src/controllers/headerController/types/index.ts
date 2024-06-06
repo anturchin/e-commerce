@@ -6,4 +6,5 @@ export const enum OptionsName {
     LOGOUT = 'Logout',
     PROFILE = 'Profile',
     ABOUT = 'About',
+    BAG = 'Bag',
 }

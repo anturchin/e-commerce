@@ -49,6 +49,12 @@ export class Routes {
                     await pageController.updateContent(ControllerName.ABOUT);
                 },
             },
+            {
+                path: RoutePath.BAG,
+                callback: async () => {
+                    await pageController.updateContent(ControllerName.BAG);
+                },
+            },
             ...productTypes.map((productType) => ({
                 path: `${RoutePath.PRODUCT}/${productType}`,
                 callback: async () => {
