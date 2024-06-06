@@ -5,4 +5,3 @@ export class Main extends View {
         super({ tag: 'section', classNames: ['product-detail'] });
     }
 }
-

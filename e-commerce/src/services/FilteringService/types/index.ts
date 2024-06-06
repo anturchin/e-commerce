@@ -28,6 +28,7 @@ interface Variant {
 
 interface LocalizedString {
     en: string;
+    ru: string;
 }
 
 interface CategoryReference {
@@ -44,6 +45,7 @@ interface MasterData {
         slug: LocalizedString;
         variants: string[]; // may be string?
         searchKeywords: string[]; // may be string?
+        metaDescription: LocalizedString;
     };
     hasStagedChanges: boolean;
     published: boolean;
@@ -63,7 +65,7 @@ interface Reference {
     typeId: string;
 }
 
-interface Product {
+export interface IProduct {
     id: string;
     masterData: MasterData;
     productType: Reference;
@@ -78,5 +80,5 @@ export interface IProductResponse {
     offset: number;
     count: number;
     total: number;
-    results: Product[];
+    results: IProduct[];
 }

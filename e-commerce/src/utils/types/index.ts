@@ -6,4 +6,5 @@ export interface IElementParams {
     textContent?: string;
     innerHtml?: string;
     callback?: CallbackType | null;
+    id?: string;
 }

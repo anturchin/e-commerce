@@ -14,9 +14,10 @@ export class Card extends View {
         cardTitle: string,
         cardDescription: string,
         cardPrice: string,
-        cardSale: string
+        cardSale: string,
+        cardId: string
     ) {
-        super({ tag: 'div', classNames: ['product__card'] });
+        super({ tag: 'div', classNames: ['product__card'], id: cardId });
         this.setupCard(cardImgSrc, cardTitle, cardDescription, cardPrice, cardSale);
     }
 
