@@ -18,8 +18,8 @@ export class CardList extends View {
 
     private setupCardList(props: ICards[]): void {
         props.forEach((item) => {
-            const { url, name, description, price, sale } = item;
-            const cardItem = new Card(url, name, description, price, sale);
+            const { url, name, description, price, sale, id } = item;
+            const cardItem = new Card(url, name, description, price, sale, id);
             this.cards.push(cardItem);
         });
         this.getElement().append(
