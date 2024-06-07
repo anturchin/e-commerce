@@ -1,6 +1,7 @@
 import { View } from '../../View';
 import { CardUserList } from './cardListUser/CardListUser';
 import { Collaboration } from './collaboration/Collaboration';
+import { RSS } from './rss/RSS';
 import './About.scss';
 
 export interface IUserCards {
@@ -51,6 +52,8 @@ export class About extends View {
 
     private colaboration: Collaboration | null = null;
 
+    private rss: RSS | null = null;
+
     constructor() {
         super({ tag: 'section', classNames: ['content', 'about'] });
         this.renderUserList();
@@ -62,6 +65,9 @@ export class About extends View {
 
         this.colaboration = new Collaboration();
         this.viewHtmlElement.addInnerElement(this.colaboration.getElement());
+
+        this.rss = new RSS();
+        this.viewHtmlElement.addInnerElement(this.rss.getElement());
     }
 
     public getWrapperList(): CardUserList | null {
