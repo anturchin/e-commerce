@@ -9,7 +9,6 @@ export interface ICards {
     price: string;
     sale: string;
 }
-
 const cardsProduct: ICards[] = [
     {
         url: 'https://cdsassets.apple.com/live/7WUAS350/images/iphone/iphone-14-pro-max-colors.png',
