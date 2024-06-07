@@ -5,6 +5,7 @@ import { DescriptCard } from './descriptCard/DescriptCard';
 import { Container } from '../../../div/Container';
 import { Price } from './priceCard/PriceCard';
 import { SalePrice } from './salePrice/salePrice';
+import { BagBtn } from './bagBtn/BagBtn';
 
 import './Card.scss';
 
@@ -41,6 +42,8 @@ export class Card extends View {
         const divElem = new Container().getElement();
         divElem.append(price, salePrice);
 
+        const btn = new BagBtn().getElement();
         this.viewHtmlElement.addInnerElement(divElem);
+        this.viewHtmlElement.addInnerElement(btn);
     }
 }
