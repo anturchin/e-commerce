@@ -29,4 +29,24 @@ export class LocalStorageManager {
     public static removeToken(): void {
         localStorage.removeItem('authToken');
     }
+
+    public static saveProduct(id: string): void {
+        localStorage.setItem('cart', id);
+    }
+
+    public static getProduct(): string | null {
+        return localStorage.getItem('cart');
+    }
+
+    public static removeProduct(): void {
+        localStorage.removeItem('cart');
+    }
+
+    public static getCartId(): string | null {
+        return localStorage.getItem('cartId');
+    }
+
+    public static saveCartId(id: string): void {
+        localStorage.setItem('cartId', id);
+    }
 }

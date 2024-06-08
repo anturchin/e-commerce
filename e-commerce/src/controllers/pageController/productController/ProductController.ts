@@ -6,11 +6,16 @@ import { LocalStorageManager } from '../../../utils/localStorageManager/LocalSto
 import { CategoryService } from '../../../services/CategoryService/CategoryService';
 import { FilterService } from '../../../services/FilteringService/FilterService';
 import { IProduct } from '../../../services/FilteringService/types';
+import { CartUpdateService } from '../../../services/CartUpdateService/CartUpdateService';
+import { CartService } from '../../../services/CartService/CartService';
+import { SvgBag } from '../../../views/header/imgBag/ImgBag';
 
 const productTypes: string[] = ['phone', 'laptop', 'watch', 'tablet'];
 
 export class ProductController implements IController {
     private page: Products = new Products();
+
+    private imgView: SvgBag = new SvgBag();
 
     private readonly productType: ProductType;
 
@@ -18,9 +23,10 @@ export class ProductController implements IController {
 
     private products: IProduct[] = [];
 
+    private cart: string[] = [];
+
     constructor(productType: ProductType) {
         this.loadData();
-        console.log('productController', productType);
         this.productType = productType;
         this.productIndex = productTypes.findIndex((e) => e === (this.productType as string));
     }
@@ -47,7 +53,6 @@ export class ProductController implements IController {
     }
 
     private getProps(): ICards[] {
-        console.log(this.products);
         return this.products.map((product) => {
             const price =
                 `${product.masterData.current.masterVariant.prices[0]?.value.centAmount ?? '000'}`.slice(
@@ -79,10 +84,51 @@ export class ProductController implements IController {
     private onClickHandler(event: Event) {
         const item = (event.target as HTMLElement).closest('.product__card') as HTMLElement;
         if (!item) return;
-        if ((event.target as HTMLElement).tagName === 'button') return;
         const dataAttribute = item.getAttribute('id');
         if (dataAttribute) {
-            console.log(dataAttribute);
+            if ((event.target as HTMLElement).tagName === 'BUTTON') {
+                this.buttonClickHandler(dataAttribute);
+            } else {
+                this.openDetailedPage(dataAttribute);
+            }
+        }
+    }
+
+    private openDetailedPage(id: string) {
+        // TODO: develop detailed page
+        console.log('detailed page for:', id);
+    }
+
+    private async buttonClickHandler(id: string) {
+        this.cart.push(id);
+        const localCartJson = LocalStorageManager.getProduct();
+        let localCart: string[] = [];
+        if (localCartJson) {
+            localCart = JSON.parse(localCartJson);
+        }
+        localCart.push(id);
+        LocalStorageManager.saveProduct(JSON.stringify(localCart));
+        this.imgView.updateNumber();
+        const token = LocalStorageManager.getToken();
+        if (token) {
+            const cartId = LocalStorageManager.getCartId();
+            if (cartId) {
+                const cartInfo = await CartService.getCart(token);
+                if ('results' in cartInfo) {
+                    const cart = cartInfo.results.find((cart) => cart.id === cartId);
+                    if (cart) {
+                        const { version } = cart;
+                        await CartUpdateService.updateCart(
+                            token,
+                            cartId,
+                            version,
+                            'addLineItem',
+                            id,
+                            1
+                        );
+                    }
+                }
+            }
         }
     }
 }

@@ -105,5 +105,9 @@ export class HeaderController implements IObserver<boolean> {
     private setEventListener(): void {
         const navList = this.header.getNavList();
         navList?.getElement().addEventListener('click', this.onClick);
+        const imgBag = this.header.getImgBag();
+        if (imgBag) {
+            imgBag.addEventListener('click', this.onClick);
+        }
     }
 }

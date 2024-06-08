@@ -8,6 +8,8 @@ import './Header.scss';
 export class Header extends View {
     private navList: NavList | null = null;
 
+    private imgBag: HTMLElement | null = null;
+
     private toggleButton: Button | null = null;
 
     constructor() {
@@ -22,11 +24,15 @@ export class Header extends View {
         return this.navList;
     }
 
+    public getImgBag(): HTMLElement | null {
+        return this.imgBag;
+    }
+
     private setupHeaderContent(): void {
         this.navList = new NavList();
-        const img = new SvgBag().getElement();
+        this.imgBag = new SvgBag().getElement();
         this.viewHtmlElement.addInnerElement(this.navList.getElement());
-        this.viewHtmlElement.addInnerElement(img);
+        this.viewHtmlElement.addInnerElement(this.imgBag);
     }
 
     private setupToggleBtn(): void {
