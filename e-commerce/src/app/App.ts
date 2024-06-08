@@ -6,6 +6,7 @@ import { PageController } from '../controllers/pageController/PageController';
 import { TokenForRegistration } from '../services/TokenService/TokenForRegistration';
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
 import { Publisher } from '../observers/Publisher';
+import { CartCreateService } from '../services/CartCreateService/CartCreateService';
 
 export class App {
     private pageController: PageController;
@@ -50,9 +51,13 @@ export class App {
             const tokenResponse = await TokenForRegistration.getToken();
             if ('access_token' in tokenResponse) {
                 LocalStorageManager.saveToken(tokenResponse.access_token);
+                const createCart = await CartCreateService.createCart(tokenResponse.access_token);
+                if ('id' in createCart) {
+                    LocalStorageManager.saveCartId(createCart.id);
+                }
             }
         } catch (error) {
-            console.error('Failed to fetch token:', error);
+            console.error('Failed to fetch', error);
         }
     }
 }
