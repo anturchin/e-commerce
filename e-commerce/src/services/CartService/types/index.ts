@@ -25,8 +25,8 @@ interface Variant {
     sku: string;
     prices: Price[];
     images: Image[];
-    attributes: any[];
-    assets: any[];
+    attributes: string[];
+    assets: string[];
 }
 
 interface ProductType {
@@ -64,14 +64,14 @@ interface LineItem {
     variant: Variant;
     price: Price;
     quantity: number;
-    discountedPricePerQuantity: any[];
+    discountedPricePerQuantity: string[];
     state: State[];
     priceMode: string;
     lineItemMode: string;
     totalPrice: Price;
     custom?: Custom;
-    perMethodTaxRate: any[];
-    taxedPricePortions: any[];
+    perMethodTaxRate: string[];
+    taxedPricePortions: string[];
 }
 
 export interface ICart {
@@ -83,17 +83,17 @@ export interface ICart {
     lineItems: LineItem[];
     cartState: string;
     totalPrice: Price;
-    customLineItems: any[];
-    discountCodes: any[];
-    directDiscounts: any[];
+    customLineItems: string[];
+    discountCodes: string[];
+    directDiscounts: string[];
     inventoryMode: string;
     taxMode: string;
     taxRoundingMode: string;
     taxCalculationMode: string;
-    refusedGifts: any[];
+    refusedGifts: string[];
     origin: string;
-    itemShippingAddresses: any[];
-    shipping: any[];
+    itemShippingAddresses: string[];
+    shipping: string[];
     shippingMode: string;
     country?: string;
 }
