@@ -1,0 +1,16 @@
+.card__price {
+    position: relative;
+    display: inline-block;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 105%;
+        height: 2px;
+        background: rgb(246, 255, 246);
+        transform: rotate(-9deg);
+        transform-origin: left center;
+    }
+}
