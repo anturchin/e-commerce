@@ -46,6 +46,7 @@ export class ProductController implements IController {
                     this.products = resp.results;
                     const props: ICards[] = this.getProps();
                     this.page.renderProductList(props);
+                    this.disableDuplicateButtons();
                     this.eventHandler();
                 }
             }
@@ -87,6 +88,8 @@ export class ProductController implements IController {
         const dataAttribute = item.getAttribute('id');
         if (dataAttribute) {
             if ((event.target as HTMLElement).tagName === 'BUTTON') {
+                const button = event.target as HTMLButtonElement;
+                button.disabled = true;
                 this.buttonClickHandler(dataAttribute);
             } else {
                 this.openDetailedPage(dataAttribute);
@@ -129,6 +132,24 @@ export class ProductController implements IController {
                     }
                 }
             }
+        }
+    }
+
+    private disableDuplicateButtons(): void {
+        const localCartJson = LocalStorageManager.getProduct();
+        if (localCartJson) {
+            const cartToDisable = JSON.parse(localCartJson);
+            cartToDisable.forEach((cart: string) => {
+                const elem = document.getElementById(cart) as HTMLElement;
+                if (elem) {
+                    const btn = elem.getElementsByClassName(
+                        'custom-button'
+                    )[0] as HTMLButtonElement;
+                    if (btn) {
+                        btn.disabled = true;
+                    }
+                }
+            });
         }
     }
 }
