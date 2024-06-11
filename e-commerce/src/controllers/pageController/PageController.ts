@@ -100,7 +100,7 @@ export class PageController {
             }
             case ControllerName.BAG: {
                 const { BagController } = await import('./bagController/BagController');
-                return new BagController();
+                return new BagController(this.getRouter());
             }
             case ControllerName.NOT_FOUND: {
                 const { NotFoundController } = await import(

@@ -6,13 +6,18 @@ import { ProductListService } from '../../../services/ProductListService/Product
 import { IProduct, IProductResponse } from '../../../services/ProductListService/types';
 import { IResponseFailed } from '../../../services/types';
 import { IBagCards } from './types';
+import { Router } from '../../../router/Router';
 
 export class BagController implements IController {
-    private page: Bag = new Bag();
+    private page: Bag;
+
+    private router: Router | null;
 
     private products: Awaited<IProductResponse | IResponseFailed | IProduct>[] = [];
 
-    constructor() {
+    constructor(router: Router | null) {
+        this.router = router;
+        this.page = new Bag(this.router);
         this.loadData();
     }
 
