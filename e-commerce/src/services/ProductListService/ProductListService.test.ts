@@ -29,6 +29,7 @@ describe('ProductListService', () => {
                             ],
                             description: {
                                 en: 'Sample description',
+                                ru: 'Ru description',
                             },
                             masterVariant: {
                                 attributes: [],
@@ -57,9 +58,11 @@ describe('ProductListService', () => {
                             },
                             name: {
                                 en: 'MB PREMIUM TECH T',
+                                ru: 'Ru name',
                             },
                             slug: {
                                 en: 'mb-premium-tech-t1369226795424',
+                                ru: 'ru slug',
                             },
                             variants: [],
                             searchKeywords: [],
@@ -75,6 +78,7 @@ describe('ProductListService', () => {
                             ],
                             description: {
                                 en: 'Sample description',
+                                ru: 'ru description',
                             },
                             masterVariant: {
                                 attributes: [],
@@ -103,9 +107,11 @@ describe('ProductListService', () => {
                             },
                             name: {
                                 en: 'MB PREMIUM TECH T',
+                                ru: 'ru name',
                             },
                             slug: {
                                 en: 'mb-premium-tech-t1369226795424',
+                                ru: 'ru slug',
                             },
                             variants: [],
                             searchKeywords: '',

@@ -28,6 +28,7 @@ interface Variant {
 
 interface LocalizedString {
     en: string;
+    ru: string;
 }
 
 interface CategoryReference {
@@ -63,7 +64,7 @@ interface Reference {
     typeId: string;
 }
 
-interface Product {
+export interface IProduct {
     id: string;
     masterData: MasterData;
     productType: Reference;
@@ -78,5 +79,5 @@ export interface IProductResponse {
     offset: number;
     count: number;
     total: number;
-    results: Product[];
+    results: IProduct[];
 }

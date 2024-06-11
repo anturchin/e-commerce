@@ -30,6 +30,7 @@ describe('DiscountService', () => {
                                 centAmount: 100,
                             },
                         ],
+                        permyriad: 500,
                     },
                     predicate: '1=1',
                     name: {
@@ -57,6 +58,7 @@ describe('DiscountService', () => {
                                 centAmount: 100,
                             },
                         ],
+                        permyriad: 500,
                     },
                     predicate: '1=1',
                     name: {
