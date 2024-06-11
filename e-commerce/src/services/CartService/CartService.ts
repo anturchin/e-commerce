@@ -1,4 +1,4 @@
-import { ICartResponse } from './types';
+import { ICart, ICartResponse } from './types';
 import { IResponseFailed } from '../types';
 
 export class CartService {
@@ -6,29 +6,58 @@ export class CartService {
 
     private static readonly API_URL: string = 'https://api.europe-west1.gcp.commercetools.com';
 
-    static async getCart(BEARER_TOKEN: string): Promise<ICartResponse | IResponseFailed> {
-        const URL = `${this.API_URL}/${this.projectKey}/carts`;
-        try {
-            const resp = await fetch(URL, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${BEARER_TOKEN}`,
-                    'Content-type': 'application/json',
-                },
-            });
+    static async getCart(
+        BEARER_TOKEN: string,
+        id?: string
+    ): Promise<ICartResponse | IResponseFailed | ICart> {
+        let url = new URL(`${this.projectKey}/carts`, `${this.API_URL}/`);
+        if (id) {
+            url = new URL(`${this.projectKey}/carts/${id}`, `${this.API_URL}/`);
+            try {
+                const resp = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${BEARER_TOKEN}`,
+                        'Content-type': 'application/json',
+                    },
+                });
 
-            if (!resp.ok) {
-                const data = await resp.json();
-                return {
-                    statusCode: data.statusCode,
-                    msg: data.message,
-                } as IResponseFailed;
+                if (!resp.ok) {
+                    const data = await resp.json();
+                    return {
+                        statusCode: data.statusCode,
+                        msg: data.message,
+                    } as IResponseFailed;
+                }
+
+                return (await resp.json()) as ICart;
+            } catch (e) {
+                console.error(e);
+                throw e;
             }
+        } else {
+            try {
+                const resp = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${BEARER_TOKEN}`,
+                        'Content-type': 'application/json',
+                    },
+                });
 
-            return (await resp.json()) as ICartResponse;
-        } catch (e) {
-            console.error(e);
-            throw e;
+                if (!resp.ok) {
+                    const data = await resp.json();
+                    return {
+                        statusCode: data.statusCode,
+                        msg: data.message,
+                    } as IResponseFailed;
+                }
+
+                return (await resp.json()) as ICartResponse;
+            } catch (e) {
+                console.error(e);
+                throw e;
+            }
         }
     }
 }

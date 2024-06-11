@@ -51,9 +51,14 @@ export class App {
             const tokenResponse = await TokenForRegistration.getToken();
             if ('access_token' in tokenResponse) {
                 LocalStorageManager.saveToken(tokenResponse.access_token);
-                const createCart = await CartCreateService.createCart(tokenResponse.access_token);
-                if ('id' in createCart) {
-                    LocalStorageManager.saveCartId(createCart.id);
+                const cartId = LocalStorageManager.getCartId();
+                if (!cartId) {
+                    const createCart = await CartCreateService.createCart(
+                        tokenResponse.access_token
+                    );
+                    if ('id' in createCart) {
+                        LocalStorageManager.saveCartId(createCart.id);
+                    }
                 }
             }
         } catch (error) {

@@ -9,6 +9,7 @@ import { IProduct } from '../../../services/FilteringService/types';
 import { CartUpdateService } from '../../../services/CartUpdateService/CartUpdateService';
 import { CartService } from '../../../services/CartService/CartService';
 import { SvgBag } from '../../../views/header/imgBag/ImgBag';
+import { DiscountService } from '../../../services/DiscountService/DiscountService';
 
 const productTypes: string[] = ['phone', 'laptop', 'watch', 'tablet'];
 
@@ -22,6 +23,8 @@ export class ProductController implements IController {
     private productIndex: number;
 
     private products: IProduct[] = [];
+
+    private discount: number = 0;
 
     private cart: string[] = [];
 
@@ -39,6 +42,11 @@ export class ProductController implements IController {
         const token = LocalStorageManager.getToken();
         if (token) {
             const categories = await CategoryService.getCategoryList(token);
+            const discounts = await DiscountService.getDiscounts(token);
+            if ('results' in discounts) {
+                const [firstDiscount] = discounts.results;
+                this.discount = 1 - firstDiscount.value.permyriad / 10000;
+            }
             if ('results' in categories) {
                 const categoryParam = `masterData(current(categories(id="${categories.results[this.productIndex].id}")))`;
                 const resp = await FilterService.getFilteredList(token, categoryParam);
@@ -54,17 +62,24 @@ export class ProductController implements IController {
 
     private getProps(): ICards[] {
         return this.products.map((product) => {
-            const price =
-                `${product.masterData.current.masterVariant.prices[0]?.value.centAmount ?? '000'}`.slice(
-                    0,
-                    -2
-                );
+            const prices = product.masterData.current.masterVariant.prices[0]?.value.centAmount;
+            const price = prices !== undefined ? prices / 100 : 0;
+            if (this.discount !== 0) {
+                return {
+                    url: product.masterData.current.masterVariant.images[0]?.url || '',
+                    name: product.masterData.current.name.ru,
+                    description: product.masterData.current.metaDescription.ru,
+                    price: `${price}$`,
+                    sale: `${Math.round(price * this.discount)}$`,
+                    id: product.id,
+                };
+            }
             return {
                 url: product.masterData.current.masterVariant.images[0]?.url || '',
                 name: product.masterData.current.name.ru,
                 description: product.masterData.current.metaDescription.ru,
                 price: `${price}$`,
-                sale: `${Math.round(Number(price) * 0.8)}$`,
+                sale: `${Math.round(Number(price) * 0.05)}$`,
                 id: product.id,
             };
         });
@@ -113,20 +128,17 @@ export class ProductController implements IController {
         if (token) {
             const cartId = LocalStorageManager.getCartId();
             if (cartId) {
-                const cartInfo = await CartService.getCart(token);
-                if ('results' in cartInfo) {
-                    const cart = cartInfo.results.find((cart) => cart.id === cartId);
-                    if (cart) {
-                        const { version } = cart;
-                        await CartUpdateService.updateCart(
-                            token,
-                            cartId,
-                            version,
-                            'addLineItem',
-                            id,
-                            1
-                        );
-                    }
+                const cart = await CartService.getCart(token, cartId);
+                if ('version' in cart) {
+                    const { version } = cart;
+                    await CartUpdateService.updateCart(
+                        token,
+                        cartId,
+                        version,
+                        'addLineItem',
+                        id,
+                        1
+                    );
                 }
             }
         }
