@@ -1,5 +1,6 @@
 import { View } from '../../View';
 import { CardBagList } from './cardListBag/CardListBag';
+import { EmptyBag } from './emptyBag/EmptyBag';
 import './Bag.scss';
 
 export interface IBagCards {
@@ -14,6 +15,8 @@ export class Bag extends View {
 
     constructor() {
         super({ tag: 'section', classNames: ['content', 'bag'] });
+        const empty = new EmptyBag().getElement();
+        this.viewHtmlElement.addInnerElement(empty);
     }
 
     public renderProductBagList(props: IBagCards[]) {
