@@ -87,7 +87,7 @@ export class ProductController implements IController {
     }
 
     private eventHandler(): void {
-        const productListElement = this.page.getWrapperList()?.getElement();
+        const productListElement = this.page?.getWrapperList()?.getElement();
 
         if (!productListElement) {
             console.error('Category list element not found!');
@@ -134,14 +134,12 @@ export class ProductController implements IController {
                 const cart = await CartService.getCart(token, cartId);
                 if ('version' in cart) {
                     const { version } = cart;
-                    await CartUpdateService.updateCart(
-                        token,
-                        cartId,
-                        version,
-                        'addLineItem',
-                        id,
-                        1
-                    );
+                    const action = {
+                        action: 'addLineItem',
+                        productId: id,
+                        quantity: 1,
+                    };
+                    await CartUpdateService.updateCart(token, cartId, version, action);
                 }
             }
         }

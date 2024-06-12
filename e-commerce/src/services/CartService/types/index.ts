@@ -105,3 +105,10 @@ export interface ICartResponse {
     total: number;
     results: ICart[];
 }
+
+export interface ICartAction {
+    action: string;
+    productId?: string;
+    lineItemId?: string;
+    quantity: number;
+}

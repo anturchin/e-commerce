@@ -9,8 +9,14 @@ import { DeleteBtn } from './deleteBtn/DeleteBtn';
 import './CardBag.scss';
 
 export class CardBag extends View {
-    constructor(cardImg: string, cardTitle: string, cardPrice: string, cardSale: string) {
-        super({ tag: 'div', classNames: ['cardbag'] });
+    constructor(
+        cardImg: string,
+        cardTitle: string,
+        cardPrice: string,
+        cardSale: string,
+        cardId: string
+    ) {
+        super({ tag: 'div', classNames: ['cardbag'], id: cardId });
         this.setupCardBag(cardImg, cardTitle, cardPrice, cardSale);
     }
 
@@ -27,7 +33,7 @@ export class CardBag extends View {
         this.viewHtmlElement.addInnerElement(title);
 
         const initialQuantity = 1;
-        const minQuantity = 1;
+        const minQuantity = 0;
         const maxQuantity = 100;
 
         const countProduct = new BtnCount(initialQuantity, minQuantity, maxQuantity).getElement();

@@ -16,7 +16,8 @@ export class CardList extends View {
         return this.cards;
     }
 
-    private setupCardList(props: ICards[]): void {
+    public setupCardList(props: ICards[]): void {
+        this.cards = [];
         props.forEach((item) => {
             const { url, name, description, price, sale, id } = item;
             const cardItem = new Card(url, name, description, price, sale, id);

@@ -7,6 +7,7 @@ export interface IBagCards {
     name: string;
     price: string;
     sale: string;
+    id: string;
 }
 
 export class Bag extends View {

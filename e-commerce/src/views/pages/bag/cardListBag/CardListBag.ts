@@ -18,8 +18,8 @@ export class CardBagList extends View {
 
     private setupCardListBag(props: IBagCards[]): void {
         props.forEach((item) => {
-            const { url, name, price, sale } = item;
-            const cardItem = new CardBag(url, name, price, sale);
+            const { url, name, price, sale, id } = item;
+            const cardItem = new CardBag(url, name, price, sale, id);
             this.cardsBag.push(cardItem);
         });
         this.getElement().append(

@@ -43,6 +43,18 @@ export class Products extends View {
         this.viewHtmlElement.addInnerElement(this.productList.getElement());
     }
 
+    public updateCurrentPage() {
+        const start = (this.currentPage - 1) * this.itemsPage;
+        const end = start + this.itemsPage;
+        const currentItems = this.allProduct.slice(start, end);
+
+        if (this.productList) {
+            this.productList.getElement().innerHTML = '';
+        }
+
+        this.productList?.setupCardList(currentItems);
+    }
+
     public createControls() {
         const paginationControls = document.createElement('div');
         paginationControls.classList.add('pagination-controls');
@@ -105,21 +117,21 @@ export class Products extends View {
     public nextPage() {
         if (this.currentPage * this.itemsPage < this.allProduct.length) {
             this.currentPage += 1;
-            this.renderCurrentPage();
+            this.updateCurrentPage();
         }
     }
 
     public prevPage() {
         if (this.currentPage > 1) {
             this.currentPage -= 1;
-            this.renderCurrentPage();
+            this.updateCurrentPage();
         }
     }
 
     public goToPage(page: number) {
         if (page > 0 && page <= Math.ceil(this.allProduct.length / this.itemsPage)) {
             this.currentPage = page;
-            this.renderCurrentPage();
+            this.updateCurrentPage();
         }
     }
 }
