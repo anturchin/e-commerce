@@ -1,8 +1,10 @@
 import { View } from '../../View';
 import { CardBagList } from './cardListBag/CardListBag';
-import { EmptyBag } from './emptyBag/EmptyBag';
+import { BtnDeleteAll } from './btnDeleteAll/BtnDeleteAll';
+// import { EmptyBag } from './emptyBag/EmptyBag';
 import './Bag.scss';
 import { Router } from '../../../router/Router';
+import { PriceContainer } from './priceContainer/PriceContainer';
 
 export interface IBagCards {
     url: string;
@@ -17,10 +19,17 @@ export class Bag extends View {
     private router: Router | null;
 
     constructor(router: Router | null) {
+        const fullPrice = '5000$';
         super({ tag: 'section', classNames: ['content', 'bag'] });
         this.router = router;
-        const empty = new EmptyBag(this.router).getElement();
-        this.viewHtmlElement.addInnerElement(empty);
+        // const empty = new EmptyBag(this.router).getElement();
+        // this.viewHtmlElement.addInnerElement(empty);
+
+        const price = new PriceContainer(fullPrice).getElement();
+        this.viewHtmlElement.addInnerElement(price);
+
+        const btnDelete = new BtnDeleteAll().getElement();
+        this.viewHtmlElement.addInnerElement(btnDelete);
     }
 
     public renderProductBagList(props: IBagCards[]) {
