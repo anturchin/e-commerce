@@ -10,6 +10,8 @@ import './PriceContainer.scss';
 export class PriceContainer extends View {
     private promo: Promocode | null = null;
 
+    private fullPrice: FullPrice | null = null;
+
     constructor(fullPrice: string) {
         super({ tag: 'div', classNames: ['container-price'] });
         this.setupContainer(fullPrice);
@@ -24,10 +26,17 @@ export class PriceContainer extends View {
         return null;
     }
 
+    public updatePrice(price: string): void {
+        if (this.fullPrice) {
+            this.fullPrice.updatePrice(price);
+        }
+    }
+
     private setupContainer(fullPrice: string): void {
         const title = new TitlePrice().getElement();
 
-        const price = new FullPrice(fullPrice).getElement();
+        this.fullPrice = new FullPrice(fullPrice);
+        const price = this.fullPrice.getElement();
 
         const div = new Container().getElement();
         div.append(title, price);
