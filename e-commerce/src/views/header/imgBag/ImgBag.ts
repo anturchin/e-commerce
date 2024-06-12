@@ -21,7 +21,7 @@ export class SvgBag extends View {
         this.updateNumber();
     }
 
-    updateNumber(): void {
+    public updateNumber(): void {
         const bag = document.getElementById('cart_length');
         const cart = LocalStorageManager.getProduct();
         if (cart && bag) {

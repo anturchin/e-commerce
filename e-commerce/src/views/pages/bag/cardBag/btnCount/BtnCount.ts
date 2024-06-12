@@ -8,7 +8,7 @@ export class BtnCount extends View {
 
     private minusButton: HTMLButtonElement;
 
-    constructor(initialValue: number, min: number = 1, max: number = 100) {
+    constructor(initialValue: number, min: number = 0, max: number = 100) {
         super({ tag: 'div', classNames: ['quantity-input__container'] });
 
         this.inputElement = document.createElement('input');
@@ -35,10 +35,12 @@ export class BtnCount extends View {
     setupBtns() {
         this.plusButton.innerText = '+';
         this.plusButton.classList.add('quantity-btn');
+        this.plusButton.id = 'quantity-btn-plus';
         this.plusButton.addEventListener('click', () => this.changeQuantity(1));
 
         this.minusButton.innerText = '-';
         this.minusButton.classList.add('quantity-btn');
+        this.minusButton.id = 'quantity-btn-minus';
         this.minusButton.addEventListener('click', () => this.changeQuantity(-1));
 
         this.viewHtmlElement.addInnerElement(this.minusButton);

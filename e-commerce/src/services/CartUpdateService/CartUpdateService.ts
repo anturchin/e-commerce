@@ -1,4 +1,4 @@
-import { ICartResponse } from '../CartService/types';
+import { ICartAction, ICartResponse } from '../CartService/types';
 import { IResponseFailed } from '../types';
 
 export class CartUpdateService {
@@ -10,21 +10,13 @@ export class CartUpdateService {
         BEARER_TOKEN: string,
         cartId: string,
         version: number,
-        action: string,
-        productId: string,
-        quantity: number
+        action: ICartAction
     ): Promise<ICartResponse | IResponseFailed> {
         const URL = `${this.API_URL}/${this.projectKey}/carts/${cartId}`;
 
-        const param = {
+        const params = {
             version,
-            actions: [
-                {
-                    action,
-                    productId,
-                    quantity,
-                },
-            ],
+            actions: [action],
         };
 
         try {
@@ -34,7 +26,7 @@ export class CartUpdateService {
                     Authorization: `Bearer ${BEARER_TOKEN}`,
                     'Content-type': 'application/json',
                 },
-                body: JSON.stringify(param),
+                body: JSON.stringify(params),
             });
 
             if (!resp.ok) {
