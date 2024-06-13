@@ -5,6 +5,7 @@ import { FullPrice } from './price/Price';
 import { Promocode } from './promocode/Promocode';
 import { PromocodeElemType } from './types';
 import { BtnPrice } from './btnPrice/BtnPrice';
+import { BtnPromocode } from './btnPromocode/BtnPromocode';
 import './PriceContainer.scss';
 
 export class PriceContainer extends View {
@@ -42,13 +43,20 @@ export class PriceContainer extends View {
         div.append(title, price);
         this.viewHtmlElement.addInnerElement(div);
 
+        const divPromocode = new Container().getElement();
+
         this.promo = new Promocode({
             type: 'text',
             label: 'Promocode',
             required: false,
         });
+        const promo = this.promo.getElement();
 
-        this.viewHtmlElement.addInnerElement(this.promo.getElement());
+        const btnPromo = new BtnPromocode().getElement();
+
+        divPromocode.append(promo, btnPromo);
+
+        this.viewHtmlElement.addInnerElement(divPromocode);
 
         const btn = new BtnPrice().getElement();
         this.viewHtmlElement.addInnerElement(btn);

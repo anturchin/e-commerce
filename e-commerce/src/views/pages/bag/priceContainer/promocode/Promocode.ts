@@ -5,7 +5,7 @@ export class Promocode extends View {
     private value: string = '';
 
     constructor(options: { type: string; label: string; required: boolean }) {
-        super({ tag: 'input', classNames: ['input'] });
+        super({ tag: 'input', classNames: ['input-promo'] });
         this.setupInput(options);
         this.onChange = this.onChange.bind(this);
         this.setEventListener();

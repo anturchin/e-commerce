@@ -1,17 +1,17 @@
-.input {
+.input-promo {
     position: relative;
     width: 100%;
     background: #333;
     border: none;
     outline: none;
-    padding: 25px 10px 7.5px;
+    padding: 13px 10px 7.5px;
     border-radius: 4px;
     color: #fff;
     font-weight: 500;
     font-size: 1em;
 }
 
-.input:focus::placeholder {
+.input-promo:focus::placeholder {
     font-size: 0.8em;
 
     font-size: 0.8em;
