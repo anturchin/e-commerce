@@ -10,7 +10,8 @@
         "format": "prettier --write .",
         "ci:format": "prettier --check .",
         "prepare": "cd ../ && husky e-commerce/.husky",
-        "test": "jest --coverage"
+        "test": "jest",
+        "test:cov": "jest --coverage"
     },
     "author": "FAD_team",
     "license": "MIT",
