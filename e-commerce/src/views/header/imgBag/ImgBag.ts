@@ -16,9 +16,13 @@ export class SvgBag extends View {
         bagImg.classList.add('nav-list__item-bag');
         const number = document.createElement('h5');
         number.id = 'cart_length';
+        const cart = LocalStorageManager.getProduct();
+        if (cart) {
+            const cartLength = JSON.parse(cart);
+            number.textContent = String(cartLength.length);
+        }
         this.viewHtmlElement.addInnerElement(bagImg);
         this.viewHtmlElement.addInnerElement(number);
-        this.updateNumber();
     }
 
     public updateNumber(): void {
