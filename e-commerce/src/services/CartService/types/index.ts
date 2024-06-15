@@ -18,6 +18,7 @@ interface Value {
 interface Price {
     value: Value;
     id: string;
+    centAmount: number;
 }
 
 interface Variant {

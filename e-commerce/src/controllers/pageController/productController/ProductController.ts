@@ -10,6 +10,7 @@ import { CartUpdateService } from '../../../services/CartUpdateService/CartUpdat
 import { CartService } from '../../../services/CartService/CartService';
 import { SvgBag } from '../../../views/header/imgBag/ImgBag';
 import { DiscountService } from '../../../services/DiscountService/DiscountService';
+import { ICartAction } from '../../../services/CartService/types';
 
 const productTypes: string[] = ['phone', 'laptop', 'watch', 'tablet'];
 
@@ -103,9 +104,13 @@ export class ProductController implements IController {
         const dataAttribute = item.getAttribute('id');
         if (dataAttribute) {
             if ((event.target as HTMLElement).tagName === 'BUTTON') {
-                const button = event.target as HTMLButtonElement;
-                button.disabled = true;
-                this.buttonClickHandler(dataAttribute);
+                const [addBtn, removeBtn] = this.getBtns(dataAttribute);
+                if ((event.target as HTMLButtonElement) === addBtn) {
+                    this.buttonClickHandler(dataAttribute, 'add');
+                }
+                if ((event.target as HTMLButtonElement) === removeBtn) {
+                    this.buttonClickHandler(dataAttribute, 'remove');
+                }
             } else {
                 this.openDetailedPage(dataAttribute);
             }
@@ -117,14 +122,38 @@ export class ProductController implements IController {
         console.log('detailed page for:', id);
     }
 
-    private async buttonClickHandler(id: string) {
-        this.cart.push(id);
+    private async buttonClickHandler(id: string, action: 'add' | 'remove') {
+        const [addBtn, removeBtn] = this.getBtns(id);
         const localCartJson = LocalStorageManager.getProduct();
         let localCart: string[] = [];
         if (localCartJson) {
             localCart = JSON.parse(localCartJson);
         }
-        localCart.push(id);
+        let quantity = 1;
+        let respAction: ICartAction = {
+            action: 'addLineItem',
+            productId: id,
+            quantity,
+        };
+        if (action === 'add') {
+            this.cart.push(id);
+            localCart.push(id);
+            addBtn.disabled = true;
+            removeBtn.disabled = false;
+        }
+        if (action === 'remove') {
+            const index = this.cart.indexOf(id);
+            this.cart.splice(index, 1);
+            localCart.splice(index, 1);
+            quantity = 0;
+            addBtn.disabled = false;
+            removeBtn.disabled = true;
+            respAction = {
+                action: 'changeLineItemQuantity',
+                lineItemId: id,
+                quantity,
+            };
+        }
         LocalStorageManager.saveProduct(JSON.stringify(localCart));
         this.imgView.updateNumber();
         const token = LocalStorageManager.getToken();
@@ -134,15 +163,27 @@ export class ProductController implements IController {
                 const cart = await CartService.getCart(token, cartId);
                 if ('version' in cart) {
                     const { version } = cart;
-                    const action = {
-                        action: 'addLineItem',
-                        productId: id,
-                        quantity: 1,
-                    };
-                    await CartUpdateService.updateCart(token, cartId, version, action);
+                    if (action === 'remove') {
+                        const productId = cart.lineItems.find((item) => item.productId === id);
+                        if (productId) {
+                            respAction = {
+                                action: 'changeLineItemQuantity',
+                                lineItemId: productId.id,
+                                quantity,
+                            };
+                        }
+                    }
+                    const q = await CartUpdateService.updateCart(
+                        token,
+                        cartId,
+                        version,
+                        respAction
+                    );
+                    console.log(q);
                 }
             }
         }
+        console.log('click');
     }
 
     private disableDuplicateButtons(): void {
@@ -150,16 +191,21 @@ export class ProductController implements IController {
         if (localCartJson) {
             const cartToDisable = JSON.parse(localCartJson);
             cartToDisable.forEach((cart: string) => {
-                const elem = document.getElementById(cart) as HTMLElement;
-                if (elem) {
-                    const btn = elem.getElementsByClassName(
-                        'custom-button'
-                    )[0] as HTMLButtonElement;
-                    if (btn) {
-                        btn.disabled = true;
-                    }
+                const [btn, removeBtn] = this.getBtns(cart);
+                if (btn && removeBtn) {
+                    btn.disabled = true;
+                    removeBtn.disabled = false;
                 }
             });
         }
     }
+
+    private getBtns(parentId: string): HTMLButtonElement[] {
+        const parent = document.getElementById(parentId);
+        const addBtn = parent?.getElementsByClassName('custom-button')[0] as HTMLButtonElement;
+        const removeBtn = parent?.getElementsByClassName('custom-button')[1] as HTMLButtonElement;
+        return [addBtn, removeBtn];
+    }
 }
+
+// TODO: (btns), price

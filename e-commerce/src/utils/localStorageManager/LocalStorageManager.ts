@@ -49,4 +49,8 @@ export class LocalStorageManager {
     public static saveCartId(id: string): void {
         localStorage.setItem('cartId', id);
     }
+
+    public static removeCart(): void {
+        localStorage.removeItem('cartId');
+    }
 }
