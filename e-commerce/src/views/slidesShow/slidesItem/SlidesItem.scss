@@ -1,9 +1,12 @@
 .img-slide {
-    height: 25rem;
-    width: 40rem;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition:
+        transform 0.5s ease,
+        opacity 0.5s ease;
 }
 
-// .modal-slide {
-//     height: 40rem;
-//     width: 65rem;
-// }
+.slides {
+    max-width: 100%;
+}

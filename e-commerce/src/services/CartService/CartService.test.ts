@@ -40,6 +40,7 @@ describe('AuthService', () => {
     const price = {
         value,
         id: 'string',
+        centAmount: 1,
     };
 
     const variant = {
