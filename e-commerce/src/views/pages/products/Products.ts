@@ -1,6 +1,7 @@
 import { View } from '../../View';
 import { CardList } from './cardList/CardList';
 import './Products.scss';
+import { LocalStorageManager } from '../../../utils/localStorageManager/LocalStorageManager';
 
 export interface ICards {
     url: string;
@@ -41,6 +42,7 @@ export class Products extends View {
 
         this.productList = new CardList(currentItems);
         this.viewHtmlElement.addInnerElement(this.productList.getElement());
+        this.disableBtns();
     }
 
     public updateCurrentPage() {
@@ -53,6 +55,7 @@ export class Products extends View {
         }
 
         this.productList?.setupCardList(currentItems);
+        this.disableBtns();
     }
 
     public createControls() {
@@ -133,5 +136,40 @@ export class Products extends View {
             this.currentPage = page;
             this.updateCurrentPage();
         }
+    }
+
+    private disableBtns(): void {
+        const removeBtns = document.getElementsByClassName('custom-button');
+        for (let i = 1; i < removeBtns.length; i += 2) {
+            (removeBtns[i] as HTMLButtonElement).disabled = true;
+        }
+        const productsJSON = LocalStorageManager.getProduct();
+        if (productsJSON) {
+            const products = JSON.parse(productsJSON);
+            products.forEach((prod: string) => {
+                const elem = document.getElementById(prod) as HTMLElement;
+                if (elem) {
+                    const addBtn = elem.getElementsByClassName(
+                        'custom-button'
+                    )[0] as HTMLButtonElement;
+                    const removeBtn = elem.getElementsByClassName(
+                        'custom-button'
+                    )[1] as HTMLButtonElement;
+                    if (addBtn && removeBtn) {
+                        this.disableOrActivateBtns(addBtn, removeBtn);
+                    }
+                }
+            });
+        }
+    }
+
+    public disableOrActivateBtns(
+        btnToDisable: HTMLButtonElement,
+        btnToActivate: HTMLButtonElement
+    ): void {
+        const disable = btnToDisable;
+        const activate = btnToActivate;
+        disable.disabled = true;
+        activate.disabled = false;
     }
 }

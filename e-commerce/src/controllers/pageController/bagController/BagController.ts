@@ -8,6 +8,8 @@ import { IResponseFailed } from '../../../services/types';
 import { IBagCards } from './types';
 import { CartUpdateService } from '../../../services/CartUpdateService/CartUpdateService';
 import { Router } from '../../../router/Router';
+import { CartDeleteService } from '../../../services/CartDeleteService/CartDeleteService';
+import { CartCreateService } from '../../../services/CartCreateService/CartCreateService';
 
 export class BagController implements IController {
     private page: Bag;
@@ -15,6 +17,8 @@ export class BagController implements IController {
     private router: Router | null;
 
     private products: Awaited<IProductResponse | IResponseFailed | IProduct>[] = [];
+
+    private totalPrice: number = 0;
 
     constructor(router: Router | null) {
         this.router = router;
@@ -41,6 +45,7 @@ export class BagController implements IController {
                     const props: IBagCards[] = this.getProps();
                     this.page.renderProductBagList(props);
                     this.eventHandler();
+                    this.updatePrice();
                 }
             }
         }
@@ -80,6 +85,13 @@ export class BagController implements IController {
         }
 
         wrapperList.addEventListener('click', this.clickHandler.bind(this));
+
+        const emptyCart = document.getElementsByClassName(
+            'custom-button-delete'
+        )[0] as HTMLButtonElement;
+        if (emptyCart) {
+            emptyCart.addEventListener('click', this.makeEmptyHandler.bind(this));
+        }
     }
 
     private clickHandler(event: Event): void {
@@ -107,10 +119,8 @@ export class BagController implements IController {
             const cart = LocalStorageManager.getCartId();
             if (cart) {
                 const respCart = await CartService.getCart(token, cart);
-                console.log(respCart);
                 if ('lineItems' in respCart) {
                     const product = respCart.lineItems.find((elem) => elem.productId === id);
-                    console.log(product);
                     if (product) {
                         let { quantity } = product;
                         if (act === 'minus') {
@@ -129,14 +139,69 @@ export class BagController implements IController {
                             quantity,
                         };
                         await CartUpdateService.updateCart(token, cart, version, action);
-                        LocalStorageManager.removeProduct();
-                        const productsToSave: string[] = [];
-                        respCart.lineItems.forEach((product) => {
-                            productsToSave.push(product.productId);
-                        });
-                        LocalStorageManager.saveProduct(JSON.stringify(productsToSave));
+                        const cartResp = await CartService.getCart(token, cart);
+                        if ('lineItems' in cartResp) {
+                            LocalStorageManager.removeProduct();
+                            const productsToSave: string[] = [];
+                            cartResp.lineItems.forEach((product) => {
+                                productsToSave.push(product.productId);
+                            });
+                            LocalStorageManager.saveProduct(JSON.stringify(productsToSave));
+                            const productPromises = cartResp.lineItems.map((item) => {
+                                return ProductListService.getProductList(token, item.productId);
+                            });
+                            const productsFromStore = await Promise.all(productPromises);
+                            this.products = [];
+                            this.products.push(...productsFromStore);
+                        }
+                        this.updatePrice();
+                        const wrapperList = this.page.getWrapperList();
+                        if (wrapperList) {
+                            wrapperList.getElement().innerHTML = '';
+                        }
+                        const props = this.getProps();
+                        this.page.renderProductBagList(props);
                     }
                 }
+            }
+        }
+    }
+
+    private async updatePrice(): Promise<void> {
+        const token = await LocalStorageManager.getToken();
+        if (token) {
+            const cartId = LocalStorageManager.getCartId();
+            if (cartId) {
+                const carts = await CartService.getCart(token, cartId);
+                if ('totalPrice' in carts) {
+                    this.totalPrice = Math.floor(carts.totalPrice.centAmount / 100);
+                    this.page.updatePrice(`${this.totalPrice}$`);
+                }
+            }
+        }
+    }
+
+    private async makeEmptyHandler(): Promise<void> {
+        const token = LocalStorageManager.getToken();
+        if (token) {
+            console.log('1if');
+            const cartId = LocalStorageManager.getCartId();
+            if (cartId) {
+                console.log('2if');
+                LocalStorageManager.removeCart();
+                LocalStorageManager.removeProduct();
+                const cart = await CartService.getCart(token, cartId);
+                if ('version' in cart) {
+                    console.log('3if');
+                    const { version } = cart;
+                    await CartDeleteService.deleteCart(token, cartId, version);
+                }
+                const cartCreate = await CartCreateService.createCart(token);
+                if ('id' in cartCreate) {
+                    console.log('4if');
+                    LocalStorageManager.saveCartId(cartCreate.id);
+                }
+                // TODO: show empty page
             }
         }
     }

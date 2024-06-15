@@ -7,16 +7,15 @@ import './CardListBag.scss';
 export class CardBagList extends View {
     private cardsBag: CardBag[] = [];
 
-    constructor(props: IBagCards[]) {
+    constructor() {
         super({ tag: 'div', classNames: ['card-list__bag'] });
-        this.setupCardListBag(props);
     }
 
     public getCardBagList(): CardBag[] {
         return this.cardsBag;
     }
 
-    private setupCardListBag(props: IBagCards[]): void {
+    public setupCardListBag(props: IBagCards[]): void {
         props.forEach((item) => {
             const { url, name, price, sale, id } = item;
             const cardItem = new CardBag(url, name, price, sale, id);

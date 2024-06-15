@@ -7,9 +7,8 @@ import './EmptyBag.scss';
 import { Router } from '../../../../router/Router';
 
 export class EmptyBag extends View {
-    constructor(router: Router | null) {
+    constructor() {
         super({ tag: 'div', classNames: ['container__empty-bag'] });
-        this.setupContainer(router);
     }
 
     setupContainer(router: Router | null) {

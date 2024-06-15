@@ -1,10 +1,10 @@
 import { View } from '../../View';
 import { CardBagList } from './cardListBag/CardListBag';
 import { BtnDeleteAll } from './btnDeleteAll/BtnDeleteAll';
-// import { EmptyBag } from './emptyBag/EmptyBag';
 import './Bag.scss';
 import { Router } from '../../../router/Router';
 import { PriceContainer } from './priceContainer/PriceContainer';
+import { EmptyBag } from './emptyBag/EmptyBag';
 
 export interface IBagCards {
     url: string;
@@ -15,18 +15,18 @@ export interface IBagCards {
 }
 
 export class Bag extends View {
-    private productBag: CardBagList | null = null;
+    private productBag: CardBagList = new CardBagList();
+
+    private emptyBagMessage: EmptyBag = new EmptyBag();
 
     private router: Router | null;
 
     private priceContainer: PriceContainer | null = null;
 
     constructor(router: Router | null) {
-        const fullPrice = '5000$';
         super({ tag: 'section', classNames: ['content', 'bag'] });
+        const fullPrice = '0$';
         this.router = router;
-        // const empty = new EmptyBag(this.router).getElement();
-        // this.viewHtmlElement.addInnerElement(empty);
         this.createPriceContainer(fullPrice);
 
         const btnDelete = new BtnDeleteAll().getElement();
@@ -34,7 +34,10 @@ export class Bag extends View {
     }
 
     public renderProductBagList(props: IBagCards[]) {
-        this.productBag = new CardBagList(props);
+        if (props.length === 0) {
+            this.emptyBagMessage?.setupContainer(this.router);
+        }
+        this.productBag.setupCardListBag(props);
         this.viewHtmlElement.addInnerElement(this.productBag.getElement());
     }
 
