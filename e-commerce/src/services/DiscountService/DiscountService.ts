@@ -28,7 +28,9 @@ export class DiscountService {
 
             return (await resp.json()) as IDiscountResponse;
         } catch (e) {
-            console.error(e);
+            if (e instanceof Error) {
+                console.error(e.message);
+            }
             throw e;
         }
     }

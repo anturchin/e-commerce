@@ -32,7 +32,9 @@ export class RegistrationService {
 
             return (await resp.json()) as ICustomerResponse;
         } catch (e) {
-            console.error(e);
+            if (e instanceof Error) {
+                console.error(e.message);
+            }
             throw e;
         }
     }

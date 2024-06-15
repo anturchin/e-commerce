@@ -30,7 +30,9 @@ export class CartDeleteService {
 
             return (await resp.json()) as ICartResponse;
         } catch (e) {
-            console.error(e);
+            if (e instanceof Error) {
+                console.error(e.message);
+            }
             throw e;
         }
     }

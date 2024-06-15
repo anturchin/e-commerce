@@ -31,7 +31,9 @@ export class FilterService {
 
             return (await resp.json()) as IProductResponse;
         } catch (e) {
-            console.error(e);
+            if (e instanceof Error) {
+                console.error(e.message);
+            }
             throw e;
         }
     }

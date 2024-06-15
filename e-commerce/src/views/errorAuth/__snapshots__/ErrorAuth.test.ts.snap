@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorAuth should match 1`] = `"<div class="overlay hidden"><div class="modal-error"><p class="error__text"></p><button class="error__close">close</button></div></div>"`;
