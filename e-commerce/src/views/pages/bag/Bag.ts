@@ -23,22 +23,43 @@ export class Bag extends View {
 
     private priceContainer: PriceContainer | null = null;
 
+    private btnDelete: BtnDeleteAll;
+
     constructor(router: Router | null) {
         super({ tag: 'section', classNames: ['content', 'bag'] });
         const fullPrice = '0$';
         this.router = router;
         this.createPriceContainer(fullPrice);
 
-        const btnDelete = new BtnDeleteAll().getElement();
-        this.viewHtmlElement.addInnerElement(btnDelete);
+        this.btnDelete = new BtnDeleteAll();
+        this.btnDelete.hide();
+        this.viewHtmlElement.addInnerElement(this.btnDelete.getElement());
+
+        this.viewHtmlElement.addInnerElement(this.emptyBagMessage.getElement());
     }
 
     public renderProductBagList(props: IBagCards[]) {
         if (props.length === 0) {
             this.emptyBagMessage?.setupContainer(this.router);
+            this.emptyBagMessage.show();
+            this.productBag.hide();
+            if (this.priceContainer) {
+                this.priceContainer.hide();
+            }
+            if (this.btnDelete) {
+                this.btnDelete.hide();
+            }
+        } else {
+            this.emptyBagMessage.hide();
+            this.productBag.setupCardListBag(props);
+            this.viewHtmlElement.addInnerElement(this.productBag.getElement());
+            if (this.priceContainer) {
+                this.priceContainer.show();
+            }
+            if (this.btnDelete) {
+                this.btnDelete.show();
+            }
         }
-        this.productBag.setupCardListBag(props);
-        this.viewHtmlElement.addInnerElement(this.productBag.getElement());
     }
 
     public getWrapperList(): CardBagList | null {
@@ -47,6 +68,7 @@ export class Bag extends View {
 
     public createPriceContainer(fullPrice: string): void {
         this.priceContainer = new PriceContainer(fullPrice);
+        this.priceContainer.hide();
         const price = this.priceContainer.getElement();
         this.viewHtmlElement.addInnerElement(price);
     }

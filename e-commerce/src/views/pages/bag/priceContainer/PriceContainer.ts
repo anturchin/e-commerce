@@ -61,4 +61,12 @@ export class PriceContainer extends View {
         const btn = new BtnPrice().getElement();
         this.viewHtmlElement.addInnerElement(btn);
     }
+
+    public hide(): void {
+        this.getElement().style.display = 'none';
+    }
+
+    public show(): void {
+        this.getElement().style.display = '';
+    }
 }

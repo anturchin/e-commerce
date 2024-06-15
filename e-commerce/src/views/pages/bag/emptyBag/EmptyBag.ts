@@ -12,6 +12,7 @@ export class EmptyBag extends View {
     }
 
     setupContainer(router: Router | null) {
+        this.clearContainer();
         const img = new ImgEmptyBag().getElement();
         this.viewHtmlElement.addInnerElement(img);
 
@@ -20,5 +21,17 @@ export class EmptyBag extends View {
 
         const btn = new BtnProduct(router).getElement();
         this.viewHtmlElement.addInnerElement(btn);
+    }
+
+    private clearContainer() {
+        this.getElement().innerHTML = '';
+    }
+
+    public hide(): void {
+        this.getElement().style.display = 'none';
+    }
+
+    public show(): void {
+        this.getElement().style.display = '';
     }
 }
