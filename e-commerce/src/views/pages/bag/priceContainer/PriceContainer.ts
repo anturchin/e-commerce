@@ -6,6 +6,7 @@ import { Promocode } from './promocode/Promocode';
 import { PromocodeElemType } from './types';
 import { BtnPrice } from './btnPrice/BtnPrice';
 import { BtnPromocode } from './btnPromocode/BtnPromocode';
+import { SalePrice } from './salePrice/SalePrice';
 import './PriceContainer.scss';
 
 export class PriceContainer extends View {
@@ -13,9 +14,11 @@ export class PriceContainer extends View {
 
     private fullPrice: FullPrice | null = null;
 
-    constructor(fullPrice: string) {
+    private salePrice: SalePrice | null = null;
+
+    constructor(fullPrice: string, salePrice: string) {
         super({ tag: 'div', classNames: ['container-price'] });
-        this.setupContainer(fullPrice);
+        this.setupContainer(fullPrice, salePrice);
     }
 
     public getFormElem(): PromocodeElemType | null {
@@ -33,7 +36,7 @@ export class PriceContainer extends View {
         }
     }
 
-    private setupContainer(fullPrice: string): void {
+    private setupContainer(fullPrice: string, salePrice: string): void {
         const title = new TitlePrice().getElement();
 
         this.fullPrice = new FullPrice(fullPrice);
@@ -57,6 +60,10 @@ export class PriceContainer extends View {
         divPromocode.append(promo, btnPromo);
 
         this.viewHtmlElement.addInnerElement(divPromocode);
+
+        this.salePrice = new SalePrice(salePrice);
+        const sale = this.salePrice.getElement();
+        this.viewHtmlElement.addInnerElement(sale);
 
         const btn = new BtnPrice().getElement();
         this.viewHtmlElement.addInnerElement(btn);
