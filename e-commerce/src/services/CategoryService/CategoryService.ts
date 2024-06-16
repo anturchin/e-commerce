@@ -29,7 +29,9 @@ export class CategoryService {
 
             return (await resp.json()) as ICategoryResponse;
         } catch (e) {
-            console.error(e);
+            if (e instanceof Error) {
+                console.error(e.message);
+            }
             throw e;
         }
     }

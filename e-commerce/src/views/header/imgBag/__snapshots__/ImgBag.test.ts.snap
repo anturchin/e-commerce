@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImgBag should match 1`] = `"<div class="nav-list__item-container"><img src="svg-mock" data-nav-item="Bag" class="nav-list__item-bag"><h5 id="cart_length"></h5></div>"`;

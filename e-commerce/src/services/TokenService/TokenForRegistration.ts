@@ -36,7 +36,9 @@ export class TokenForRegistration {
 
             return (await resp.json()) as ITokenResponse;
         } catch (e) {
-            console.error(e);
+            if (e instanceof Error) {
+                console.error(e.message);
+            }
             throw e;
         }
     }
