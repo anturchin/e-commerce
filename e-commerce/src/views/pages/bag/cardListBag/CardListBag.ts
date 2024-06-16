@@ -15,7 +15,13 @@ export class CardBagList extends View {
         return this.cardsBag;
     }
 
+    public clearBag(): void {
+        this.cardsBag = [];
+        this.getElement().innerHTML = '';
+    }
+
     public setupCardListBag(props: IBagCards[]): void {
+        this.clearBag();
         props.forEach((item) => {
             const { url, name, price, sale, id } = item;
             const cardItem = new CardBag(url, name, price, sale, id);
@@ -26,5 +32,13 @@ export class CardBagList extends View {
                 return item.getElement();
             })
         );
+    }
+
+    public hide(): void {
+        this.getElement().style.display = 'none';
+    }
+
+    public show(): void {
+        this.getElement().style.display = '';
     }
 }

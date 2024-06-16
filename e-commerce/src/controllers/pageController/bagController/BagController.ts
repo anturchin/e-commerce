@@ -123,7 +123,7 @@ export class BagController implements IController {
                     const product = respCart.lineItems.find((elem) => elem.productId === id);
                     if (product) {
                         let { quantity } = product;
-                        if (act === 'minus') {
+                        if (act === 'minus' && quantity > 0) {
                             quantity -= 1;
                         }
                         if (act === 'plus') {
@@ -157,7 +157,7 @@ export class BagController implements IController {
                         this.updatePrice();
                         const wrapperList = this.page.getWrapperList();
                         if (wrapperList) {
-                            wrapperList.getElement().innerHTML = '';
+                            wrapperList.clearBag();
                         }
                         const props = this.getProps();
                         this.page.renderProductBagList(props);
@@ -184,24 +184,19 @@ export class BagController implements IController {
     private async makeEmptyHandler(): Promise<void> {
         const token = LocalStorageManager.getToken();
         if (token) {
-            console.log('1if');
             const cartId = LocalStorageManager.getCartId();
             if (cartId) {
-                console.log('2if');
                 LocalStorageManager.removeCart();
                 LocalStorageManager.removeProduct();
                 const cart = await CartService.getCart(token, cartId);
                 if ('version' in cart) {
-                    console.log('3if');
                     const { version } = cart;
                     await CartDeleteService.deleteCart(token, cartId, version);
                 }
                 const cartCreate = await CartCreateService.createCart(token);
                 if ('id' in cartCreate) {
-                    console.log('4if');
                     LocalStorageManager.saveCartId(cartCreate.id);
                 }
-                // TODO: show empty page
             }
         }
     }
