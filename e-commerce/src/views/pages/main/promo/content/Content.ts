@@ -6,8 +6,7 @@ export class Content extends View {
         super({
             tag: 'p',
             classNames: ['promo__content'],
-            textContent:
-                'You can use the following promotional codes: "Spring", "Summer", "Autumn", "Winter"',
+            textContent: 'You can use the following promotional codes: "sale10", "GutsVSGriffit" ',
         });
     }
 }
