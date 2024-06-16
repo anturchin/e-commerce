@@ -1,4 +1,4 @@
-.card__price {
+.card__price-product {
     position: relative;
     display: inline-block;
 
@@ -8,8 +8,8 @@
         left: 0;
         top: 50%;
         width: 105%;
-        height: 3px;
-        background: rgb(104, 238, 95);
+        height: 2px;
+        background: rgb(154, 206, 154);
         transform: rotate(-9deg);
         transform-origin: left center;
     }

@@ -1,0 +1,16 @@
+.promo {
+    position: relative;
+    width: 485px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background: #222;
+    color: ghostwhite;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgb(0, 0, 0);
+    margin: 3rem 3rem;
+    gap: 1rem;
+}

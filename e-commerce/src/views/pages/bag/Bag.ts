@@ -29,8 +29,9 @@ export class Bag extends View {
     constructor(router: Router | null) {
         super({ tag: 'section', classNames: ['bag'] });
         const fullPrice = '0$';
+        const salePrice = '0$';
         this.router = router;
-        this.createPriceContainer(fullPrice);
+        this.createPriceContainer(fullPrice, salePrice);
 
         this.btnDelete = new BtnDeleteAll();
         this.btnDelete.hide();
@@ -67,8 +68,8 @@ export class Bag extends View {
         return this.productBag;
     }
 
-    public createPriceContainer(fullPrice: string): void {
-        this.priceContainer = new PriceContainer(fullPrice);
+    public createPriceContainer(fullPrice: string, salePrice: string): void {
+        this.priceContainer = new PriceContainer(fullPrice, salePrice);
         this.priceContainer.hide();
         const price = this.priceContainer.getElement();
         this.viewHtmlElement.addInnerElement(price);

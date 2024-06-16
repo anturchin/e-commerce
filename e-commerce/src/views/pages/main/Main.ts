@@ -1,10 +1,11 @@
 import { View } from '../../View';
 import { SlidesShow } from '../../slidesShow/SlidesShow';
+import { Promo } from './promo/Promo';
 import './Main.scss';
 
 export class Main extends View {
     constructor() {
-        super({ tag: 'section', classNames: ['content'] });
+        super({ tag: 'section', classNames: ['content-main'] });
         this.setupMain();
     }
 
@@ -17,7 +18,10 @@ export class Main extends View {
             'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/watch-card-40-ultra2-202403?wid=680&hei=528&fmt=p-jpg&qlt=95&.v=1708673883590',
         ];
 
+        const promo = new Promo().getElement();
+        this.viewHtmlElement.addInnerElement(promo);
+
         const slidesShow = new SlidesShow(urls);
-        this.getElement().appendChild(slidesShow.getElement());
+        this.viewHtmlElement.addInnerElement(slidesShow.getElement());
     }
 }
