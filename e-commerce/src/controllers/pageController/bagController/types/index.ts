@@ -4,4 +4,5 @@ export interface IBagCards {
     price: string;
     sale: string;
     id: string;
+    quantity: number;
 }

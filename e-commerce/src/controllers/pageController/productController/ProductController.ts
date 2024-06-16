@@ -173,17 +173,10 @@ export class ProductController implements IController {
                             };
                         }
                     }
-                    const q = await CartUpdateService.updateCart(
-                        token,
-                        cartId,
-                        version,
-                        respAction
-                    );
-                    console.log(q);
+                    await CartUpdateService.updateCart(token, cartId, version, respAction);
                 }
             }
         }
-        console.log('click');
     }
 
     private disableDuplicateButtons(): void {

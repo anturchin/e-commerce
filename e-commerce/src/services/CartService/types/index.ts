@@ -56,7 +56,7 @@ interface Custom {
     fields: Record<string, string>;
 }
 
-interface LineItem {
+export interface ILineItem {
     id: string;
     productId: string;
     name: Record<string, string>;
@@ -81,7 +81,7 @@ export interface ICart {
     version: number;
     createdAt: string;
     lastModifiedAt: string;
-    lineItems: LineItem[];
+    lineItems: ILineItem[];
     cartState: string;
     totalPrice: Price;
     customLineItems: string[];
@@ -111,5 +111,6 @@ export interface ICartAction {
     action: string;
     productId?: string;
     lineItemId?: string;
-    quantity: number;
+    quantity?: number;
+    code?: string;
 }

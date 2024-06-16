@@ -2,23 +2,30 @@ import { Bag } from '../../../views/pages/bag/Bag';
 import { IController } from '../PageController.interface';
 import { LocalStorageManager } from '../../../utils/localStorageManager/LocalStorageManager';
 import { CartService } from '../../../services/CartService/CartService';
-import { ProductListService } from '../../../services/ProductListService/ProductListService';
-import { IProduct, IProductResponse } from '../../../services/ProductListService/types';
-import { IResponseFailed } from '../../../services/types';
 import { IBagCards } from './types';
 import { CartUpdateService } from '../../../services/CartUpdateService/CartUpdateService';
 import { Router } from '../../../router/Router';
 import { CartDeleteService } from '../../../services/CartDeleteService/CartDeleteService';
 import { CartCreateService } from '../../../services/CartCreateService/CartCreateService';
+import { ILineItem } from '../../../services/CartService/types';
+import { DiscountService } from '../../../services/DiscountService/DiscountService';
+import { PromoService } from '../../../services/PromoService/PromoService';
+import { IPromo } from '../../../services/PromoService/types';
 
 export class BagController implements IController {
     private page: Bag;
 
     private router: Router | null;
 
-    private products: Awaited<IProductResponse | IResponseFailed | IProduct>[] = [];
+    private products: ILineItem[] = [];
 
     private totalPrice: number = 0;
+
+    private discount: number = 0;
+
+    private promoCodes: string[] = []; // array for display promos
+
+    private promos: IPromo[] = [];
 
     constructor(router: Router | null) {
         this.router = router;
@@ -33,19 +40,24 @@ export class BagController implements IController {
     private async loadData(): Promise<void> {
         const token = await LocalStorageManager.getToken();
         if (token) {
+            const discounts = await DiscountService.getDiscounts(token);
+            if ('results' in discounts) {
+                const [firstDiscount] = discounts.results;
+                this.discount = 1 - firstDiscount.value.permyriad / 10000;
+            }
             const cartId = LocalStorageManager.getCartId();
             if (cartId) {
                 const carts = await CartService.getCart(token, cartId);
                 if ('lineItems' in carts) {
-                    const productPromises = carts.lineItems.map((item) => {
-                        return ProductListService.getProductList(token, item.productId);
+                    const productPromises = carts.lineItems.map((item: ILineItem) => {
+                        return item;
                     });
-                    const productsFromStore = await Promise.all(productPromises);
-                    this.products.push(...productsFromStore);
+                    this.products.push(...productPromises);
                     const props: IBagCards[] = this.getProps();
                     this.page.renderProductBagList(props);
                     this.eventHandler();
                     this.updatePrice();
+                    this.getPromo();
                 }
             }
         }
@@ -53,25 +65,27 @@ export class BagController implements IController {
 
     private getProps(): IBagCards[] {
         return this.products.map((product) => {
-            if ('masterData' in product) {
-                const urlResp = product.masterData?.current.masterVariant.images[0].url;
-                const url = urlResp !== undefined ? urlResp : '';
-                const pric = product.masterData.current.masterVariant.prices[0].value.centAmount;
-                const price = pric !== undefined ? `${pric / 100}` : '0';
+            const urlResp = product.variant.images[0].url;
+            const url = urlResp !== undefined ? urlResp : '';
+            const pric = product.price.value.centAmount;
+            const price = pric !== undefined ? pric / 100 : 0;
+            if (this.discount !== 0) {
                 return {
                     url,
-                    name: 'masterData' in product ? product.masterData.current.name.ru : '',
+                    name: product.name.ru,
                     price: `${price}$`,
-                    sale: '',
-                    id: product.id,
+                    sale: `${Math.round(price * this.discount)}$`,
+                    id: product.productId,
+                    quantity: product.quantity,
                 };
             }
             return {
-                url: '',
-                name: '',
-                price: '',
-                sale: '',
-                id: '',
+                url,
+                name: product.name.ru,
+                price: `${price}$`,
+                sale: `${Math.round(price * 0.05)}$`,
+                id: product.productId,
+                quantity: product.quantity,
             };
         });
     }
@@ -91,6 +105,11 @@ export class BagController implements IController {
         )[0] as HTMLButtonElement;
         if (emptyCart) {
             emptyCart.addEventListener('click', this.makeEmptyHandler.bind(this));
+        }
+
+        const promoBtn = document.getElementsByClassName('custom-button')[0] as HTMLButtonElement;
+        if (promoBtn) {
+            promoBtn.addEventListener('click', this.checkPromo.bind(this));
         }
     }
 
@@ -148,16 +167,17 @@ export class BagController implements IController {
                             });
                             LocalStorageManager.saveProduct(JSON.stringify(productsToSave));
                             const productPromises = cartResp.lineItems.map((item) => {
-                                return ProductListService.getProductList(token, item.productId);
+                                return item;
                             });
-                            const productsFromStore = await Promise.all(productPromises);
                             this.products = [];
-                            this.products.push(...productsFromStore);
+                            this.products.push(...productPromises);
                         }
                         this.updatePrice();
-                        const wrapperList = this.page.getWrapperList();
-                        if (wrapperList) {
-                            wrapperList.clearBag();
+                        if (this.products.length === 0) {
+                            const wrapperList = this.page.getWrapperList();
+                            if (wrapperList) {
+                                wrapperList.clearBag();
+                            }
                         }
                         const props = this.getProps();
                         this.page.renderProductBagList(props);
@@ -196,6 +216,49 @@ export class BagController implements IController {
                 const cartCreate = await CartCreateService.createCart(token);
                 if ('id' in cartCreate) {
                     LocalStorageManager.saveCartId(cartCreate.id);
+                }
+            }
+        }
+    }
+
+    private async getPromo() {
+        const token = LocalStorageManager.getToken();
+        if (token) {
+            const promos = await PromoService.getPromo(token);
+            if ('results' in promos) {
+                this.promos = promos.results.map((promo) => {
+                    this.promoCodes.push(promo.name.ru);
+                    return promo;
+                });
+            }
+        }
+    }
+
+    private checkPromo() {
+        const promoInput = document.getElementsByClassName('input-promo')[0] as HTMLInputElement;
+        const promo = promoInput.value;
+        if (this.promoCodes.includes(promo)) {
+            this.addDiscountToCart(promo);
+        } else {
+            console.log(`"${promo}" promo is incorrect`);
+        }
+    }
+
+    private async addDiscountToCart(discount: string) {
+        // const promoToAdd = this.promos.find((item) => item.name.ru === discount);
+        const token = LocalStorageManager.getToken();
+        if (token) {
+            const cart = LocalStorageManager.getCartId();
+            if (cart) {
+                const action = {
+                    action: 'addDiscountCode',
+                    code: discount,
+                };
+                const respCart = await CartService.getCart(token, cart);
+                if ('version' in respCart) {
+                    const { version } = respCart;
+                    await CartUpdateService.updateCart(token, cart, version, action);
+                    this.updatePrice();
                 }
             }
         }
