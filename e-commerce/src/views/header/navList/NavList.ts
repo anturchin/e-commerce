@@ -3,7 +3,7 @@ import { NavItem } from '../navItem/NavItem';
 
 import './NavList.scss';
 
-const options: string[] = ['Home', 'Sign in', 'Sign up', 'Logout'];
+const options: string[] = ['Home', 'Category', 'Sign in', 'Sign up', 'Profile', 'Logout'];
 
 export class NavList extends View {
     private navItems: NavItem[] = [];

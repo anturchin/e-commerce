@@ -3,6 +3,7 @@ import { ControllerName } from '../../controllers/pageController/PageController.
 import { Router } from '../Router';
 import { IRoute, RoutePath } from '../types';
 
+const productTypes = ['phone', 'laptop', 'watch', 'tablet'] as const;
 export class Routes {
     public static initialRoutes(router: Router, pageController: PageController): IRoute[] {
         const routes: IRoute[] = [
@@ -30,6 +31,34 @@ export class Routes {
                     await pageController.updateContent(ControllerName.NOT_FOUND);
                 },
             },
+            {
+                path: RoutePath.CATEGORY,
+                callback: async () => {
+                    await pageController.updateContent(ControllerName.CATEGORY);
+                },
+            },
+            {
+                path: RoutePath.PROFILE,
+                callback: async () => {
+                    await pageController.updateContent(ControllerName.PROFILE);
+                },
+            },
+            ...productTypes.map((productType) => ({
+                path: `${RoutePath.PRODUCT}/${productType}`,
+                callback: async () => {
+                    await pageController.updateContent(ControllerName.PRODUCT, productType);
+                },
+            })),
+            ...productTypes.map((productType) => ({
+                path: `${RoutePath.PRODUCT}/${productType}/:id`,
+                callback: async (id?: string) => {
+                    await pageController.updateContent(
+                        ControllerName.PRODUCT_DETAIL,
+                        productType,
+                        id
+                    );
+                },
+            })),
         ];
         return routes;
     }
