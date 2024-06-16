@@ -6,10 +6,11 @@
     padding: 0.5rem 0;
     box-shadow: 0 15px 35px rgb(0, 0, 0);
     background: #222;
-    color: #0f0;
+    color: gainsboro;
 
     position: sticky;
     min-height: 7%;
+    z-index: 1000;
 }
 
 @media (max-width: 485px) {

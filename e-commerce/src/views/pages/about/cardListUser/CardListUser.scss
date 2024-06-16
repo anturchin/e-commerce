@@ -1,6 +1,8 @@
 .card-list {
     display: flex;
     justify-content: center;
-    gap: 7rem;
+    gap: 5rem;
     margin: 3rem;
+    position: relative;
+    z-index: 1000;
 }

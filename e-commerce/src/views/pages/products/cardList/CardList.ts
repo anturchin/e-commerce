@@ -8,7 +8,7 @@ export class CardList extends View {
     private cards: Card[] = [];
 
     constructor(props: ICards[]) {
-        super({ tag: 'div', classNames: ['card-list'] });
+        super({ tag: 'div', classNames: ['card-list-bag'] });
         this.setupCardList(props);
     }
 

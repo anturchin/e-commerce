@@ -24,7 +24,7 @@ export class Bag extends View {
     private priceContainer: PriceContainer | null = null;
 
     constructor(router: Router | null) {
-        super({ tag: 'section', classNames: ['content', 'bag'] });
+        super({ tag: 'section', classNames: ['bag'] });
         const fullPrice = '0$';
         this.router = router;
         this.createPriceContainer(fullPrice);

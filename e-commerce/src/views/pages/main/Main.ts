@@ -1,17 +1,14 @@
 import { View } from '../../View';
 import { SlidesShow } from '../../slidesShow/SlidesShow';
-import { TitleSlide } from '../../slidesShow/title/Title';
+import './Main.scss';
 
 export class Main extends View {
     constructor() {
-        super({ tag: 'section', classNames: ['product-detail'] });
+        super({ tag: 'section', classNames: ['content'] });
         this.setupMain();
     }
 
     private setupMain() {
-        const title = new TitleSlide().getElement();
-        this.viewHtmlElement.addInnerElement(title);
-
         const urls = [
             'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-card-40-macbook-air-m2-m3-202402?wid=1400&hei=1000&fmt=p-jpg&qlt=95&.v=1707259317253',
             'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-card-40-imac-24-202310?wid=1200&hei=1000&fmt=jpeg&qlt=95&.v=1697229623322',

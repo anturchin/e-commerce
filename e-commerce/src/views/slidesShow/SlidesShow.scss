@@ -1,13 +1,15 @@
 .slideshow-container {
     position: relative;
-    max-width: 70%;
+    width: 485px;
+    padding: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2rem auto 4rem auto;
+    z-index: 1000;
     background: #222;
     border-radius: 4px;
     box-shadow: 0 15px 35px rgb(0, 0, 0);
+    margin: 3rem 3rem;
 }
 
 .slides-wrapper {
