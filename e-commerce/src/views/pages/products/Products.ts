@@ -17,7 +17,7 @@ export class Products extends View {
 
     private currentPage: number = 1;
 
-    private itemsPage: number = 6;
+    private itemsPage: number = 4;
 
     private allProduct: ICards[] = [];
 

@@ -7,6 +7,7 @@ import { TokenForRegistration } from '../services/TokenService/TokenForRegistrat
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
 import { Publisher } from '../observers/Publisher';
 import { CartCreateService } from '../services/CartCreateService/CartCreateService';
+import { AnimBack } from '../views/spanBack/anim/Anim';
 
 export class App {
     private pageController: PageController;
@@ -39,10 +40,12 @@ export class App {
         const header = this.headerController.render();
         const wrapper = this.pageController.render();
         const footer = this.footerController.render();
+        const background = new AnimBack().getElement();
+
         const body: HTMLElement | null = document.querySelector('body');
         if (body) {
             this.authPublisher.notifyObservers(!!LocalStorageManager.getUserData());
-            body.append(...[header, wrapper, footer]);
+            body.append(...[header, background, wrapper, footer]);
         }
     }
 

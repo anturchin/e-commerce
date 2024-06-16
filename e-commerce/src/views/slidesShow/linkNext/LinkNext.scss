@@ -1,28 +1,24 @@
 .next {
-    margin-top: 5px;
+    margin: 5px 1rem;
     padding: 10px 25px;
     border: none;
     border-radius: 5px;
-    color: #38b627;
     font-size: 1.6rem;
-    margin: 1rem 6rem;
     font-weight: 600;
-    background-color: rgb(204, 216, 204);
+    background-color: #222;
     transition: all 250ms;
     outline: none;
     cursor: pointer;
-    &:hover:not(:disabled),
-    &:focus:not(:disabled) {
-        background-color: rgb(94, 100, 94);
-    }
-    &:hover:not(:disabled) {
-        transform: translateY(-1px);
-        background-color: rgb(60, 60, 60);
-    }
-    &:disabled {
-        opacity: 0.3;
-        cursor: auto;
-    }
+    color: rgba(94, 92, 92, 0.8);
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next:hover {
+    background-color: rgb(204, 216, 204);
 }
 
 @media (max-width: 485px) {

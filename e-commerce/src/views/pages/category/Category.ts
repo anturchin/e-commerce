@@ -1,5 +1,6 @@
 import { View } from '../../View';
 import { CategoryList } from './categoryList/CategoryList';
+import { TitleCategory } from './title/Title';
 
 import './Category.scss';
 
@@ -17,6 +18,8 @@ export class Category extends View {
     }
 
     renderCategoryList(props: ICategoryProps[]) {
+        const title = new TitleCategory().getElement();
+        this.viewHtmlElement.addInnerElement(title);
         this.categoryList = new CategoryList(props);
         this.viewHtmlElement.addInnerElement(this.categoryList.getElement());
     }
