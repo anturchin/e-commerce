@@ -5,7 +5,7 @@ import './Button.scss';
 
 export class Button extends View {
     constructor(props: ButtonType) {
-        super({ tag: 'button', classNames: ['button'] });
+        super({ tag: 'button', classNames: ['custom-button'] });
         this.setupInput(props);
         this.addClickHandler(props.onClick);
     }
