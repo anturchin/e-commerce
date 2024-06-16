@@ -14,17 +14,19 @@ export class CardBag extends View {
         cardTitle: string,
         cardPrice: string,
         cardSale: string,
-        cardId: string
+        cardId: string,
+        cardQuantity: number
     ) {
         super({ tag: 'div', classNames: ['cardbag'], id: cardId });
-        this.setupCardBag(cardImg, cardTitle, cardPrice, cardSale);
+        this.setupCardBag(cardImg, cardTitle, cardPrice, cardSale, cardQuantity);
     }
 
     private setupCardBag(
         cardImg: string,
         cardTitle: string,
         cardPrice: string,
-        cardSale: string
+        cardSale: string,
+        cardQuantity: number
     ): void {
         const img = new ImgCardBag(cardImg).getElement();
         this.viewHtmlElement.addInnerElement(img);
@@ -32,7 +34,7 @@ export class CardBag extends View {
         const title = new TitleProduct(cardTitle).getElement();
         this.viewHtmlElement.addInnerElement(title);
 
-        const initialQuantity = 1;
+        const initialQuantity = cardQuantity;
         const minQuantity = 0;
         const maxQuantity = 100;
 

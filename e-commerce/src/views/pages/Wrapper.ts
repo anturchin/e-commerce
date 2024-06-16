@@ -8,7 +8,6 @@ export class Wrapper extends View {
 
     public updateContent(component: HTMLElement): void {
         this.getElement().innerHTML = '';
-        console.log(component);
         this.getElement().append(component);
     }
 }
