@@ -1,5 +1,5 @@
 import { View } from '../../../../View';
-import './SubTitle.scss';
+import './Subtitle.scss';
 
 export class SubTitle extends View {
     constructor() {

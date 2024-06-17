@@ -30,7 +30,7 @@ const userCards: IUserCards[] = [
         role: 'Team lead',
         letter: 'A',
         name: 'Andrey Turchin',
-        bio: 'Andrey Turkhin is passionate about frontend development and is the person who best understands the technical details and architecture of the project. He is always ready to provide support to team members on any issue.',
+        bio: 'Andrey Turchin is passionate about frontend development and is the person who best understands the technical details and architecture of the project. He is always ready to provide support to team members on any issue.',
         contribution:
             'Andrey, as the team leader, significantly influences the success of our project through his work on architecture, utilities, and routing. He is also responsible for code testing coverage, which ensures the high quality and reliability of our product. Andrey makes a key contribution to the project by developing complex solutions that enhance the efficiency and performance of the system. His leadership and ability to guide the team not only help achieve set goals but also create an atmosphere of innovation and collaboration within the team.',
         git: 'anturchin',
