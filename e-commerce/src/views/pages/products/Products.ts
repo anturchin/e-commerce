@@ -140,7 +140,7 @@ export class Products extends View {
 
     private disableBtns(): void {
         const removeBtns = document.getElementsByClassName('custom-button');
-        for (let i = 1; i < removeBtns.length; i += 2) {
+        for (let i = 2; i < removeBtns.length; i += 2) {
             (removeBtns[i] as HTMLButtonElement).disabled = true;
         }
         const productsJSON = LocalStorageManager.getProduct();

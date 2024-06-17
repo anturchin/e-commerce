@@ -21,11 +21,15 @@ export class BagController implements IController {
 
     private totalPrice: number = 0;
 
+    private totalDiscountedPrice: number = 0;
+
     private discount: number = 0;
 
     private promoCodes: string[] = []; // array for display promos
 
     private promos: IPromo[] = [];
+
+    private promoUsed: boolean = false;
 
     constructor(router: Router | null) {
         this.router = router;
@@ -48,6 +52,7 @@ export class BagController implements IController {
             const cartId = LocalStorageManager.getCartId();
             if (cartId) {
                 const carts = await CartService.getCart(token, cartId);
+                console.log(carts);
                 if ('lineItems' in carts) {
                     const productPromises = carts.lineItems.map((item: ILineItem) => {
                         return item;
@@ -56,8 +61,13 @@ export class BagController implements IController {
                     const props: IBagCards[] = this.getProps();
                     this.page.renderProductBagList(props);
                     this.eventHandler();
-                    this.updatePrice();
+                    this.promoUsed = false;
+                    await this.updatePrice();
                     this.getPromo();
+                    if ('discountOnTotalPrice' in carts) {
+                        this.promoUsed = true;
+                        this.updateDiscountedPrice();
+                    }
                 }
             }
         }
@@ -107,7 +117,7 @@ export class BagController implements IController {
             emptyCart.addEventListener('click', this.makeEmptyHandler.bind(this));
         }
 
-        const promoBtn = document.getElementsByClassName('custom-button')[0] as HTMLButtonElement;
+        const promoBtn = document.getElementsByClassName('custom-button')[1] as HTMLButtonElement;
         if (promoBtn) {
             promoBtn.addEventListener('click', this.checkPromo.bind(this));
         }
@@ -173,6 +183,7 @@ export class BagController implements IController {
                             this.products.push(...productPromises);
                         }
                         this.updatePrice();
+                        this.updateDiscountedPrice();
                         if (this.products.length === 0) {
                             const wrapperList = this.page.getWrapperList();
                             if (wrapperList) {
@@ -193,9 +204,37 @@ export class BagController implements IController {
             const cartId = LocalStorageManager.getCartId();
             if (cartId) {
                 const carts = await CartService.getCart(token, cartId);
-                if ('totalPrice' in carts) {
-                    this.totalPrice = Math.floor(carts.totalPrice.centAmount / 100);
-                    this.page.updatePrice(`${this.totalPrice}$`);
+                if (!this.promoUsed) {
+                    if ('totalPrice' in carts) {
+                        this.totalPrice = Math.floor(carts.totalPrice.centAmount / 100);
+                        if ('discountOnTotalPrice' in carts) {
+                            if (
+                                carts.discountOnTotalPrice &&
+                                'discountedAmount' in carts.discountOnTotalPrice
+                            ) {
+                                this.totalPrice = Math.floor(
+                                    carts.discountOnTotalPrice.discountedAmount.centAmount / 10
+                                );
+                            }
+                        }
+                        this.page.updatePrice(`${this.totalPrice}$`);
+                    }
+                }
+            }
+        }
+    }
+
+    private async updateDiscountedPrice(): Promise<void> {
+        if (this.promoUsed) {
+            const token = await LocalStorageManager.getToken();
+            if (token) {
+                const cartId = LocalStorageManager.getCartId();
+                if (cartId) {
+                    const carts = await CartService.getCart(token, cartId);
+                    if ('totalPrice' in carts) {
+                        this.totalDiscountedPrice = Math.floor(carts.totalPrice.centAmount / 100);
+                        this.page.updateDiscountedPrice(`${this.totalDiscountedPrice}$`);
+                    }
                 }
             }
         }
@@ -245,7 +284,6 @@ export class BagController implements IController {
     }
 
     private async addDiscountToCart(discount: string) {
-        // const promoToAdd = this.promos.find((item) => item.name.ru === discount);
         const token = LocalStorageManager.getToken();
         if (token) {
             const cart = LocalStorageManager.getCartId();
@@ -257,8 +295,11 @@ export class BagController implements IController {
                 const respCart = await CartService.getCart(token, cart);
                 if ('version' in respCart) {
                     const { version } = respCart;
-                    await CartUpdateService.updateCart(token, cart, version, action);
-                    this.updatePrice();
+                    console.log(respCart);
+                    const q = await CartUpdateService.updateCart(token, cart, version, action);
+                    console.log(q);
+                    this.promoUsed = true;
+                    this.updateDiscountedPrice();
                 }
             }
         }

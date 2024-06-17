@@ -80,4 +80,10 @@ export class Bag extends View {
             this.priceContainer.updatePrice(price);
         }
     }
+
+    public updateDiscountedPrice(price: string): void {
+        if (this.priceContainer) {
+            this.priceContainer.updateDiscountedPrice(price);
+        }
+    }
 }
