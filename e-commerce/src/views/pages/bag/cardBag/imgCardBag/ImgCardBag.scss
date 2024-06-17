@@ -3,3 +3,24 @@
     width: 16rem;
     padding: 1rem;
 }
+
+@media (max-width: 650px) {
+    .cardbag-img {
+        height: 10rem;
+        width: 11rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .cardbag-img {
+        height: 7rem;
+        width: 9rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .cardbag-img {
+        height: 6rem;
+        width: 7rem;
+    }
+}

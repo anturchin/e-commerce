@@ -14,3 +14,153 @@
     margin: 3rem 3rem;
     gap: 1rem;
 }
+
+@media (min-width: 1500px) {
+    .promo {
+        width: 485px;
+        margin: 3rem 3rem;
+    }
+}
+
+@media (max-width: 1400px) {
+    .promo {
+        width: 450px;
+        margin: 2.8rem 2.8rem;
+    }
+}
+
+@media (max-width: 1300px) {
+    .promo {
+        width: 420px;
+        margin: 2.6rem 2.6rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .promo {
+        width: 390px;
+        margin: 2.4rem 2.4rem;
+    }
+}
+
+@media (max-width: 1100px) {
+    .promo {
+        width: 360px;
+        margin: 2.2rem 2.2rem;
+        padding: 35px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .promo {
+        width: 330px;
+        margin: 2rem 2rem;
+        padding: 35px;
+    }
+}
+
+@media (max-width: 950px) {
+    .promo {
+        width: 325px;
+        margin: 2rem 2rem;
+        padding: 33px;
+    }
+}
+
+@media (max-width: 900px) {
+    .promo {
+        width: 310px;
+        margin: 1.8rem 1.8rem;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 850px) {
+    .promo {
+        width: 300px;
+        margin: 1.8rem 1.8rem;
+        padding: 27px;
+    }
+}
+
+@media (max-width: 800px) {
+    .promo {
+        width: 290px;
+        margin: 1.6rem 1.6rem;
+        padding: 25px;
+    }
+}
+
+@media (max-width: 750px) {
+    .promo {
+        width: 285px;
+        margin: 1.6rem 1.6rem;
+        padding: 24px;
+    }
+}
+
+@media (max-width: 700px) {
+    .promo {
+        width: 275px;
+        margin: 1.4rem 1.4rem;
+        padding: 24px;
+    }
+}
+
+@media (max-width: 650px) {
+    .promo {
+        width: 270px;
+        margin: 1.4rem 1.4rem;
+        padding: 23px;
+    }
+}
+
+@media (max-width: 600px) {
+    .promo {
+        width: 260px;
+        margin: 1.2rem 1.2rem;
+        padding: 21px;
+    }
+}
+
+@media (max-width: 600px) {
+    .promo {
+        width: 210px;
+        margin: 1.2rem 1.2rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .promo {
+        width: 220px;
+        margin: 1rem 1rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .promo {
+        width: 210px;
+        margin: 1rem 1rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .promo {
+        width: 200px;
+        margin: 0.8rem 0.8rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .promo {
+        width: 190px;
+        margin: 0.8rem 0.8rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .promo {
+        width: 180px;
+        margin: 0.6rem 0.6rem;
+    }
+}

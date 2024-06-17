@@ -3,3 +3,21 @@
     color: azure;
     font-size: 17px;
 }
+
+@media (max-width: 1000px) {
+    .user-card__name {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 850px) {
+    .user-card__name {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 650px) {
+    .user-card__name {
+        font-size: 12px;
+    }
+}

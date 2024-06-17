@@ -21,14 +21,94 @@
     background-color: rgb(204, 216, 204);
 }
 
-@media (max-width: 485px) {
+@media (max-width: 1500px) {
+    .next {
+        font-size: 1.5rem;
+        padding: 9px 22px;
+    }
+}
+
+@media (max-width: 1400px) {
     .next {
         font-size: 1.4rem;
+        padding: 8px 20px;
+    }
+}
+
+@media (max-width: 1300px) {
+    .next {
+        font-size: 1.3rem;
+        padding: 7px 18px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .next {
+        font-size: 1.2rem;
+        padding: 6px 16px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .next {
+        font-size: 1.1rem;
+        padding: 5px 14px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .next {
+        font-size: 1rem;
+        padding: 5px 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .next {
+        font-size: 0.9rem;
+        padding: 4px 10px;
+    }
+}
+
+@media (max-width: 800px) {
+    .next {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 700px) {
+    .next {
+        font-size: 0.7rem;
+        padding: 3px 6px;
+    }
+}
+
+@media (max-width: 600px) {
+    .next {
+        font-size: 0.6rem;
+        padding: 3px 5px;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 500px) {
+    .next {
+        font-size: 0.5rem;
+        padding: 2px 4px;
     }
 }
 
 @media (max-width: 400px) {
     .next {
-        font-size: 1.2rem;
+        font-size: 0.4rem;
+        padding: 2px 3px;
+    }
+}
+
+@media (max-width: 360px) {
+    .next {
+        font-size: 0.3rem;
+        padding: 2px 2px;
     }
 }

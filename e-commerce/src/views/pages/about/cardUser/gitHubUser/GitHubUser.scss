@@ -6,3 +6,9 @@
 .user-card__github:hover {
     color: #44f647;
 }
+
+@media (max-width: 1200px) {
+    .user-card__github {
+        font-size: 15px;
+    }
+}

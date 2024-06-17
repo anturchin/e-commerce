@@ -6,6 +6,7 @@ import { NameUser } from './nameUser/NameUser';
 import { BioUser } from './bioUser/BioUser';
 import { Contribution } from './contributionUser/ContributionUser';
 import { GitHubUser } from './gitHubUser/GitHubUser';
+import { ContainerUser } from '../container/Container';
 import './CardUser.scss';
 
 export class CardUser extends View {
@@ -34,25 +35,32 @@ export class CardUser extends View {
         const imgUsers = new ImgUser(imgUser).getElement();
         this.viewHtmlElement.addInnerElement(imgUsers);
 
+        const div = new ContainerUser().getElement();
+
         const roleUsers = new RoleUser(roleUser).getElement();
-        this.viewHtmlElement.addInnerElement(roleUsers);
 
         const letters = new LettersUser(letter).getElement();
-        this.viewHtmlElement.addInnerElement(letters);
 
         const nameUsers = new NameUser(nameUser).getElement();
-        this.viewHtmlElement.addInnerElement(nameUsers);
 
         const bioUsers = new BioUser(bioUser).getElement();
-        this.viewHtmlElement.addInnerElement(bioUsers);
 
         const contributionUser = new Contribution(contribution).getElement();
-        this.viewHtmlElement.addInnerElement(contributionUser);
 
         const gitHubUsers = new GitHubUser(
             gitHubUser,
             `https://github.com/${gitHubUser}`
         ).getElement();
-        this.viewHtmlElement.addInnerElement(gitHubUsers);
+
+        div.append(
+            roleUsers,
+            roleUsers,
+            letters,
+            nameUsers,
+            bioUsers,
+            contributionUser,
+            gitHubUsers
+        );
+        this.viewHtmlElement.addInnerElement(div);
     }
 }

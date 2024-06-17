@@ -31,3 +31,27 @@
     opacity: 0.8;
     color: black;
 }
+
+@media (max-width: 1200px) {
+    .custom-button {
+        padding: 10px 18px;
+    }
+}
+
+@media (max-width: 900px) {
+    .custom-button {
+        padding: 9px 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .custom-button {
+        padding: 8px 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .custom-button {
+        padding: 7px 13px;
+    }
+}

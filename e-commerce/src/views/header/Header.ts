@@ -54,7 +54,7 @@ export class Header extends View {
     private updateBtnVisible(): void {
         const buttonElement = this.toggleButton?.getElement();
         if (buttonElement) {
-            if (window.innerWidth <= 485) {
+            if (window.innerWidth <= 550) {
                 buttonElement.style.display = 'block';
             } else {
                 buttonElement.style.display = 'none';
@@ -65,7 +65,7 @@ export class Header extends View {
     private updateNavList(): void {
         const navListElement = this.navList?.getElement();
         if (navListElement) {
-            navListElement.style.display = window.innerWidth <= 485 ? 'none' : 'flex';
+            navListElement.style.display = window.innerWidth <= 550 ? 'none' : 'flex';
         }
     }
 
