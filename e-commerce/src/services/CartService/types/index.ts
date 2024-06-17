@@ -56,6 +56,18 @@ interface Custom {
     fields: Record<string, string>;
 }
 
+interface Discount {
+    centAmount: number;
+    currencyCode: string;
+    fractionDigits: number;
+    type: string;
+}
+
+interface Discounts {
+    discountedAmount: Discount;
+    includedDiscounts: string[];
+}
+
 export interface ILineItem {
     id: string;
     productId: string;
@@ -87,6 +99,7 @@ export interface ICart {
     customLineItems: string[];
     discountCodes: string[];
     directDiscounts: string[];
+    discountOnTotalPrice?: Discounts;
     inventoryMode: string;
     taxMode: string;
     taxRoundingMode: string;

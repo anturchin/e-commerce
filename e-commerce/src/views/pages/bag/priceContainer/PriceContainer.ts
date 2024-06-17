@@ -36,6 +36,18 @@ export class PriceContainer extends View {
         }
     }
 
+    public updateDiscountedPrice(price: string): void {
+        if (this.fullPrice) {
+            const price = this.fullPrice.getElement();
+            if (!price.classList.contains('change-price')) {
+                price.classList.add('change-price');
+            }
+        }
+        if (this.salePrice) {
+            this.salePrice.updatePrice(price);
+        }
+    }
+
     private setupContainer(fullPrice: string, salePrice: string): void {
         const title = new TitlePrice().getElement();
 

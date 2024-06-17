@@ -200,5 +200,3 @@ export class ProductController implements IController {
         return [addBtn, removeBtn];
     }
 }
-
-// TODO: (btns), price
