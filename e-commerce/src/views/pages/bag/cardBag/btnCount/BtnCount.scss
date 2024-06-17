@@ -53,3 +53,15 @@
         cursor: not-allowed;
     }
 }
+
+@media (max-width: 450px) {
+    .quantity-input {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    .quantity-btn {
+        height: 1rem;
+        width: 1rem;
+    }
+}

@@ -8,5 +8,66 @@
     background: #222;
     border-radius: 10px;
     gap: 1rem;
-    padding: 1rem;
+    padding: 1rem 0.5rem;
+    width: 70rem;
+}
+
+@media (max-width: 1100px) {
+    .cardbag {
+        width: 65rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .cardbag {
+        width: 60rem;
+    }
+}
+
+@media (max-width: 750px) {
+    .cardbag {
+        width: 55rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .cardbag {
+        width: 50rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .cardbag {
+        width: 48rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .cardbag {
+        width: 45rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .cardbag {
+        width: 40rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .cardbag {
+        width: 35rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .cardbag {
+        width: 33rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .cardbag {
+        width: 32rem;
+    }
 }

@@ -4,3 +4,51 @@
     padding: 2rem 15rem;
     gap: 60px;
 }
+
+@media (max-width: 750px) {
+    .container-rss {
+        padding: 2rem 13rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .container-rss {
+        padding: 2rem 10rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .container-rss {
+        padding: 2rem 9rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .container-rss {
+        padding: 2rem 7rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .container-rss {
+        padding: 2rem 6rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .container-rss {
+        padding: 2rem 4rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .container-rss {
+        padding: 2rem 2rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .container-rss {
+        padding: 2rem 0rem;
+    }
+}

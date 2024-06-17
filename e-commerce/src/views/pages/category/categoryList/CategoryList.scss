@@ -6,4 +6,12 @@
     list-style: none;
     padding-left: 0;
     gap: 20px;
+    padding: 3rem 2rem;
+}
+
+@media (max-width: 700px) {
+    .category__nav-list {
+        flex-direction: column;
+        display: flex;
+    }
 }

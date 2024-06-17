@@ -32,7 +32,7 @@ export interface IPromo {
     stores: Store[];
     isActive: boolean;
     requiresDiscountCode: boolean;
-    references: any[];
+    references: string[];
     stackingMode: string;
 }
 

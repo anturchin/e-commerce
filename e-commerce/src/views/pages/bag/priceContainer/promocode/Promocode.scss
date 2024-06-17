@@ -18,3 +18,9 @@
     transform: translateY(-135%);
     transition: all 0.5s ease;
 }
+
+@media (max-width: 400px) {
+    .input-promo {
+        padding: 10px 7px 4.5px;
+    }
+}

@@ -13,10 +13,16 @@
     z-index: 1000;
 }
 
-@media (max-width: 485px) {
+@media (max-width: 600px) {
     .header {
-        flex-direction: column;
+        padding: 0 3rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .header {
         padding: 1rem 4rem;
-        align-items: flex-end;
+        align-items: center;
+        justify-content: space-between;
     }
 }

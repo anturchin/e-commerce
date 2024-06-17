@@ -3,3 +3,33 @@
     padding: 0.8rem;
     font-size: 15px;
 }
+
+@media (max-width: 1000px) {
+    .user-card__contr {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 850px) {
+    .user-card__contr {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 650px) {
+    .user-card__contr {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 450px) {
+    .user-card__contr {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .user-card__contr {
+        font-size: 9px;
+    }
+}

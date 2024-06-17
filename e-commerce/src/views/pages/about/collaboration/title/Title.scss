@@ -1,4 +1,29 @@
 .title-colab {
     text-align: center;
     font-size: 30px;
+    margin: 2rem 0;
+}
+
+@media (max-width: 1100px) {
+    .title-colab {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 850px) {
+    .title-colab {
+        font-size: 26px;
+    }
+}
+
+@media (max-width: 700px) {
+    .title-colab {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .title-colab {
+        font-size: 23px;
+    }
 }

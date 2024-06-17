@@ -13,3 +13,31 @@
     border-radius: 4px;
     box-shadow: 0 15px 35px rgb(0, 0, 0);
 }
+
+@media (max-width: 500px) {
+    .container-price {
+        width: 250px;
+        gap: 15px;
+        padding: 35px;
+    }
+}
+
+@media (max-width: 450px) {
+    .container-price {
+        width: 230px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container-price {
+        width: 210px;
+        gap: 10px;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 360px) {
+    .container-price {
+        width: 190px;
+    }
+}

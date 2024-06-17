@@ -2,3 +2,31 @@
     height: 17rem;
     width: 30rem;
 }
+
+@media (max-width: 700px) {
+    .img-colab {
+        height: 16rem;
+        width: 28rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .img-colab {
+        height: 15rem;
+        width: 26rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .img-colab {
+        height: 14rem;
+        width: 23rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .img-colab {
+        height: 12rem;
+        width: 20rem;
+    }
+}
