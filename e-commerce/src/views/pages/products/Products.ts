@@ -2,6 +2,7 @@ import { View } from '../../View';
 import { CardList } from './cardList/CardList';
 import './Products.scss';
 import { LocalStorageManager } from '../../../utils/localStorageManager/LocalStorageManager';
+import { Load } from '../../load/Load';
 
 export interface ICards {
     url: string;
@@ -21,8 +22,12 @@ export class Products extends View {
 
     private allProduct: ICards[] = [];
 
+    private loader: Load;
+
     constructor() {
         super({ tag: 'section', classNames: ['products'] });
+        this.loader = new Load();
+        this.viewHtmlElement.addInnerElement(this.loader.getElement());
     }
 
     public renderProductList(props: ICards[]) {
@@ -171,5 +176,13 @@ export class Products extends View {
         const activate = btnToActivate;
         disable.disabled = true;
         activate.disabled = false;
+    }
+
+    public showLoader(): void {
+        this.loader.show();
+    }
+
+    public hideLoader(): void {
+        this.loader.hide();
     }
 }

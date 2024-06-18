@@ -5,6 +5,7 @@ import './Bag.scss';
 import { Router } from '../../../router/Router';
 import { PriceContainer } from './priceContainer/PriceContainer';
 import { EmptyBag } from './emptyBag/EmptyBag';
+import { Load } from '../../load/Load';
 
 export interface IBagCards {
     url: string;
@@ -26,12 +27,17 @@ export class Bag extends View {
 
     private btnDelete: BtnDeleteAll;
 
+    private loading: Load;
+
     constructor(router: Router | null) {
         super({ tag: 'section', classNames: ['bag'] });
         const fullPrice = '0$';
         const salePrice = '0$';
         this.router = router;
         this.createPriceContainer(fullPrice, salePrice);
+
+        this.loading = new Load();
+        this.viewHtmlElement.addInnerElement(this.loading.getElement());
 
         this.btnDelete = new BtnDeleteAll();
         this.btnDelete.hide();
@@ -85,5 +91,13 @@ export class Bag extends View {
         if (this.priceContainer) {
             this.priceContainer.updateDiscountedPrice(price);
         }
+    }
+
+    public showLoader(): void {
+        this.loading.show();
+    }
+
+    public hideLoader(): void {
+        this.loading.hide();
     }
 }
