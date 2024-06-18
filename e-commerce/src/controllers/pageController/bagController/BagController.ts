@@ -11,6 +11,7 @@ import { ILineItem } from '../../../services/CartService/types';
 import { DiscountService } from '../../../services/DiscountService/DiscountService';
 import { PromoService } from '../../../services/PromoService/PromoService';
 import { IPromo } from '../../../services/PromoService/types';
+import { SvgBag } from '../../../views/header/imgBag/ImgBag';
 
 export class BagController implements IController {
     private page: Bag;
@@ -28,6 +29,8 @@ export class BagController implements IController {
     private promoCodes: string[] = []; // array for display promos
 
     private promos: IPromo[] = [];
+
+    private imgView: SvgBag = new SvgBag();
 
     private promoUsed: boolean = false;
 
@@ -181,6 +184,7 @@ export class BagController implements IController {
                             });
                             this.products = [];
                             this.products.push(...productPromises);
+                            this.imgView.updateNumber();
                         }
                         this.updatePrice();
                         this.updateDiscountedPrice();
@@ -192,10 +196,18 @@ export class BagController implements IController {
                         }
                         const props = this.getProps();
                         this.page.renderProductBagList(props);
+                        this.hideLoaderAfterDelay();
                     }
                 }
             }
         }
+    }
+
+    private hideLoaderAfterDelay(): void {
+        this.page.showLoader();
+        setTimeout(() => {
+            this.page.hideLoader();
+        }, 300);
     }
 
     private async updatePrice(): Promise<void> {

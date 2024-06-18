@@ -106,10 +106,18 @@ export class ProductController implements IController {
             if ((event.target as HTMLElement).tagName === 'BUTTON') {
                 const [addBtn, removeBtn] = this.getBtns(dataAttribute);
                 if ((event.target as HTMLButtonElement) === addBtn) {
-                    this.buttonClickHandler(dataAttribute, 'add');
+                    this.page.showLoader();
+                    setTimeout(() => {
+                        this.buttonClickHandler(dataAttribute, 'add');
+                        this.page.hideLoader();
+                    }, 1000);
                 }
                 if ((event.target as HTMLButtonElement) === removeBtn) {
-                    this.buttonClickHandler(dataAttribute, 'remove');
+                    this.page.showLoader();
+                    setTimeout(() => {
+                        this.buttonClickHandler(dataAttribute, 'remove');
+                        this.page.hideLoader();
+                    }, 1000);
                 }
             } else {
                 this.openDetailedPage(dataAttribute);
