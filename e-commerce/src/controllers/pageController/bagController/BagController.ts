@@ -71,6 +71,7 @@ export class BagController implements IController {
                         this.promoUsed = true;
                         this.updateDiscountedPrice();
                     }
+                    this.imgView.updateNumber();
                 }
             }
         }

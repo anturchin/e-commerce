@@ -7,19 +7,25 @@
     z-index: 1000;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .card-list__bag {
         padding: 5rem 3rem;
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 650px) {
+    .card-list__bag {
+        padding: 5rem 2rem;
+    }
+}
+
+@media (max-width: 600px) {
     .card-list__bag {
         padding: 5rem 1rem;
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
     .card-list__bag {
         padding: 5rem 0rem;
     }
