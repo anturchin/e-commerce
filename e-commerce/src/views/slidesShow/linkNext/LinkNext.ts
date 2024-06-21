@@ -3,6 +3,7 @@ import './LinkNext.scss';
 
 export class LinkNext extends View {
     constructor() {
-        super({ tag: 'button', classNames: ['next'], textContent: 'next' });
+        super({ tag: 'a', classNames: ['next'] });
+        this.getElement().innerHTML = '&#10095;';
     }
 }

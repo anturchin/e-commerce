@@ -1,0 +1,40 @@
+.img-RSS {
+    height: 22rem;
+    width: 25rem;
+    cursor: pointer;
+}
+
+@media (max-width: 850px) {
+    .img-RSS {
+        height: 20rem;
+        width: 23rem;
+    }
+}
+
+@media (max-width: 750px) {
+    .img-RSS {
+        height: 18rem;
+        width: 20rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .img-RSS {
+        height: 16rem;
+        width: 18rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .img-RSS {
+        height: 14rem;
+        width: 16rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .img-RSS {
+        height: 13rem;
+        width: 15rem;
+    }
+}

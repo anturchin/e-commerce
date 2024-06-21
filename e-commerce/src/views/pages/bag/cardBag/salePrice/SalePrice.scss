@@ -1,0 +1,18 @@
+.card__sale-price {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin: -1px;
+    color: gainsboro;
+}
+
+@media (max-width: 650px) {
+    .card__sale-price {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .card__sale-price {
+        font-size: 1.3rem;
+    }
+}

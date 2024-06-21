@@ -1,38 +1,114 @@
 .prev {
-    margin-top: 5px;
+    margin: 5px 1rem;
     padding: 10px 25px;
     border: none;
     border-radius: 5px;
-    color: #38b627;
     font-size: 1.6rem;
-    margin: 1rem 5rem;
     font-weight: 600;
-    background-color: rgb(204, 216, 204);
+    background-color: #222;
     transition: all 250ms;
     outline: none;
     cursor: pointer;
-    &:hover:not(:disabled),
-    &:focus:not(:disabled) {
-        background-color: rgb(94, 100, 94);
-    }
-    &:hover:not(:disabled) {
-        transform: translateY(-1px);
-        background-color: rgb(60, 60, 60);
-    }
-    &:disabled {
-        opacity: 0.3;
-        cursor: auto;
+    color: rgba(94, 92, 92, 0.8);
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.prev:hover {
+    background-color: rgb(204, 216, 204);
+}
+
+@media (max-width: 1500px) {
+    .prev {
+        font-size: 1.5rem;
+        padding: 9px 22px;
     }
 }
 
-@media (max-width: 485px) {
+@media (max-width: 1400px) {
     .prev {
         font-size: 1.4rem;
+        padding: 8px 20px;
+    }
+}
+
+@media (max-width: 1300px) {
+    .prev {
+        font-size: 1.3rem;
+        padding: 7px 18px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .prev {
+        font-size: 1.2rem;
+        padding: 6px 16px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .prev {
+        font-size: 1.1rem;
+        padding: 5px 14px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .prev {
+        font-size: 1rem;
+        padding: 5px 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .prev {
+        font-size: 0.9rem;
+        padding: 4px 10px;
+    }
+}
+
+@media (max-width: 800px) {
+    .prev {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-width: 700px) {
+    .prev {
+        font-size: 0.7rem;
+        padding: 3px 6px;
+    }
+}
+
+@media (max-width: 600px) {
+    .prev {
+        font-size: 0.6rem;
+        padding: 3px 5px;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 500px) {
+    .prev {
+        font-size: 0.5rem;
+        padding: 2px 4px;
     }
 }
 
 @media (max-width: 400px) {
     .prev {
-        font-size: 1.2rem;
+        font-size: 0.4rem;
+        padding: 2px 3px;
+    }
+}
+
+@media (max-width: 360px) {
+    .prev {
+        font-size: 0.3rem;
+        padding: 2px 2px;
     }
 }

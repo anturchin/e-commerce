@@ -1,0 +1,36 @@
+.user-card__role {
+    color: rgb(224, 224, 224);
+    padding: 1rem;
+    font-size: 20px;
+    text-align: center;
+}
+
+@media (max-width: 1200px) {
+    .user-card__role {
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 750px) {
+    .user-card__role {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 650px) {
+    .user-card__role {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 450px) {
+    .user-card__role {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 360px) {
+    .user-card__role {
+        font-size: 13px;
+    }
+}

@@ -16,7 +16,7 @@ export default (env: IEnv) => {
         html: path.resolve(__dirname, 'src', 'index.html'),
     };
     const config: webpack.Configuration = buildWebpack({
-        port: env.port ?? 5000,
+        port: env.port ?? 5500,
         mode: env.mode ?? 'development',
         paths,
     });

@@ -5,6 +5,8 @@ import { DescriptCard } from './descriptCard/DescriptCard';
 import { Container } from '../../../div/Container';
 import { Price } from './priceCard/PriceCard';
 import { SalePrice } from './salePrice/salePrice';
+import { BagBtn } from './bagBtn/BagBtn';
+import { DeleteBtn } from './deleteBtn/DeleteBtn';
 
 import './Card.scss';
 
@@ -14,9 +16,10 @@ export class Card extends View {
         cardTitle: string,
         cardDescription: string,
         cardPrice: string,
-        cardSale: string
+        cardSale: string,
+        cardId: string
     ) {
-        super({ tag: 'div', classNames: ['product__card'] });
+        super({ tag: 'div', classNames: ['product__card'], id: cardId });
         this.setupCard(cardImgSrc, cardTitle, cardDescription, cardPrice, cardSale);
     }
 
@@ -40,6 +43,12 @@ export class Card extends View {
         const divElem = new Container().getElement();
         divElem.append(price, salePrice);
 
+        const deleteBtn = new DeleteBtn().getElement();
+        const btn = new BagBtn().getElement();
+
+        const divBtn = new Container().getElement();
+        divBtn.append(btn, deleteBtn);
         this.viewHtmlElement.addInnerElement(divElem);
+        this.viewHtmlElement.addInnerElement(divBtn);
     }
 }

@@ -48,7 +48,9 @@ export class SetDefaultAddressService {
 
             return (await res.json()) as ICustomerResponse;
         } catch (e) {
-            console.error(e);
+            if (e instanceof Error) {
+                console.error(e.message);
+            }
             throw e;
         }
     }

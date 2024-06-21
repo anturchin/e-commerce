@@ -32,7 +32,9 @@ export class AuthService {
 
             return (await response.json()) as ICustomerResponse;
         } catch (error) {
-            console.error(error);
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
             throw error;
         }
     }

@@ -94,6 +94,14 @@ export class PageController {
                 const { ProfileController } = await import('./profileController/ProfileController');
                 return new ProfileController();
             }
+            case ControllerName.ABOUT: {
+                const { AboutController } = await import('./aboutController/AboutController');
+                return new AboutController();
+            }
+            case ControllerName.BAG: {
+                const { BagController } = await import('./bagController/BagController');
+                return new BagController(this.getRouter());
+            }
             case ControllerName.NOT_FOUND: {
                 const { NotFoundController } = await import(
                     './notFoundController/NotFoundController'

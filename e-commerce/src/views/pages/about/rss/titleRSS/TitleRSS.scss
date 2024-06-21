@@ -1,0 +1,21 @@
+.title-RSS {
+    padding: 1rem 0;
+}
+
+@media (max-width: 850px) {
+    .title-RSS {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 750px) {
+    .title-RSS {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    .title-RSS {
+        font-size: 18px;
+    }
+}

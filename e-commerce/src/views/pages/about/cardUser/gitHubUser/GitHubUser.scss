@@ -1,0 +1,14 @@
+.user-card__github {
+    text-decoration: none;
+    color: #eae9e9;
+}
+
+.user-card__github:hover {
+    color: #44f647;
+}
+
+@media (max-width: 1200px) {
+    .user-card__github {
+        font-size: 15px;
+    }
+}

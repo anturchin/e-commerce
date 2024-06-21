@@ -3,6 +3,6 @@ import './salePrice.scss';
 
 export class SalePrice extends View {
     constructor(cardSale: string) {
-        super({ tag: 'p', classNames: ['card__sale-price'], textContent: cardSale });
+        super({ tag: 'p', classNames: ['cards__sale-price'], textContent: cardSale });
     }
 }

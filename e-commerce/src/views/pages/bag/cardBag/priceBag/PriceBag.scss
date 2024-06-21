@@ -1,0 +1,29 @@
+.card__price {
+    position: relative;
+    display: inline-block;
+    color: gainsboro;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 105%;
+        height: 2px;
+        background: rgb(154, 206, 154);
+        transform: rotate(-9deg);
+        transform-origin: left center;
+    }
+}
+
+@media (max-width: 650px) {
+    .card__price {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .card__price {
+        font-size: 1.3rem;
+    }
+}

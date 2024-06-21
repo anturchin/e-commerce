@@ -11,6 +11,9 @@ export class HTMLElementCreator {
         if (params.textContent) {
             this.setTextContent(params.textContent);
         }
+        if (params.id) {
+            this.setId(params.id);
+        }
         if (params.callback) {
             this.setCallback(params.callback);
         }
@@ -36,6 +39,10 @@ export class HTMLElementCreator {
 
     public setTextContent(textContent: string): void {
         this.element.textContent = textContent;
+    }
+
+    public setId(id: string): void {
+        this.element.id = id;
     }
 
     public setInnerHtml(htmlContent: string): void {

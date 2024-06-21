@@ -6,6 +6,8 @@ import { PageController } from '../controllers/pageController/PageController';
 import { TokenForRegistration } from '../services/TokenService/TokenForRegistration';
 import { LocalStorageManager } from '../utils/localStorageManager/LocalStorageManager';
 import { Publisher } from '../observers/Publisher';
+import { CartCreateService } from '../services/CartCreateService/CartCreateService';
+// import { AnimBack } from '../views/spanBack/anim/Anim';
 
 export class App {
     private pageController: PageController;
@@ -38,6 +40,8 @@ export class App {
         const header = this.headerController.render();
         const wrapper = this.pageController.render();
         const footer = this.footerController.render();
+        // const background = new AnimBack().getElement();
+
         const body: HTMLElement | null = document.querySelector('body');
         if (body) {
             this.authPublisher.notifyObservers(!!LocalStorageManager.getUserData());
@@ -50,9 +54,18 @@ export class App {
             const tokenResponse = await TokenForRegistration.getToken();
             if ('access_token' in tokenResponse) {
                 LocalStorageManager.saveToken(tokenResponse.access_token);
+                const cartId = LocalStorageManager.getCartId();
+                if (!cartId) {
+                    const createCart = await CartCreateService.createCart(
+                        tokenResponse.access_token
+                    );
+                    if ('id' in createCart) {
+                        LocalStorageManager.saveCartId(createCart.id);
+                    }
+                }
             }
         } catch (error) {
-            console.error('Failed to fetch token:', error);
+            console.error('Failed to fetch', error);
         }
     }
 }

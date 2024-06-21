@@ -52,7 +52,9 @@ export class SetAddressService {
 
             return (await res.json()) as ICustomerUpdateAddress;
         } catch (error) {
-            console.error(error);
+            if (error instanceof Error) {
+                console.error(error.message);
+            }
             throw error;
         }
     }

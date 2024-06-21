@@ -8,6 +8,7 @@ interface Money {
 interface Value {
     type: string;
     money: Money[];
+    permyriad: number;
 }
 
 interface LocalizedString {
@@ -19,7 +20,7 @@ interface References {
     id: string;
 }
 
-interface Result {
+export interface IDiscountResult {
     id: string;
     version: number;
     value: Value;
@@ -38,5 +39,5 @@ export interface IDiscountResponse {
     offset: number;
     count: number;
     total: number;
-    results: Result[];
+    results: IDiscountResult[];
 }

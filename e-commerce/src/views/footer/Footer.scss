@@ -1,10 +1,10 @@
 .footer {
     position: relative;
     min-height: 12%;
-    margin-top: 1rem;
     box-shadow: 0 15px 35px rgb(0, 0, 0);
     background: #222;
-    color: #0f0;
+    color: gainsboro;
+    z-index: 1000;
 
     display: flex;
     justify-content: space-evenly;

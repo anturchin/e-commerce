@@ -1,12 +1,23 @@
+.nav-list__item-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .nav-list__item-bag {
     height: 44px;
     width: 14px;
     margin: -2px 0 0 35px;
 }
 
-@media (max-width: 485px) {
-    .nav-list__item-bag {
-        margin: -2px 0 0 -25px;
-        display: none;
-    }
+#cart_length {
+    color: #222;
+    width: 38%;
+    height: 38%;
+    background: white;
+    border: 2px solid #3a3b38;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0;
 }
