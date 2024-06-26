@@ -1,0 +1,9 @@
+.product__info {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    padding: 25px;
+}

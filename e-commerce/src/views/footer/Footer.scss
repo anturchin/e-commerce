@@ -1,0 +1,17 @@
+.footer {
+    position: relative;
+    min-height: 12%;
+    box-shadow: 0 15px 35px rgb(0, 0, 0);
+    background: #222;
+    color: gainsboro;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 400px) {
+    .footer {
+        flex-direction: column;
+    }
+}

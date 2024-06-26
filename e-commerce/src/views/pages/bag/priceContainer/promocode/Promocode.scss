@@ -1,0 +1,26 @@
+.input-promo {
+    position: relative;
+    width: 100%;
+    background: #333;
+    border: none;
+    outline: none;
+    padding: 13px 10px 7.5px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.input-promo:focus::placeholder {
+    font-size: 0.8em;
+
+    font-size: 0.8em;
+    transform: translateY(-135%);
+    transition: all 0.5s ease;
+}
+
+@media (max-width: 400px) {
+    .input-promo {
+        padding: 10px 7px 4.5px;
+    }
+}

@@ -1,0 +1,10 @@
+.price__title {
+    color: azure;
+    font-size: 17px;
+}
+
+@media (max-width: 400px) {
+    .price__title {
+        font-size: 13px;
+    }
+}

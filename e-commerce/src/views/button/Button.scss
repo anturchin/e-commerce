@@ -1,0 +1,46 @@
+.custom-button {
+    background: linear-gradient(135deg, #000000, #555555);
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000;
+    transition:
+        background 0.3s,
+        transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-button:hover {
+    background: linear-gradient(135deg, #333333, #777777);
+    transform: scale(1.05);
+}
+
+.custom-button:active {
+    background: linear-gradient(135deg, #222222, #666666);
+    transform: scale(1.02);
+}
+
+.custom-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+.custom-button:disabled {
+    opacity: 0.8;
+    color: black;
+}
+
+@media (max-width: 485px) {
+    .custom-button {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .custom-button {
+        font-size: 1.2rem;
+    }
+}

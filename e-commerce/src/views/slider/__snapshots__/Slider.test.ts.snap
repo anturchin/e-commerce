@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slider should match 1`] = `"<div class="mySlides fade"><img class="slider__img"><a class="prev">❮</a><a class="next">❯</a></div>"`;

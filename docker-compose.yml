@@ -1,0 +1,12 @@
+services:
+  frontend:
+    build:
+      context: ./e-commerce
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '5500:5500'
+    volumes:
+      - /app/node_modules
+      - ./e-commerce:/app
+

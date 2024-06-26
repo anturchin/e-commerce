@@ -1,0 +1,32 @@
+.card-list__bag {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    padding: 5rem 4rem;
+    max-width: 750px;
+    z-index: 1000;
+}
+
+@media (max-width: 700px) {
+    .card-list__bag {
+        padding: 5rem 3rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .card-list__bag {
+        padding: 5rem 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .card-list__bag {
+        padding: 5rem 1rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .card-list__bag {
+        padding: 5rem 0rem;
+    }
+}

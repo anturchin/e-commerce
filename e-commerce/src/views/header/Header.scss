@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
+    box-shadow: 0 15px 35px rgb(0, 0, 0);
+    background: #222;
+    color: gainsboro;
+
+    position: sticky;
+    min-height: 7%;
+    z-index: 1000;
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 0 3rem;
+    }
+}
+
+@media (max-width: 550px) {
+    .header {
+        padding: 1rem 4rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

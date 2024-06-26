@@ -1,0 +1,11 @@
+.sale-price {
+    color: rgb(228, 48, 48);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+@media (max-width: 450px) {
+    .sale-price {
+        font-size: 15px;
+    }
+}

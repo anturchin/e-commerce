@@ -1,0 +1,11 @@
+.title {
+    font-size: 2em;
+    color: gainsboro;
+    text-transform: uppercase;
+}
+
+@media (max-width: 485px) {
+    .title {
+        font-size: 1.8rem;
+    }
+}

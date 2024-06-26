@@ -1,0 +1,67 @@
+.quantity-input__container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quantity-input {
+    width: 3rem;
+    height: 2rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    background-color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition:
+        border-color 0.3s,
+        box-shadow 0.3s;
+
+    &:focus {
+        border-color: #666;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.quantity-btn {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition:
+        background-color 0.3s,
+        transform 0.3s;
+
+    &:hover {
+        background-color: #555;
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    &:disabled {
+        background-color: #999;
+        cursor: not-allowed;
+    }
+}
+
+@media (max-width: 450px) {
+    .quantity-input {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    .quantity-btn {
+        height: 1rem;
+        width: 1rem;
+    }
+}

@@ -1,0 +1,9 @@
+.container__empty-bag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1000;
+    margin: 3rem 0;
+}

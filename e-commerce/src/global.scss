@@ -1,0 +1,27 @@
+@import './assets/styles/base/normalize';
+
+html {
+    font-size: 10px;
+}
+
+.body {
+    font-size: 1.6rem;
+    font-family:
+        SF Pro Text,
+        SF Pro Icons,
+        Helvetica Neue,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    background: #181818;
+}
+
+img {
+    height: 50rem;
+    width: 70rem;
+}

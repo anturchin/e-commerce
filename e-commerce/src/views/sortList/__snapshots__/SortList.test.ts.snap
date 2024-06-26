@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortList should match 1`] = `"<form class="form-sort"><select class="input" name="Sorting"><option value="By popularity">By popularity</option><option value="By discount size">By discount size</option><option value="Ascending price">Ascending price</option><option value="Descending price">Descending price</option></select></form>"`;
